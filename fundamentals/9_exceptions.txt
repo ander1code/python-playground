@@ -1,0 +1,403 @@
+Python Errors & Exceptions
+
+	Exemplo 01:
+
+		def Division(x, y):
+			assert y != 0, "System Halted: existence attempted division by zero."
+			return x / y
+
+		try:
+			print(Division(10,0))
+		except AssertionError as err:
+			print(f"{err}")
+			
+	# -------------------------------------------------------
+			
+	Exemplo 02:
+	
+		try:
+			num1 = int(input("Number 01: "))
+			num2 = int(input("Number 02: "))
+			r = num1 / num2
+		except KeyboardInterrupt as err:
+			print(f"Error: {err}")
+		except ValueError as err:
+			print(f"Error: {err}")
+		except IOError as err:
+			print(f"Error: {err}")
+		except ZeroDivisionError as err:
+			print(f"Error: {err}")
+		else:
+			print(f"RESULT: {r}")
+		finally:
+			print("Finished!")
+			
+	# -------------------------------------------------------
+			
+	Exemplo 03:
+	
+		def div(x,y):
+		if y == 0:
+			# raise "Division by zero!", y
+			raise ValueError("Division by zero: {}".format(y))
+		return x / y
+
+		print(div(10,0))
+	
+	# -------------------------------------------------------
+	
+	Exemplo 04:
+	
+		def div(x,y):
+			try:
+				if y == 0:
+					raise ZeroDivisionError("Division By Zero!!!")
+				return x / y
+			except ZeroDivisionError as err:
+				print(f"Error: {err}")
+			else:
+				print(f"No exception!")
+
+		print(div(10,0))
+		print(div(10,2))
+	
+	# -------------------------------------------------------
+	
+	Exemplo 05:
+	
+		class MyDivisionBYZero(ZeroDivisionError):
+			def __init__(self, args):
+				self.arg = args
+
+		x = 10
+		y = 0
+		if y == 0:
+			raise MyDivisionBYZero("Division By Zero!!!")
+		else:
+			print(f"{x}/{y} = {x/y}")
+			
+	# -------------------------------------------------------
+	
+	Exemplo 06 - Creating Custom Exceptions:
+	
+	class MyDivByZero(Exception):
+		def __init__(self, y, message="sjashdjs djashdjr jashdas!!!"):
+			self.message = message
+			self.y = y
+			super().__init__(self.message)
+
+	def div(x,y):
+		if y == 0:
+			raise MyDivByZero(y, message="Division By Zero!!!!!!!!!")
+		return x/y
+
+	try:
+		print(div(10,0))
+	except MyDivByZero as err:
+		print(f"Error: {err}")
+		
+	# -------------------------------------------------------
+	
+	Exemplo 07 - Re-Raising Exceptions:	
+	
+	def div(x,y):
+	   try:
+		  return x/y  
+	   except ZeroDivisionError as e:
+		  raise
+
+	try:
+	   print(div(10,0))
+	except ZeroDivisionError as e:
+	   print("Division By Zero!!!!!")
+
+	# -------------------------------------------------------
+	
+	Exemplo 08 - Re-Raising Exceptions:	
+	
+	VERSÃO 01:
+	
+		def div(x,y):
+		   try:
+			  return x/y  
+		   except ZeroDivisionError as e:
+			  raise
+
+		try:
+		   print(div(10,0))
+		except ZeroDivisionError as e:
+		   raise RuntimeError from None
+	   
+	VERSÃO 02:
+	 
+		def div(x,y):
+			try:
+				return x/y  
+			except ZeroDivisionError as e:
+				raise
+
+		try:
+			print(div(10,0))
+		except ZeroDivisionError as e:
+			raise RuntimeError from None
+			   
+	# -------------------------------------------------------
+	
+	Exemplo 09 - Nested try Block in Python:
+
+	a=10
+	b=0
+	try:
+	   print ("This is outer try block")
+	   try:
+		  print (a/b)
+	   except ZeroDivisionError:
+		  print ("Division by 0")
+	   finally:
+		  print ("inside inner finally block")
+		  
+	except Exception:
+	   print ("General Exception")
+	finally:
+	   print ("inside outer finally block")
+	   
+	# -------------------------------------------------------
+	
+	Exemplo 10 - Python - User-Defined Exceptions:
+	
+	class MyDivException(Exception):
+
+		def __init__(self, y, message="dkdasjhdjas hdjas d"):
+			self.y = y
+			self.message = message
+			super().__init__(self.message)
+
+		def __str__(self):
+			return f"Error: {self.message} with y = {self.y}."
+
+	x = 10
+	y = 0
+
+	if y == 0:
+		raise MyDivException(y, "Division By Zero!!!")
+	else:
+		print(x / y)
+		
+	# -------------------------------------------------------
+	
+Python - Logging
+
+	Logging é o processo de gravação de mensagens durante a execução de um programa 
+	para fornecer informações de tempo de execução que podem ser úteis para monitoramento, 
+	depuração e auditoria.
+	
+	In Python, logging is achieved through the built-in logging...
+	
+	Benefits of Logging:
+	
+		Debugging − Ajuda a identificar e diagnosticar problemas capturando informações relevantes 
+		durante a execução do programa.
+
+		Monitoring − Fornece insights sobre o comportamento e o desempenho do aplicativo.
+
+		Auditing − Mantém um registro de eventos e ações importantes para fins de segurança.
+
+		Troubleshooting (Solução de problemas) − Facilita o rastreamento do fluxo do programa e dos 
+		valores das variáveis para entender o comportamento inesperado.
+	
+	Componentes do registro Python:
+	
+	... para gerenciar e gerar mensagens de log de forma eficaz.
+
+		Logger − É o principal ponto de entrada que você usa para emitir mensagens de log. 
+		Cada instância do registrador é nomeada e pode ser configurada de forma independente.
+
+		Handler  − Ele determina para onde as mensagens de log são enviadas. Os manipuladores 
+		enviam mensagens de log para diferentes destinos, como console, arquivos, soquetes, etc.
+
+		Formatter − Ele especifica o layout das mensagens de log. Os formatadores definem a 
+		estrutura dos registros de log especificando quais informações incluir (por exemplo, 
+		carimbo de data/hora, nível de log, mensagem).
+
+		Logger Level − Ele define o nível de gravidade das mensagens de log. Mensagens 
+		abaixo deste nível são ignoradas. Os níveis comuns 
+		incluem DEBUG, INFO, AVISO, ERRO e CRÍTICO.
+
+		Filter − São os componentes opcionais que fornecem um controle mais preciso sobre quais 
+		registros de log são processados e emitidos por um manipulador.
+
+	Uso
+	
+		Escolhendo o nível certo − Selecionar o nível de registro apropriado garante que as 
+		mensagens de log forneçam informações relevantes sem sobrecarregar os logs.
+
+		Definindo níveis − Registradores, manipuladores e mensagens de log específicas 
+		podem ser configurados com diferentes níveis para controlar quais mensagens são 
+		gravadas e onde são enviadas.
+
+		Hierarquia − Os níveis de registro são hierárquicos, o que significa que definir 
+		um nível em um registrador também afeta os manipuladores e as mensagens de registro 
+		associadas a ele.
+	
+	# -------------------------------------------------------	
+	
+	Exemplo 01:
+	
+		import logging
+
+		# Basic logging configuration
+		logging.basicConfig(
+			level=logging.DEBUG,
+			format="%(levelname)s --- %(asctime)s --- %(message)s"
+		)
+
+		def sum(x, y):
+			logging.debug("Entering the 'sum' function...")
+			result = x + y
+			logging.debug(f"Calculated result: {result}")
+			return result
+
+		# Main application flow
+
+		if __name__ == "__main__":
+			logging.debug("Starting application...")
+			logging.debug("Calling 'sum' function with arguments (10, 2)...")
+			print(sum(10, 2))
+			logging.debug("Printed result successfully.")
+			logging.debug("Application finished.")
+
+	Configurando registro:
+		Essa configuração permite que os desenvolvedores personalizem o 
+		comportamento de registro de acordo com os requisitos de seu aplicativo 
+		e o ambiente de implantação.
+	
+	# -------------------------------------------------------
+	
+	Exemplo 02:
+	
+		import logging
+
+		logger = logging.getLogger("myApp")
+		logger.setLevel(logging.DEBUG)
+
+		console_handler = logging.StreamHandler()
+		console_handler.setLevel(logging.DEBUG)
+
+		formatter = logging.Formatter("%(levelname)s --- %(asctime)s -- %(message)s")
+		console_handler.setFormatter(formatter)
+		logger.addHandler(console_handler)
+
+		logger.debug("Debug message!")
+		logger.info("Info message!")
+		logger.warning("Warning message!")
+		logger.error("Error message!")
+		logger.critical("Critical message!")
+		
+	# -------------------------------------------------------
+
+Python - Assertions
+
+	Asserções em Python são declarações que afirmam ou assumem que uma condição é verdadeira. 
+	Se a condição for falsa, Python levanta um AssertionErro exceção.
+
+	Exemplo 01:
+	
+		try:
+			num = int(input("Enter a number: "))
+			assert num > 0, "Negative numbers are not permitted."
+			print("Positive!")
+		except ValueError as err:
+			print(f"{err}")
+		except AssertionError as err:
+			print(f"{err}")
+	
+	# -------------------------------------------------------
+	
+	📌 Boas práticas para produção:
+	
+		✅ Use try-except para lidar com erros previsíveis 
+		   (ex: arquivos ausentes, entrada inválida).
+
+		✅ Registre erros com logging para diagnosticar problemas.
+
+		✅ Valide tudo que vier de fora: input do usuário, resposta de API, 
+		   dados de banco.
+
+		❌ Evite assert para verificações importantes em ambientes reais.
+		
+		
+Python - Built-in Exceptions
+
+	Hierarquia:
+	
+		BaseException
+			SystemExit
+			KeyboardInterrupt
+		Exception
+			ArithmeticError
+				FloatingPointError
+				OverflowError
+				ZeroDivisionError
+			AttributeError
+			EOFError
+			ImportError
+			LookupError
+				IndexError
+				KeyError
+			MemoryError
+			NameError
+				UnboundLocalError
+			OSError
+				FileNotFoundError
+			TypeError
+			ValueError
+		---(Many others)---
+		
+	
+	# Handling Multiple Exceptions
+
+		try:
+			num = int(input("Enter a number: "))
+			assert num > 0, "Negative numbers are not permitted."
+			print("Positive!")
+		except (ValueError, AssertionError) as err:
+			print(f"{err}")
+		else:
+			print("Correct!")
+		finally:
+			print("Finished!")
+				
+	# Explicitly Raising Built-in Exceptions
+	
+		def div(x, y):
+			if y == 0:
+				raise ZeroDivisionError("Cannot divide by zero !!!")
+			return x / y
+
+		try:
+			print(div(10,0))
+		except ZeroDivisionError as err:
+			print(f"{err}")
+
+
+
+# ---------------------
+
+
+Python - Custom Exceptions
+
+class MyDivError(Exception):
+		def __init__(self, message):
+			self.message = message
+			super().__init__(self.message)
+
+
+	def div(x, y):
+		if y == 0:
+			raise MyDivError("Division by zero error.")    
+		else:
+			return x/y
+		
+	print(div(10,2))
+	print(div(10,0))
+	

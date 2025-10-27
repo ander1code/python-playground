@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <ul>
+        {% for n in numbers %}
+            <li>{{n}}</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h3>People</h3>
+    <ul>
+        {% for n in people %}
+            <li>{{n}}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

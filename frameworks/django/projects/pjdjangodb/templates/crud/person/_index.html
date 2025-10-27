@@ -1,0 +1,14 @@
+{% extends "crud/index.html" %}
+
+{%block content%}
+<ul>
+{% if people|length > 0 %}
+    {% for person in people %}
+        <li><b>{{person.id}}</b> - {{person.name}}</li>
+    {% endfor %}
+{% else %}
+    <h1>No person registered.</h1>
+{% endif %}
+</ul>
+{%endblock%}
+<ul>

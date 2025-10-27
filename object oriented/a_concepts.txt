@@ -1,0 +1,891 @@
+Criando CLASSMETHOD para contar:
+
+
+VERSÃO 01:
+
+	class Employee:
+	   empCount = 0
+	   
+	   def __init__(self, name, age):
+		  ...
+		  Employee.empCount += 1
+		  
+	   def showcount(self):
+		  print (self.empCount)
+		  
+	   counter = classmethod(showcount)
+
+	e1 = Employee("Bhavana", 24)
+	
+	...
+	
+	e1.showcount()
+	Employee.counter()
+	
+	
+	
+VERSÃO 02:
+
+	class Employee:
+		
+		empCount = 0
+		
+		def __init__(self, name, age):
+			...
+			Employee.empCount += 1
+
+		@classmethod
+		def showcount(cls):
+			print (cls.empCount)
+
+		@classmethod
+		def newemployee(cls, name, age):
+			return cls(name, age)
+
+...
+
+e4 = Employee.newemployee("Anil", 21)
+
+Employee.showcount()
+
+# ------------------------------------------------------------------------
+
+# Uso de propriedades:
+
+VERSÃO 01:
+
+class Employee:
+
+	def __init__(self, name, age):
+		...
+		
+	def get_name(self):
+		return self.__name
+	
+	def set_name(self, name):
+		self.__name = name
+		return
+	
+	name = property(get_name, set_name, "name")
+	
+	
+# --------------------------------------------------------------------------
+
+Polimorfismo:
+
+CONCEITO 01 - DUCK TYPING:
+
+	# exemplo de Python - Dynamic Binding
+
+	class Duck:
+	   def sound(self):
+		  return "Quack, quack!"
+
+	class AnotherBird:
+	   def sound(self):
+		  return "I'm similar to a duck!"
+
+	def makeSound(duck):
+	   print(duck.sound())
+
+	# creating instances
+	duck = Duck()
+	anotherBird = AnotherBird()
+	
+	# calling methods
+	makeSound(duck)   
+	makeSound(anotherBird) 
+
+
+CONCEITO 02 - METHOD OVERRIDING:
+
+	from abc import ABC, abstractmethod
+	
+	class shape(ABC):
+	
+		@abstractmethod
+		def draw(self):
+			"Abstract method"
+			return
+
+	class circle(shape):
+	
+		def draw(self):
+			super().draw()
+			print ("Draw a circle")
+			return
+
+	class rectangle(shape):
+	
+		def draw(self):
+			super().draw()
+			print ("Draw a rectangle")
+			return
+
+	shapes = [circle(), rectangle()]
+	for shp in shapes:
+	shp.draw()
+
+CONCEITO 03 - OPERATOR OVERLOADING
+	
+	class Vector:
+	   def __init__(self, a, b):
+		  self.a = a
+		  self.b = b
+
+	   def __str__(self):
+		  return 'Vector (%d, %d)' % (self.a, self.b)
+	   
+	   def __add__(self,other):
+		  return Vector(self.a + other.a, self.b + other.b)
+
+	v1 = Vector(2,10)
+	v2 = Vector(5,-2)
+	print (v1 + v2)
+	
+
+CONCEITO 04 - METHOD OVERLOADING
+
+	from abc import ABC, abstractmethod
+	
+	class shape(ABC):
+	
+		@abstractmethod
+		def draw(self):
+			"Abstract method"
+			return
+
+	class circle(shape):
+	
+		def draw(self):
+			super().draw()
+			print ("Draw a circle")
+			return
+
+	class rectangle(shape):
+	
+		def draw(self):
+			super().draw()
+			print ("Draw a rectangle")
+			return
+
+	shapes = [circle(), rectangle()]
+	for shp in shapes:
+	shp.draw()
+	
+CONCEITO 05 - METHOD OVERLOADING IN PYTHON (parameters)
+
+	def add(*nums):
+	   return sum(nums)
+
+	# Call the function with different number of parameters
+	result1 = add(10, 25)
+	result2 = add(10, 25, 35)
+
+	print(result1)  
+	print(result2) 
+	
+# --------------------------------------------------------------------------
+
+Classe abstrata:
+
+# Crie uma classe que exemplifique,o uso de classes, metodos e propriedades abstratas.
+
+from abc import ABC, abstractmethod
+
+	class Person(ABC):
+		count = 0
+
+		def __init__(self, *args):
+			if len(args) == 2:
+				self._id = args[0]
+				self._name = args[1]
+				Person.count += 1
+			else:
+				raise f"Invalid attributes quantity for Person creation."
+
+		@property
+		def id(self):
+			return self._id
+		
+		@id.setter
+		def id(self, person_id):
+			self._id = person_id
+
+		@property
+		def name(self):
+			return self._name
+		
+		@name.setter
+		def name(self, name):
+			self._name = name
+
+		def __get_counter(cls):
+			return cls.count
+		
+		counter = classmethod(__get_counter)
+
+		@abstractmethod
+		def __str__(self):
+			pass
+
+		@abstractmethod
+		def __del__(self):
+			pass
+			
+		
+	class NaturalPerson(Person):
+
+		def __init__(self, *args):
+			if len(args) == 3:
+				super().__init__(*args[0:2])
+				self.__birthday = args[2]
+
+		@property
+		def birthday(self):
+			return self.__birthday
+		
+		@birthday.setter
+		def birthday(self, birthday):
+			self.__birthday = birthday
+
+		def __str__(self):
+			return f"ID: {self._id} | Name: {self._name} | Name: {self.__birthday}"
+
+		def __del__(self):
+			print("NaturalPerson object destroyed.")
+
+from datetime import date
+obj = NaturalPerson(1, "Anderson", date(1981,2,1))
+obj = NaturalPerson(2, "Fernanda", date(1982,3,2))
+obj = NaturalPerson(3, "Anne", date(1983,4,3))
+obj = NaturalPerson(4, "Sara", date(1984,5,4))
+
+print(Person.counter())
+
+# --------------------------------------------------------------------------
+
+Encapsulamento:
+
+	Aqui descreve como usar membros como publico, protegido e privado.
+	
+	O que é o Name Mangling?
+	
+	Seguindo exemplo anterior, ficaria assim:
+	
+		print(obj.__dict__) # {'_id': 4, '_name': 'Sara', '_NaturalPerson__birthday': datetime.date(1981, 11, 12)}
+
+		print(obj._NaturalPerson__birthday) # acessando membro privado.
+	
+# --------------------------------------------------------------------------	
+
+Interface:
+
+	# 1 - Formal:
+	
+	from abc import ABC, abstractmethod
+
+		class BaseClass(ABC):
+			@abstractmethod
+			def method(self):
+				print("BaseClass method!")
+				return
+
+		class ChildClass(BaseClass):
+			def method(self):
+				print("ChildClass method!")
+				return
+
+		obj = ChildClass()
+		obj.method()
+			
+	
+	# 2 - Informal:
+	
+		class BaseClass:
+			def method(self):
+				print("BaseClass method!")
+				return
+
+		class ChildClass(BaseClass):
+			def method(self):
+				print("ChildClass method!")
+				return
+
+		obj = ChildClass()
+		obj.method()
+
+# --------------------------------------------------------------------------
+		
+Python - Pacotes
+
+	# demonstrar o uso do criação de um pacote em Python.
+	
+		# uso de pastas com __init__.py dentro junto com os arquivos do módulo.
+		# uso de classes;
+		# uso do setuptools (necessaário instalar!);
+		# criação de um arquivo setup.py
+		# execução desse comando no final: python setup.py install
+		
+# --------------------------------------------------------------------------
+
+Classes Interiores (aninhadas ou internas)
+
+	class externalClass:
+
+		def __init__(self):
+			pass
+
+		def method(self):
+			print("External method!")
+
+		class internalClass:
+			def __init__(self):
+				pass
+
+			def method01():
+				print("Internal method 01!")
+
+			def method02(self):
+				print("Internal method 02!")
+
+	obj = externalClass()
+	obj.method()
+	obj.internalClass.method01() 
+	obj.internalClass.method02(obj) # preciso passar o proprio objeto.
+			
+				
+# --------------------------------------------------------------------------		
+		
+Classe Anônima e Objetos	
+
+	def set_x(self, x):
+		self.x = x
+
+	def set_y(self, y):
+		self.y = y
+
+	obj = type('', (object, ), 
+		{
+			'x': 10, 
+			'y': 5, 
+			'set_x': set_x, 
+			'set_y': set_y, 
+			'sum': lambda self: self.x + self.y
+		})
+
+	obj.set_x(obj, 5)
+	obj.set_y(obj, 2)
+
+	print(obj.sum(obj))
+	
+# --------------------------------------------------------------------------	
+
+Wrapper Class
+
+VERSÃO 01:
+
+	class Greeting:
+		def __init__(self, func):
+			self.func = func
+
+		def __call__(self, *args, **kwargs):
+			return self.func(*args, **kwargs)
+	   
+	def greeting(name):
+		return f"Hello, {name}!"
+
+	obj = Greeting(greeting)
+	print(greeting("Anderson"))
+
+VERSÃO 02 (usando decorator):
+
+	def greeting_decorator(func):
+		def wrapper(*args, **kwargs):
+			result = func(*args, **kwargs)
+			return result # retorno da operação.
+		return wrapper # retorno do proprio wrapper.
+
+	@greeting_decorator
+	def greeting(name):
+		return f"Hello, {name}!"
+
+	print(greeting("Anderson"))
+	
+# --------------------------------------------------------------------------	
+
+ENUM
+
+	from enum import Enum, unique
+
+	@unique
+	class languages(Enum):
+		PYTHON = 'P'
+		JAVA = 'J'
+		C_SHARP = 'C#'
+		JAVASCRIPT = 'JS'
+		RUBY = 'R'
+		# PYTHON = 'P' # dara erro, pois tem decorator unique. 
+
+	print(languages.PYTHON._value_)
+	print(languages.PYTHON._name_)
+	print(languages.PYTHON.value)
+	print(languages.PYTHON.name)
+
+	print(type(languages)) # <class 'enum.EnumType'>
+	print(type(languages.PYTHON)) # <enum 'languages'>
+	print(type(languages.PYTHON._value_)) # <class 'str'>
+	print(type(languages.PYTHON._name_)) # <class 'str'>
+
+
+	for l in languages:
+		print(f"{l.name} : {l.value}")
+
+# --------------------------------------------------------------------------	
+
+Reflexão
+
+	Em programação orientada a objetos reflexão refere-se à capacidade de extrair 
+	informações sobre qualquer objeto em uso. 
+
+	type(obj): Retorna o tipo do objeto. Ex: type(5) retorna <class 'int'>.
+
+	isinstance(obj, class_or_tuple): Verifica se o objeto é instância de uma classe 
+	                ou de uma tupla de classes. Ex: isinstance("hello", str) 
+					retorna True.
+
+	issubclass(sub, super): Verifica se uma classe é subclasse de outra. 
+	                        Ex: issubclass(bool, int) retorna True.
+
+	callable(obj): Verifica se um objeto pode ser chamado, ou seja, se é uma 
+	               função, método ou classe instanciável. Ex: callable(print) 
+				   retorna True.
+
+	getattr(obj, name[, default]): Retorna o valor de um atributo com o nome 
+	                               name do objeto obj. Ex: getattr(obj, 'atributo') 
+								   retorna o valor se existir, ou default se for 
+								   fornecido e o atributo não existir.
+
+	setattr(obj, name, value): Define dinamicamente um atributo name com valor 
+	                           value em obj. Ex: setattr(obj, 'novo', 123) 
+							   cria ou atualiza o atributo novo no objeto.
+
+	hasattr(obj, name): Retorna True se o objeto tem o atributo especificado. 
+	                     Ex: hasattr(obj, 'nome').
+
+	dir(obj): Retorna uma lista de nomes de atributos e métodos disponíveis 
+	          no objeto. Ex: dir(str) mostra todos os 
+			  métodos da classe str.
+		
+	class BaseClass:
+		pass
+
+	class Calc(BaseClass):
+		def __init__(self, func):
+			self.func = func
+		
+		def __call__(self, *args, **kargs):
+			return self.func(*args, **kargs)
+
+	def sum(x, y):
+		return x + y
+
+	calc = Calc(sum)
+	print(calc(10, 3))
+
+	# reflexions:
+
+	print(type(calc))
+	print(dir(calc))
+	print(hasattr(calc, "description"))
+	setattr(calc, "description", "Calculator class.")
+	print(hasattr(calc, "description"))
+	print(getattr(calc, "description"))
+	print(isinstance(calc, Calc))
+	print(issubclass(Calc, BaseClass))
+	print(callable(calc))
+
+	def greeting(name):
+		print(f"Hello, {name}!")
+
+	print(callable(greeting))
+
+	num = 10
+
+	print(callable(num))
+
+	print(callable(calc))
+	
+# --------------------------------------------------------------------------	
+
+Singleton 
+
+VERSÃO 01, USANDO @staticmethod:
+
+	import sqlite3
+	import sys
+	import os
+
+	class cursor_factory:
+		__cursor = None
+		__db_name = "dbTeste.db"
+
+		@staticmethod
+		def create_cursor():
+			if cursor_factory.__cursor == None:
+				cursor_factory()
+			return cursor_factory.__cursor
+
+		def __init__(self):
+			if cursor_factory.__cursor == None:
+				if os.path.exists(cursor_factory.__db_name):
+					os.remove(cursor_factory.__db_name)
+				cursor_factory.__cursor = sqlite3.connect(cursor_factory.__db_name).cursor()
+			else:
+				raise Exception("Object exists!")
+        
+	class Crud:
+
+		def __init__(self):
+			self.__create_table() 
+
+		def __create_table(self):
+			try:
+				__cursor = cursor_factory.create_cursor()
+				__cursor.execute("CREATE TABLE PERSON (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(100));")  
+				__cursor.close
+			except Exception as err:
+				print(f"Error: {err}")
+				sys.exit()
+
+		def create(self, name):
+			try:
+				__cursor = cursor_factory.create_cursor()
+				__cursor.execute(f"INSERT INTO PERSON (NAME) VALUES ('{name}')")  
+				__cursor.close
+			except Exception as err:
+				print(f"Error: {err}")
+				sys.exit() 
+
+		def search_by_name(self, name):
+			try:
+				__cursor = cursor_factory.create_cursor()
+				result = __cursor.execute(f"SELECT * FROM PERSON WHERE NAME LIKE '{name}%'").fetchall()
+				__cursor.close
+				return result
+			except Exception as err:
+				print(f"Error: {err}")
+				sys.exit() 
+	 
+		def update(self, id, name):
+			try:
+				__cursor = cursor_factory.create_cursor()
+				__cursor.execute(f"UPDATE PERSON SET NAME = '{name}' WHERE ID = {id}")  
+				__cursor.close
+			except Exception as err:
+				print(f"Error: {err}")
+				sys.exit() 
+	 
+
+		def search_by_id(self, id):
+			try:
+				__cursor = cursor_factory.create_cursor()
+				result = __cursor.execute(f"SELECT * FROM PERSON WHERE ID = {id}").fetchone()
+				__cursor.close
+				return result
+			except Exception as err:
+				print(f"Error: {err}")
+				sys.exit() 
+
+		def delete(self, id):
+			try:
+				__cursor = cursor_factory.create_cursor()
+				__cursor.execute(f"DELETE FROM PERSON WHERE ID = {id}")  
+				__cursor.close
+			except Exception as err:
+				print(f"Error: {err}")
+				sys.exit()  
+
+
+	crud = Crud()
+	crud.create("Anderson")
+	people = crud.search_by_name("A")
+	for p in people:
+		print(p)
+
+	crud.update(1, "Anderson C.")
+	print(crud.search_by_id(1))
+	crud.delete(1)
+	people = crud.search_by_name("A")
+	for p in people:
+		print(p)
+	else:
+		print("No register.")
+
+# -----------
+
+VERSÃO 02, USANDO __new__:
+
+import sqlite3
+import sys
+import os
+
+class cursor_factory:
+    __cursor = None
+    __db_name = "dbTeste.db"
+
+    def __new__(cls):
+        if cursor_factory.__cursor is None:
+            if os.path.exists(cursor_factory.__db_name):
+                os.remove(cursor_factory.__db_name)
+            cls.__cursor = sqlite3.connect(cursor_factory.__db_name).cursor()
+        return cls.__cursor
+        
+class Crud:
+
+    def __init__(self):
+        self.__create_table() 
+
+    def __create_table(self):
+        try:
+            __cursor = cursor_factory()
+            __cursor.execute("CREATE TABLE PERSON (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(100));")  
+            __cursor.close
+        except Exception as err:
+            print(f"Error: {err}")
+            sys.exit()
+
+    def create(self, name):
+        try:
+            __cursor = cursor_factory()
+            __cursor.execute(f"INSERT INTO PERSON (NAME) VALUES ('{name}')")  
+            __cursor.close
+        except Exception as err:
+            print(f"Error: {err}")
+            sys.exit() 
+
+    def search_by_name(self, name):
+        try:
+            __cursor = cursor_factory()
+            result = __cursor.execute(f"SELECT * FROM PERSON WHERE NAME LIKE '{name}%'").fetchall()
+            __cursor.close
+            return result
+        except Exception as err:
+            print(f"Error: {err}")
+            sys.exit() 
+ 
+    def update(self, id, name):
+        try:
+            __cursor = cursor_factory()
+            __cursor.execute(f"UPDATE PERSON SET NAME = '{name}' WHERE ID = {id}")  
+            __cursor.close
+        except Exception as err:
+            print(f"Error: {err}")
+            sys.exit() 
+ 
+
+    def search_by_id(self, id):
+        try:
+            __cursor = cursor_factory()
+            result = __cursor.execute(f"SELECT * FROM PERSON WHERE ID = {id}").fetchone()
+            __cursor.close
+            return result
+        except Exception as err:
+            print(f"Error: {err}")
+            sys.exit() 
+
+    def delete(self, id):
+        try:
+            __cursor = cursor_factory()
+            __cursor.execute(f"DELETE FROM PERSON WHERE ID = {id}")  
+            __cursor.close
+        except Exception as err:
+            print(f"Error: {err}")
+            sys.exit()  
+
+
+	crud = Crud()
+	crud.create("Anderson")
+	people = crud.search_by_name("A")
+	for p in people:
+		print(p)
+
+	crud.update(1, "Anderson C.")
+	print(crud.search_by_id(1))
+	crud.delete(1)
+	people = crud.search_by_name("A")
+	for p in people:
+		print(p)
+	else:
+		print("No register.")
+
+------------------------------------------------------
+
+Object Oriented Programming
+
+	Métodos de Sobrecarga Base em Python
+		A tabela a seguir lista algumas funcionalidades genéricas que você pode substituir em suas próprias classes −
+
+		Sr. Não.	Método, Descrição e Chamada de Amostra
+		1	
+		__init__ (eu [,args...] )
+
+		Construtor (com quaisquer argumentos opcionais)
+
+		Chamada de Amostra: obj = className(args)
+
+		2	
+		__del__(eu )
+
+		Destruidor, exclui um objeto
+
+		Chamada de Amostra: o del obj
+
+		3	
+		__repr__(eu )
+
+		Representação de string avaliável
+
+		Chamada de Amostra: repr(obj)
+
+		4	
+		__str__(eu )
+
+		Representação de string imprimível
+
+		Chamada de Amostra: str(obj)
+
+		5	
+		__cmp__ (eu, x )
+
+		Comparação de objetos
+
+		Chamada de Amostra: cmp(obj, x)
+		
+	Sobrecarregando Operadores em Python
+	
+	
+		class Vector:
+			
+			"""
+				Classe Vector para teste.
+			"""
+		
+
+			def __init__(self, x, y):
+				self.__x = x
+				self.__y = y
+
+			@property
+			def x(self):
+				return self.__x
+			
+			@property
+			def y(self):
+				return self.__y
+			
+			@x.setter
+			def x(self, x):
+				self.__x = x
+			
+			@y.setter
+			def y(self, y):
+				self.__y = y
+
+			def __str__(self):
+				return f"Vector: [X:{self.__x}, Y:{self.__y}]"
+			
+			def __add__(self, other):
+				return Vector(self.__x + other.x, self.__y + other.y)
+		
+		v1 = Vector(1,2)
+		v2 = Vector(2,3)
+		print(v1+v2)
+
+
+    
+-------------------------------------------------------------------------------------------
+
+Orientação a Objetos
+
+Crie uma classe e python, e adicione os itens abaixo:
+
+Teste esses métodos com os objetos criados: 
+
+getattr(obj, name[, default]) − to access the attribute of object.
+    • hasattr(obj,name) − to check if an attribute exists or not.
+    • setattr(obj,name,value) − to set an attribute. If attribute does not exist, then it would be created.
+    • delattr(obj, name) − to delete an attribute.
+
+Teste o uso do type(), para verificar a qual classe o objeto pertence.
+
+
+Teste esse Built-In Class Attributes in Python
+ para a classe criada:
+
+
+SNo.	Attributes & Description
+1	__dict__
+Dictionary containing the class's namespace.
+2	__doc__
+Class documentation string or none, if undefined.
+3	__name__
+Class name
+4	__module__
+Module name in which the class is defined. This attribute is "__main__" in interactive mode.
+5	__bases__
+A possibly empty tuple containing the base classes, in the order of their occurrence in the base class list.
+
+Crie um um polimorfismo de __del__ para ser executado quando houver um Garbage Collection.
+
+Crie os seguintes tipos de  métodos para classe:
+
+class method: 
+2 versões, e demonstre como ele acessa os atributos atraves desse método.
+
+instance method 
+
+static method: 
+2 versões.
+
+Crie um código, que adicione atraves do setattr() métodos de maneira dinâmica a uma classe criada (@classmethod).
+
+Crie um construtor que receba parametros, e desse constutor, sejam adicionados atributos a classe. Teste o usdo de construtores parametrizados.
+
+Modifique o constturor anteriormemte criado, para que seja simulado o uso de multiplocs construtores nao existemte em python.
+
+Crie um código, e com a ajuda do __doc__, mostre o uso do Name Mangling.
+print (e1._Employee__age) 
+
+Crie um código, que exemplifique o uso de property()  em python.
+Crie um código, que exemplique o uso de herança em python.
+
+Teste os acessos a atributos e métodos protected e private nessa herança.
+
+Crie um código, que utlizando o mro(), seja retornado ordem hierarquica de uma classe.
+
+Crie um código, que exemplifique o uso de herança hibrida.
+
+Crie um código que mostre o usdo do super() para chamar o constturor da classe acima em herança no python.
+
+Crie um código, que exemplifique o uso de polimorfismo em Python, das seguintes maneiras:
+Duck Typing
+Method Overriding
+Operator Overloading
+Method Overloading
+
+Crie linhas de código que exemplifique o uso disso: Base Overridable Methods
+The following table lists some generic functionality of the object class, which is the parent class for all Python classes. You can override these methods in your own class −
+Sr.No	Method, Description & Sample Call
+1	__init__ ( self [,args...] )
+Constructor (with any optional arguments)
+Sample Call : obj = className(args)
+2	__del__( self )
+Destructor, deletes an object
+Sample Call : del obj
+3	__repr__( self )
+Evaluatable string representation
+Sample Call : repr(obj)
+4	__str__( self )
+Printable string representation
+Sample Call : str(obj)

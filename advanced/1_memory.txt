@@ -1,0 +1,49 @@
+Python - Memory Management
+
+	# Os dados reais desses objetos são armazenados no heap, enquanto 
+	as referências a eles são armazenadas na pilha.
+	
+	def my_function():
+		x = 10
+		y = 3
+		name = "Anderson"
+		return x, y, name
+
+	print(my_function())
+
+	try:
+		print(x, y, name)
+	except NameError as err:
+		print("Not defined!")
+		
+	# -------------------------------
+	
+	# Alocação de memória dinâmica Heap
+	
+	list = [0]*10
+	print(list)
+	
+	# -------------------------------
+	
+	import sys
+
+	# Create an integer object
+	num = 42
+	print("Initial reference count:", sys.getrefcount(num))
+
+	# Assign it to another variable
+	a = num
+	print("After assigning to another variable:", sys.getrefcount(num))
+
+	# Put it in a list
+	my_list = [num]
+	print("After putting it in a list:", sys.getrefcount(num))
+
+	# Put the same number multiple times in another list
+	another_list = [num, num, num]
+	print("After another list with 3 references:", sys.getrefcount(num))
+
+	# Delete the lists
+	del my_list
+	del another_list
+	print("After deleting the lists:", sys.getrefcount(num))

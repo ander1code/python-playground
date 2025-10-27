@@ -1,0 +1,656 @@
+Python - Multithreading
+
+threading.activeCount() Returns the number of thread objects that are active.
+threading.currentThread() Returns the number of thread objects in the caller's 
+						  thread control.
+threading.enumerate() Returns a list of all thread objects that are 
+                      currently active.
+					  
+run() The run() method is the entry point for a thread.
+start() The start() method starts a thread by calling the run method.
+join([time]) The join() waits for threads to terminate.
+isAlive() The isAlive() method checks whether a thread is still executing.
+getName() The getName() method returns the name of a thread.
+setName() The setName() method sets the name of a thread.
+
+
+_thread: nível mais baixo (baixo nível)
+	
+	É um módulo mais simples e direto.
+	Cria threads com menos controle (sem .join(), .start() 
+	ou gerenciamento de exceções).
+	Ideal se você precisa só disparar uma função em segundo plano 
+	de forma bem rápida e leve — por exemplo, scripts muito simples 
+	ou protótipos rápidos.
+	Menor overhead, mas também mais arriscado de usar.
+	
+	import _thread
+	import time
+
+	def print_thread(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"- {name}")
+			time.sleep(delay)
+		i += 1
+
+	# Iniciando a thread corretamente
+	_thread.start_new_thread(print_thread, ("thread 01", 2, 5))
+
+	# Pausa principal para permitir que a thread termine (só para demonstração)
+	time.sleep(11)
+	
+	
+threading: nível mais alto (alto nível)
+	
+	Recomendado para aplicações reais e complexas.
+	Oferece métodos robustos como .start(), .join(), .is_alive(), locks, 
+	controle de exceções e até classes personalizadas com Thread.
+	Muito mais fácil de depurar, gerenciar e escalar.
+	
+	import time
+	import threading
+
+	def print_thread(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"- {threading.current_thread().name}: {time.time()}")
+			time.sleep(delay)
+			i+=1
+		print(f"{name} is done!")
+
+
+	t2 = threading.Thread(target=print_thread, args=("Thread 01", 3, 5))
+	t1 = threading.Thread(target=print_thread, args=("Thread 02", 2, 5))
+	t3 = threading.Thread(target=print_thread, args=("Thread 03", 1, 5))
+
+	t2.start()
+	t1.start()
+	t3.start()
+
+	time.sleep(7)
+	print(f"{threading.current_thread().name} is done!")
+
+	t2.join()
+	t1.join()
+	t3.join()
+	
+	
+	import time
+	import threading
+
+	def print_thread(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"- {threading.current_thread().name}: {time.time()}")
+			time.sleep(delay)
+			i+=1
+
+	threads = []
+
+	for i in range(1,4):
+		t = threading.Thread(target=print_thread, args=(f"Thread {i}", 3, 5))
+		threads.append(t)
+		t.start()
+
+	time.sleep(7)
+	print(f"{threading.current_thread().name} is done!")
+
+	for t in threads:
+		t.join()
+		print(f"{t.name} done!")
+
+
+ # semafore
+ 
+ 
+	import time
+	import threading
+
+	semaphore  = threading.Semaphore(2)
+
+	def print_thread(name, delay, limit):
+		with semaphore:
+			i = 0
+			while i < limit:
+				print(f"- {threading.current_thread().name}: {time.time()}")
+				time.sleep(delay)
+				i+=1
+			print(f"{name} is done!")
+
+	t4 = threading.Thread(target=print_thread, args=("Thread 03", 1, 5))
+	t2 = threading.Thread(target=print_thread, args=("Thread 01", 3, 5))
+	t1 = threading.Thread(target=print_thread, args=("Thread 02", 2, 5))
+	t3 = threading.Thread(target=print_thread, args=("Thread 04", 1, 5))
+
+	t4.start()
+	t2.start()
+	t1.start()
+	t3.start()
+
+	time.sleep(7)
+	print(f"{threading.current_thread().name} is done!")
+
+	t4.join()
+	t2.join()
+	t1.join()
+	t3.join()
+	
+# Executando threars de maneira mais simples:
+
+	from threading import Thread
+	import time
+
+	def sum(x, y):
+		time.sleep(3)
+		print(x + y)
+
+	def greeting(name):
+		time.sleep(2)
+		print(f"Hello, {name}!")
+
+	def message():
+		print("Basic function is running concurrently...")
+
+	Thread(target=sum, args=(10, 3)).start()
+	Thread(target=message).start()
+	Thread(target=greeting, args=("Anderson", )).start()
+
+
+# Estender a Classe Thread
+
+	import threading
+	import time
+
+	def print_message(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"{name}: {time.time()}")
+			time.sleep(delay)
+			i+=1
+
+	class myThread(threading.Thread):
+		def __init__(self, **kwargs):
+			threading.Thread.__init__(self)
+			self.name = kwargs["name"]
+			self.delay = kwargs["delay"]
+			self.limit = kwargs["limit"]
+
+		def run(self):
+			print(f"{self.name} is started.")
+			print_message(self.name, self.delay, self.limit)
+			print(f"{self.name} is done!")
+
+	t1 = myThread(name="Thread 01", delay=1, limit=5)
+	t2 = myThread(name="Thread 02", delay=3, limit=2)
+	t3 = myThread(name="Thread 03", delay=2, limit=3)
+
+	t3.start()
+	t1.start()
+	t2.start()
+
+	time.sleep(2)
+	print("Exiting MainThread!")
+	
+	
+	
+Python - Joining the Threads
+
+	# # Joining Threads com join() para thread.
+
+	import time
+	import threading
+
+	def print_message(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"{name}: {time.time()}")
+			time.sleep(delay)
+			i+=1
+
+	class myThread(threading.Thread):
+		def __init__(self, **kwargs):
+			threading.Thread.__init__(self)
+			self.name = kwargs["name"]
+			self.delay = kwargs["delay"]
+			self.limit = kwargs["limit"]
+
+		def run(self):
+			print(f"{self.name} is started!") 
+			print_message(self.name, self.delay, self.limit)
+			print(f"{self.name} is done!") 
+
+	t1 = myThread(name="Thread 01", delay=1, limit=5)
+	t2 = myThread(name="Thread 02", delay=3, limit=2)
+	t3 = myThread(name="Thread 03", delay=2, limit=3)
+	t1.start()
+	t1.join()
+	t2.start()
+	t2.join()
+	t3.start()
+	t3.join()
+	time.sleep(4)
+	print("MainThread is done!") 
+
+# ------------------------------------------------------------------------
+
+	# Joining com timeout num dos join().
+
+	import time
+	import threading
+
+	def print_message(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"{name}: {time.time()}")
+			time.sleep(delay)
+			i+=1
+
+	class myThread(threading.Thread):
+		def __init__(self, **kwargs):
+			threading.Thread.__init__(self)
+			self.name = kwargs["name"]
+			self.delay = kwargs["delay"]
+			self.limit = kwargs["limit"]
+
+		def run(self):
+			print(f"{self.name} is started!") 
+			print_message(self.name, self.delay, self.limit)
+			print(f"{self.name} is done!") 
+
+	t1 = myThread(name="Thread 01", delay=1, limit=5)
+	t2 = myThread(name="Thread 02", delay=3, limit=2)
+	t3 = myThread(name="Thread 03", delay=2, limit=3)
+	t1.start()
+	t1.join(timeout=0.5) # da uma atrasada na thread.
+	t2.start()
+	t2.join()
+	t3.start()
+	t3.join()
+	time.sleep(4)
+	print("MainThread is done!") 
+	
+
+Python - Naming the Threads
+
+	# Renaming Thread:
+
+	import threading
+	import time
+
+	def print_message(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"{threading.currentThread().name}: {time.time()}")
+			time.sleep(delay)
+			i+=1
+
+	class myThread(threading.Thread):
+		def __init__(self, **kwargs):
+			threading.Thread.__init__(self)
+			self.name = kwargs["name"]
+			self.delay = kwargs["delay"]
+			self.limit = kwargs["limit"]
+
+		def run(self):
+			# rename thread:
+			threading.currentThread().name = self.name
+			#
+			print(f"{self.name} is started.")
+			print_message(self.name, self.delay, self.limit)
+			print(f"{self.name} is done!")
+
+	t1 = myThread(name="Thread 01", delay=1, limit=5)
+	t2 = myThread(name="Thread 02", delay=3, limit=2)
+	t3 = myThread(name="Thread 03", delay=2, limit=3)
+
+	t3.start()
+	t1.start()
+	t2.start()
+
+	time.sleep(2)
+	print("Exiting MainThread!")
+	
+# ------------------------------------------------------------------------
+
+Python - Thread Scheduling
+
+O Python não possui suporte interno para controlar prioridades de thread ou 
+políticas de agendamento diretamente. Em vez disso, ele depende do agendador 
+de threads do sistema operacional.
+
+	import time
+	import threading
+
+	def print_time():
+		print(f"current_time: {time.ctime(time.time())}")
+
+	print(f"start: {time.ctime(time.time())}")
+
+	t1 = threading.Timer(3, print_time, args=())
+	t1.start()
+	t1.join()
+	print(f"finish: {time.ctime(time.time())}")
+	
+	# --------------
+	
+	import time
+	import sched
+
+	scheduler = sched.scheduler(time.time, time.sleep)
+
+	def print_time(name):
+		print(f"{name}: {time.ctime(time.time())}")
+
+	print(f"start : {time.ctime(time.time())}")
+
+	scheduler.enter(3, 1, print_time, ("EVENT_01",))
+	scheduler.enter(5, 1, print_time, ("EVENT_02",))
+	scheduler.run()
+
+	print(f"finish: {time.ctime(time.time())}")
+
+	# --------------
+
+	import time
+	import sched
+
+	scheduler = sched.scheduler(time.time, time.sleep)
+
+	def print_time(current_event):
+		print(f"{current_event}: {time.ctime(time.time())}")
+
+	for i in range(5):
+		scheduler.enter(i + 1, 1, print_time, (f"EVENT_{i + 1}",))
+
+	print(f"START : {time.ctime(time.time())}")
+	scheduler.run()
+	print(f"FINISH: {time.ctime(time.time())}")
+	
+	
+	
+Python - Thread Pools
+
+	Um pool de threads é uma coleção de threads gerenciados por um pool. 
+	Cada fio na piscina é chamado de fio de trabalhador ou de trabalhador. 
+	Esses threads podem ser reutilizados para executar várias tarefas, 
+	o que reduz a carga de criar e destruir threads repetidamente.
+	
+	# --------------
+	
+	import time
+	from multiprocessing.dummy import Pool
+
+	def print_message(name):
+		print(f"{name}: {time.ctime(time.time())}")
+		time.sleep(1)
+
+	threads = []
+	for i in range(7):
+		threads.append(f"Thread 0{i + 1}")
+
+	print("\n\n# Um por vez")
+	pool = Pool(1)
+	pool.map(print_message, threads)
+	pool.close()
+
+	print("\n\n# 3 por vez")
+	pool = Pool(3)
+	pool.map(print_message, threads)
+	pool.close()
+
+	print("\n\n# 6 por vez")
+	pool = Pool(6)
+	pool.map(print_message, threads)
+	pool.close()
+	
+	# --------------
+	
+	import time
+	from concurrent.futures import ThreadPoolExecutor
+
+	def print_message(name):
+		print(f"{name}: {time.ctime(time.time())}")
+		time.sleep(1)
+
+	threads = []
+
+	for i in range(6):
+		threads.append(f"Thread 0{i + 1}")
+
+	print("\n\n# Um por vez")
+	with ThreadPoolExecutor(max_workers=1) as t:
+		t.map(print_message, threads)
+
+	print("\n\n# 3 por vez")
+	with ThreadPoolExecutor(max_workers=3) as t:
+		t.map(print_message, threads)
+
+	print("\n\n# 6 por vez")
+	with ThreadPoolExecutor(max_workers=6) as t:
+		t.map(print_message, threads)
+
+	# --------------
+
+
+Python - Main Thread
+
+	Em Python, o thread principal é o thread inicial que começa quando o interpretador 
+	Python é executado. É o thread padrão dentro de um processo Python, responsável 
+	por gerenciar o programa e criar threads adicionais. Cada programa Python 
+	possui pelo menos um thread de execução chamado thread principal.
+	
+	# --------------
+	
+	import threading
+	print(threading.current_thread())
+	
+	# --------------
+	
+	import threading
+	import time
+
+	def func(delay):
+		time.sleep(delay)
+		if threading.current_thread() is threading.main_thread():
+			print("Running on the main thread.")
+		else:
+			print("Running on a background thread.")
+
+	t = threading.Thread(target=func, args=(2,))
+	t.start()
+
+	func(1)
+
+	print("Main thread object:", threading.main_thread())
+	print("Main thread has finished execution.")
+
+
+Python - Thread Priority
+
+	# Definindo a prioridade do thread usando Sleep():
+	
+	import threading
+	import time
+
+	class myThread(threading.Thread):
+
+		def __init__(self, **kwargs):
+			threading.Thread.__init__(self) # constructor!!!
+			self.name = kwargs["name"]
+			self.priority = kwargs["priority"]
+
+		def run(self):
+			name = self.name
+			time.sleep(1.0 * self.priority) # esse é a linha principal
+			print(f"{name} with prority {self.priority}")
+
+	t1 = myThread(name="Thread_01", priority=4)
+	t2 = myThread(name="Thread_02", priority=1)
+
+	t1.start()
+	t2.start()
+
+	t1.join()
+	t2.join()
+		
+	print("All threads finished.")
+		
+	# --------------
+	
+Python - Daemon Threads	
+
+	Daemon Thread
+		- É uma thread de "serviço" que roda em segundo plano.
+		- Finaliza automaticamente quando todas as threads não-daemon 
+		  terminam, mesmo que ela ainda esteja executando.
+		- Boa para tarefas auxiliares (como monitoramento, limpeza, etc.) 
+		  que não precisam impedir o encerramento do programa.
+
+	🔩 Non-Daemon Thread (padrão)
+		- É uma thread “principal” ou “de trabalho”.
+	    - Impede o programa de terminar até que ela mesma termine.
+		- Usada para tarefas que devem ser concluídas, como salvar arquivos, 
+		  processar dados, etc.
+	
+	
+	import threading
+	import time
+
+	def print_message(name, delay, limit):
+		i = 0
+		while i < limit:
+			print(f"{name}: {time.time()}")
+			time.sleep(delay)
+			i+=1
+
+	class myThread(threading.Thread):
+		def __init__(self, **kwargs):
+			super().__init__(name=kwargs["name"], daemon=kwargs["daemon"]) # AQUI!
+			self.delay = kwargs["delay"]
+			self.limit = kwargs["limit"]
+
+		def run(self):
+			print(f"{self.name} is started.")
+			print_message(self.name, self.delay, self.limit)
+			print(f"{self.name} is done!")
+
+	t1 = myThread(name="Thread 01", delay=1, limit=5, daemon=False) # AQUI!
+	t2 = myThread(name="Thread 02", delay=3, limit=2, daemon=True)  # AQUI!
+
+	t1.start()
+	t2.start()
+
+	time.sleep(2)
+	print("Exiting MainThread!")
+	
+# -------------------------------------------------------------------------------------
+
+PYTHON SYNCHRONIZATION
+
+Python - Inter-Thread Communication
+
+	# --------------
+
+	is_set(): Retorna True somente se o sinal interno estiver ativado 
+	          (ou seja, verdadeiro).
+
+	set()   : Ativa o sinal interno (define como verdadeiro). Todas as threads 
+	          que estavam esperando por esse sinal são despertadas. 
+			  Threads que chamarem wait() depois disso não ficarão bloqueadas.
+
+	clear() : Redefine o sinal interno para False. Depois disso, threads que 
+	          chamarem wait() ficarão bloqueadas até que set() seja chamado novamente.
+
+	wait(timeout=None): Bloqueia a execução até que o sinal interno esteja ativado. 
+	                    Se já estiver ativado ao entrar, retorna imediatamente. 
+						Caso contrário, permanece bloqueado até que outra thread 
+						chame set() ou ocorra o tempo limite (se fornecido). 
+						Se timeout for definido, ele deve ser um número com ponto 
+						flutuante indicando o tempo limite em segundos.
+						
+	# --------------
+	
+	import threading
+	import time
+
+	my_event = threading.Event()
+
+	def task(name):
+		print(f"{name} is waiting for the signal...")
+		my_event.wait()  # Wait until the event is set
+		print(f"{name} received the signal.")
+		time.sleep(1)
+		print(f"{name} has finished.")
+
+	i = 0
+	print("Activating event...")
+	while i < 3:
+		my_event.clear()
+		print(f"\n\nCycle {i+1} started.")
+		t1 = threading.Thread(target=task, args=(f"Thread_{time.time()}", ))
+		t2 = threading.Thread(target=task, args=(f"Thread_{time.time()}", ))
+		t1.start()
+		t2.start()
+		time.sleep(2)
+		my_event.set()  # Set the event and release waiting threads
+		t1.join()
+		t2.join()
+		i+=1
+		
+	print("\nAll tasks have completed.")
+
+	# --------------
+	
+Resumindo a Sicronização de Threads com esses exemplos:
+
+VERSÃO 01 - acquire() e release():
+
+	import threading
+	import time
+
+	my_lock = threading.Lock()
+
+	def task(name, opc):
+		my_lock.acquire()
+		print(f"{name} started.")
+		time.sleep(2)
+		print(f"{name} finished.")
+		my_lock.release()
+	
+	# Criando as threads
+	t1 = threading.Thread(target=task, args=("Thread_01", 1))
+	t2 = threading.Thread(target=task, args=("Thread_02", 2))
+
+	t1.start()
+	t2.start()
+
+	t1.join()
+	t2.join()
+
+	print("All tasks have finished.")
+
+VERSÃO 02 - uso do Lock:
+
+	import threading
+	import time
+
+	my_lock = threading.Lock()
+
+	def task(name, opc):
+		with my_lock:
+			print(f"{name} started.")
+			time.sleep(2)
+			print(f"{name} finished.")
+	 
+	# Criando as threads
+	t1 = threading.Thread(target=task, args=("Thread_01", 1))
+	t2 = threading.Thread(target=task, args=("Thread_02", 2))
+
+	t1.start()
+	t2.start()
+
+	t1.join()
+	t2.join()
+
+	print("All tasks have finished.")

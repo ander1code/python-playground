@@ -1,0 +1,48 @@
+Python - Network Programming
+
+	O Python também possui bibliotecas que fornecem acesso de nível superior a protocolos 
+	de rede específicos de nível de aplicativo, como FTP, HTTP e assim por diante.
+
+		Protocolo	Função comum			    Porta 		Módulo Python
+		HTTP		Páginas web				      80		httplib, urllib, xmlrpclib
+		NNTP		Usenet notícias			     119		nntplib
+		FTP			ransferências arquivos		  20		ftplib, urllib
+		SMTP		Enviando e-mail				  25		smtplib
+		POP3		Buscando e-mail				 110		poplib
+		IMAP4		Buscando e-mail				 143		imaplib
+		Telnet		Linhas comando				  23		telnetlib
+		Gopher		Transferências de documentos  70		gopherlib, urllib
+
+Python - Socket Programming
+
+	Programação soquete é uma técnica na qual nos comunicamos entre dois nós conectados 
+	em uma rede onde o nó servidor ouve as solicitações recebidas dos nós clientes.
+	
+	O que são Sockets?
+	
+		Os soquetes são os pontos finais de um canal de comunicação bidirecional. 
+		... podem se comunicar dentro de um processo, entre processos na mesma máquina ou entre 
+		processos em continentes diferentes.
+	
+		Um soquete é identificado pela combinação do endereço IP e do número da porta.
+		
+		...  podem ser implementados em vários tipos de canais diferentes: soquetes de domínio 
+		Unix, TCP, UDP e assim por diante.
+		
+		Existem dois tipos de protocolos de comunicação −
+
+			protocolo orientado a conexão
+
+			protocolo sem conexão
+
+		TCP ou Transmission Control Protocol: é um protocolo orientado a conexão. Os dados são 
+		transmitidos em pacotes pelo servidor e montados na mesma ordem de transmissão pelo receptor. 
+		Como os soquetes em cada extremidade da comunicação precisam ser configurados antes de 
+		iniciar, esse método é mais confiável.
+
+		UDP ou User Datagram Protocol: O método não é confiável porque os soquetes 
+		não exigem o estabelecimento de nenhum processo de conexão e terminação para a transferência 
+		dos dados.
+		
+		
+			

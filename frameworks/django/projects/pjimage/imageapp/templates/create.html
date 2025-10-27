@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.name.errors }}
+        <label for="name">NAME:</label><br>
+        <input type="text" name="name" id="name"><br>
+        {{ form.birthday.errors }}
+        <label for="birthday">BIRTHDAY:</label><br>
+        <input type="text" name="birthday" id="birthday"><br>
+        {{ form.picture.errors }}
+        <label for="picture">PICTURE:</label><br>
+        <input type="file" name="picture" id="picture"><br>
+        <input type="submit" value="create"><br>
+    </form>
+{% endblock %}
+
+<style>
+    label{
+        font-weight: bold;
+    }
+</style>

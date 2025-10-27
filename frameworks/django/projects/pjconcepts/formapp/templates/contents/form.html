@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block contents %}
+    <h2>Form</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div style="color:red; background-color: bisque;">
+        {% for field in form %}
+            <ul>
+            {% for error in field.errors %}
+                <li>{{error}}</li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+        </div>
+        
+        <label for="name">Name:</label><br>
+        {{form.name}}<br>
+        <label for="name">E-mail:</label><br>
+        {{form.email}}<br>
+        <label for="birthday">Birthday:</label><br>
+        {{form.birthday}}<br>
+        <label for="name">Salary:</label><br>
+        {{form.salary}}<br>
+        <label for="name">gender:</label><br>
+        {{form.gender}}<br>
+        <label for="name">Status:</label><br>
+        {{form.status}}<br>
+        <input type="submit" value="CREATE">
+        <br>
+    </form>
+    <tr></tr>
+    <h2>Listing</h2>
+    <ul>
+        {% for p in people %}
+            <li>{{p.id}}: {{p.name}} - <a href="{% url 'delete' p.id %}">delete</a></li>
+        {% endfor %}
+    </ul>
+{% endblock contents %}

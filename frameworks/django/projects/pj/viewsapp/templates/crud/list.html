@@ -1,0 +1,6 @@
+{% extends "index.html" %}
+{% block contents %}
+    {% for p in people  %}
+        {{p.id}} - {{p.name}} - <a href="{% url 'PersonDirectDeleteView' p.id %}">delete</a>
+    {% endfor %}
+{% endblock contents %}

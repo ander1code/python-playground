@@ -1,0 +1,18 @@
+{% extends "crud/index.html" %}
+
+{% block content %}
+<h1>EDIT</h1>
+
+<span><b>TOKEN:</b> {{ csrf_token }}</span><br><br>
+{% csrf_token %}
+<form action="/edit" enctype="text/plain" method="POST">
+    <label for="id">ID</label>
+    <input type="text" id="id" name="id" readonly="readonly" style="background-color:rgb(179, 191, 204);font-weight:bold;"><br>
+    <label for="name">NAME</label>
+    <input type="text" id="name" name="name"><br>
+    <button type="reset">CLEAR</button>
+    <button type="submit">CREATE</button>
+</form>
+
+
+{% endblock %}

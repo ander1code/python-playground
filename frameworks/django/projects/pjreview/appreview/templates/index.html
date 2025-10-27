@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, World!</title>
+    {% load static %}
+    <script src="{% static 'owner/script.js' %}"></script>
+</head>
+<body>
+    <h5 align="right"><a href="{% url 'index' %}">Home</a> | <a href="{% url 'greeting' %}">Greeting</a> | <a href="{% url 'condition' %}">Conditions</a> | <a href="{% url 'looping' %}">Looping</a> | <a href="{% url 'looping' %}">Looping</a> | <a href="{% url 'json' %}">Json</a> | <a href="{% url 'redirect_to_google' %}">Redirect</a> | <a href="{% url 'register' %}">Register</a></h5>
+    <hr>
+    {% block content %}
+    {% endblock %}
+    <footer align="right">
+         <hr>
+         <h3>{% now "d/M/Y - h:i:s" %}</h3>
+    </footer>
+</body>
+</html>

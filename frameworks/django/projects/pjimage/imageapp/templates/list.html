@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% for p in people %}
+        <div>
+           <span><b>Name:</b>{{p.name}}</span><br>
+           <span><b>Birthday:</b>{{p.birthday}}</span><br>
+           <img src="{{p.picture}}" alt="{{ p.name }}" style="max-height:300px">
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

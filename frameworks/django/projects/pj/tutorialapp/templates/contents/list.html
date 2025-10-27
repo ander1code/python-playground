@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block contents %}
+    <h3>List</h3>
+    <ul>
+        {% for p in people %}
+            <li>{{p.pk}} - {{p.name}} - <a href="{% url 'person-details' p.id %}">details</a></li>
+        {% endfor %}
+    </ul>
+{% endblock contents %}
+
+
+

@@ -1,0 +1,373 @@
+Python - Strings
+
+	Em Python, a corda é uma sequência imutável de Caracteres unicode. 
+	Cada personagem tem um único valor numérico conforme o padrão UNICODE.
+	
+	Para diferenciar a string de números e outros identificadores, a sequência de 
+	caracteres é incluída dentro de aspas simples, duplas ou triplas em sua 
+	representação literal.
+	
+	Atualizando Strings
+	
+		Exemplo 01 - Slicing and Update:
+		
+			message = "Hello, World!"
+			print(message)
+			try:
+				message[7:-1] = "Python" # error!
+			except TypeError as err:
+				print(err)
+			message = message[:7] + "Python!"
+			print(message)
+			
+		Exemplo 02 - Uso de String especiais:
+			
+			print("Hello, %s!" % ("World"))
+			print("Bonus: %+d" % (2000))
+			print("Debit: %+d" % (-1000))
+			temperature = 3.7
+			print("temperature: %+f°C" % temperature)
+			c1 = "Hello, "
+			c2 = "World! "
+			print(c1 + c2)
+			print(c2 * 3)
+			print(c1[0], c2[0])
+			print("H" in c1)
+			print("Hello, " is c1)
+			print("H" not in c2)
+			print(r"\nHello!")
+
+		🧵 Símbolos de formatação com % em Python
+		
+			%c	Caractere
+			%s	Conversão para string via str()
+			%i	Inteiro decimal com sinal
+			%d	Inteiro decimal com sinal
+			%u	Inteiro decimal sem sinal
+			%o	Inteiro em formato octal
+			%x	Inteiro hexadecimal (letras minúsculas)
+			%X	Inteiro hexadecimal (letras maiúsculas)
+			%e	Notação exponencial (com e minúsculo)
+			%E	Notação exponencial (com E maiúsculo)
+			%f	Número real com ponto flutuante
+			%g	Formato mais curto entre %f e %e
+			%G	Formato mais curto entre %f e
+
+		Símbolos complementares de formatação com % em Python
+
+			*			O argumento especifica a largura ou a precisão
+			-			Alinhamento à esquerda
+			+			Exibe o sinal (positivo ou negativo)
+			(espaço)	Insere um espaço antes de número positivo
+			#			Adiciona prefixos em octal (0) ou hexadecimal (0x / 0X)
+			0			Preenche à esquerda com zeros (em vez de espaços)
+			%%			Exibe um símbolo % literal
+			(variável)	Mapeamento de variáveis (usado com dicionários)
+			m.n.		m é a largura mínima total e n o número de casas decimais a exibir
+			
+			
+	Operadores Aritméticos com Strings
+		
+		Exemplo 01:
+		
+			print ("Hello"-"World")
+			
+		
+		🛠️ Métodos de strings em Python
+
+			capitalize()					Coloca a primeira letra da string em maiúscula
+			casefold()						Converte todos os caracteres para minúsculas (suporta UNICODE)
+			center(largura, caractere)		Centraliza a string usando espaços ou caractere preenchido
+			count(sub, início, fim)			Conta quantas vezes a substring aparece na string
+			decode(encoding, errors)		Decodifica a string (normalmente não usada com str em Python 3+)
+			encode(encoding, errors)		Retorna uma versão codificada da string
+			endswith(sufixo, início, fim)	Verifica se termina com uma substring
+			expandtabs(tamanho_tab)			Expande tabulações para espaços (padrão: 8)
+			find(sub, início, fim)			Retorna o índice da substring ou -1 se não encontrar
+			format(*args, **kwargs)			Formata a string com os valores fornecidos
+			format_map(mapeamento)			Formata a string usando um dicionário
+			index(sub, início, fim)			Igual ao find(), mas gera erro se não encontrar
+			isalnum()						Verifica se a string é alfanumérica
+			isalpha()						Verifica se a string contém apenas letras
+			isascii()						Verifica se todos os caracteres são do conjunto ASCII
+			isdecimal()						Verifica se contém apenas caracteres decimais
+			isdigit()						Verifica se contém apenas dígitos
+			isidentifier()					Verifica se é um identificador válido em Python
+			islower()						Verifica se os caracteres estão em minúsculas
+			isnumeric()						Verifica se contém apenas caracteres numéricos
+			isprintable()					Verifica se todos os caracteres são imprimíveis
+			isspace()						Verifica se contém apenas espaços em branco
+			istitle()						Verifica se está formatada como "Título" (início das palavras com letra maiúscula)
+			isupper()						Verifica se está em maiúsculas
+			join(sequência)					Une os elementos da sequência com a string como separador
+			ljust(largura, caractere)		Alinha à esquerda com preenchimento
+			lower()							Converte para minúsculas
+			lstrip()						Remove espaços em branco à esquerda
+			maketrans()						Cria uma tabela de tradução para uso com translate()
+			partition(separador)			Divide em 3 partes na primeira ocorrência do separador
+			removeprefix(prefixo)			Remove o prefixo da string, se presente
+			removesuffix(sufixo)			Remove o sufixo da string, se presente
+			replace(antigo, novo, máx)		Substitui ocorrências do valor antigo pelo novo
+			rfind(sub, início, fim)			Mesma lógica do find(), mas faz a busca de trás pra frente
+			rindex(sub, início, fim)		Igual ao index(), mas busca de trás para frente
+			rjust(largura, caractere)		Alinha à direita com preenchimento
+			rpartition(separador)			Divide em 3 partes na última ocorrência do separador
+			rsplit(separador, máx)			Divide a string a partir do final
+			rstrip()						Remove espaços em branco à direita
+			split(separador, máx)			Divide usando o delimitador e retorna uma lista
+			splitlines(máx)					Divide a string em linhas, usando quebras de linha
+			startswith(sub, início, fim)	Verifica se a string começa com determinada substring
+			strip(caracteres)				Aplica lstrip() e rstrip() simultaneamente
+			swapcase()						Inverte o caso de cada letra
+			title()							Formata como título (cada palavra começa em maiúscula)
+			translate(tabela)				Traduz os caracteres da string usando uma tabela de mapeamento
+			upper()							Converte todos os caracteres para maiúsculas
+			zfill(largura)					Preenche a esquerda com zeros até atingir a largura desejada
+					
+					
+		🔧 Funções embutidas aplicáveis a strings
+
+			len(string)	Retorna o comprimento da string (número de caracteres)
+			max(string)	Retorna o caractere com maior valor alfabético na string
+			min(string)	Retorna o caractere com menor valor alfabético na string
+			
+	
+Python Slicing Strings
+
+	Python String Negative & Positive Indexing
+	
+		Exemplo 01:
+		
+			message = "Hello, World!"
+			print(message[-6:-1]) # World
+			
+		Exemplo 02:
+		
+			message = "Hello, World!"
+			print(message[-1:]) # !	
+
+			message = "Hello, World!"
+			print(message[:-1]) # Hello, World	
+			
+				Na esqueda: pega so o ultimo.
+				Na direita: elimina o ultimo.
+		
+		
+Python - Modify Strings
+
+	Converting a String to a List
+	
+		Exemplo 01:
+		
+			message = "Hello, !"
+			message_list = list(message)
+			message_list.insert(7, "World")
+			message = "".join(message_list)
+			print(message_list)
+			print(message)
+			
+	Using the Array Module
+
+		Exemplo 01:
+		
+			import array as arr
+
+			message = "Hello, !"
+			message_list = arr.array('u', message)
+			message_list.insert(7, "W")
+			message_list.insert(8, "o")
+			message_list.insert(9, "r")
+			message_list.insert(10, "l")
+			message_list.insert(11, "d")
+			message = message_list.tounicode()
+			print(message_list)
+			print(message)
+
+			
+	Using the StringIO Class
+	
+		O módulo io do Python define as classes para lidar com streams. A classe StringIO representa um stream de texto 
+		usando um buffer de texto na memória. Um objeto StringIO obtido de uma string se comporta como um objeto File. 
+		Portanto, podemos realizar operações de leitura/gravação nele. 
+		
+		O método getvalue() da classe StringIO retorna uma string.	
+		
+		Exemplo 01:
+		
+			import io
+
+			message = "Hello, "
+			stream_io = io.StringIO(message)
+			stream_io.seek(7)
+			stream_io.write("World!")
+			print(stream_io)
+			print(stream_io.getvalue())
+			print(stream_io.read())
+			print(stream_io.readlines())
+			
+			
+Python - String Concatenation
+		
+	String concatenation in Python is the operation of joining two or more strings together.		
+			
+		String Concatenation using '+' operator
+				
+			Exemplo 01:
+			
+				s1 = "Hello, "
+				s2 = "World!"
+				print(s1 + s2)	
+			
+		Concatenating String with space
+
+			Exemplo 01:
+		
+				s1 = "Hello, "
+				blank = " "
+				s2 = "World!"
+				print(s2 + blank + s2) # World! World!
+		
+		String Concatenation By Multiplying
+		
+			Exemplo 01:
+			
+				s1 = "World! "
+				print(s1 * 3) # World! World! World!
+				
+		
+Python - String Formatting
+
+	String formatting in Python is the process of building a string representation 
+	dynamically by inserting the value of numeric expressions in an already existing string.
+	
+	Using % operator
+	
+		Exemplo 01:
+		
+			s1 = "Hello, "
+			s2 = "World!"
+			print("%s%s" % (s1, s2))
+	
+	Using format() method
+	
+		Exemplo 01:
+
+			s1 = "Hello, "
+			s2 = "World!"
+			print("{}{}".format(s1,s2))
+			
+	Using f-string
+	
+		Exemplo 01:
+	
+			s1 = "Hello, "
+			s2 = "World!"
+			print(f"{s1}{s2}")
+				
+	Using String Template class
+	
+		The String Template class belongs to the string module and provides a way to format 
+		strings by using placeholders.
+	
+		Exemplo 01:
+		
+			from string import Template
+			message = "Hello, $name!"
+			template = Template(message)
+			message = template.substitute(name="Anderson")
+			print(message)
+			
+
+Python - Escape Characters
+
+	An escape character is a character followed by a backslash (\).
+	
+	Unless an 'r' or 'R' prefix is present, escape sequences in string and bytes literals 
+	are interpreted according to rules similar to those used by Standard C.
+	
+	Exemplo 01:
+	
+		print(r"\nHello!")
+		print(R"\nHello!")
+		
+	🔡 Caracteres de Escape em Python
+
+		\<nova linha>	Barra invertida seguida de quebra de linha é ignorada
+		\\				Barra invertida (\)
+		\'				Aspas simples (')
+		\"				Aspas duplas (")
+		\a				Alerta sonoro (sinal ASCII BEL)
+		\b				Backspace (sinal ASCII BS)
+		\f				Alimentação de formulário (ASCII FF)
+		\n				Nova linha (Linefeed – ASCII LF)
+		\r				Retorno de carro (Carriage Return – ASCII CR)
+		\t				Tabulação horizontal (ASCII TAB)
+		\v				Tabulação vertical (ASCII VT)
+		\ooo			Caractere com valor octal ooo
+		\xhh			Caractere com valor hexadecimal hh
+	
+Python - String Methods	
+	
+	🔤 Métodos de Conversão de Caixa
+	
+		capitalize()					Coloca a primeira letra da string em maiúscula
+		casefold()						Converte todos os caracteres para minúsculas (suporta UNICODE)
+		lower()							Converte letras maiúsculas para minúsculas
+		swapcase()						Inverte as maiúsculas para minúsculas e vice-versa
+		title()							Deixa a primeira letra de cada palavra em maiúscula
+		upper()							Converte letras minúsculas para maiúsculas
+	
+	📐 Métodos de Alinhamento
+
+		center(largura, preenchimento)	Centraliza a string usando caractere de preenchimento
+		ljust(largura, preenchimento)	Alinha à esquerda preenchendo espaços ou caractere definido
+		rjust(largura, preenchimento)	Alinha à direita com preenchimento
+		expandtabs(tamanho)				Converte tabulações em espaços (padrão: 8)
+		zfill(largura)					Preenche à esquerda com zeros até atingir o tamanho definido
+
+	✂️ Métodos de Divisão e Junção
+
+		lstrip()						Remove espaços à esquerda da string
+		rstrip()						Remove espaços à direita
+		strip()							Remove espaços de ambos os lados
+		rsplit()						Divide a string a partir do final
+		split()							Divide a string usando um delimitador (espaço por padrão)
+		splitlines()					Divide a string em linhas (remove quebras de linha)
+		partition(separador)			Divide em 3 partes na primeira ocorrência do separador
+		rpartition(separador)			Divide em 3 partes na última ocorrência
+		join(sequência)					Junta elementos de uma sequência usando a string como separador
+		removeprefix(prefixo)			Remove o prefixo especificado
+		removesuffix(sufixo)			Remove o sufixo especificado
+
+	✅ Métodos Booleanos
+	
+		isalnum()						Verifica se todos os caracteres são alfanuméricos
+		isalpha()						Verifica se todos os caracteres são letras
+		isdigit()						Verifica se todos os caracteres são dígitos
+		islower()						Verifica se está em minúsculas
+		isnumeric()						Verifica se é numérica
+		isspace()						Verifica se contém apenas espaços em branco
+		istitle()						Verifica se está no formato “Título”
+		isupper()						Verifica se está em maiúsculas
+		isascii()						Verifica se todos os caracteres estão na tabela ASCII
+		isdecimal()						Verifica se todos os caracteres são decimais
+		isidentifier()					Verifica se é um identificador válido em Python
+		isprintable()					Verifica se todos os caracteres são imprimíveis
+	
+	🔍 Métodos de Busca e Substituição
+
+		count(sub, início, fim)			Conta quantas vezes sub aparece na string ou trecho especificado
+		find(sub, início, fim)			Retorna o índice da primeira ocorrência ou -1 se não encontrar
+		index(sub, início, fim)			Igual ao find(), mas gera erro se sub não for encontrado
+		replace(antigo, novo, máx)		Substitui ocorrências da substring antiga pela nova
+		rfind(sub, início, fim)			Busca por sub de trás para frente
+		rindex(sub, início, fim)		Igual ao rfind(), mas gera erro se não encontrar
+		startswith(sub, início, fim)	Verifica se a string começa com sub
+		endswith(sub, início, fim)		Verifica se a string termina com sub
+
+	🔄 Métodos de Tradução
+	
+		maketrans()						Cria uma tabela de tradução para ser usada com translate()
+		translate(tabela)				Aplica a tabela e realiza a substituição de caracteres	
+			
+

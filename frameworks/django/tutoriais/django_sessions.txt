@@ -1,0 +1,147 @@
+📦 Django Moderno – Sessões (Sessions)
+
+🔐 O que são Sessões?
+
+Sessões são usadas para armazenar dados do usuário entre diferentes requisições HTTP. Ao invés de salvar dados no 
+navegador do cliente (como cookies), o Django salva as sessões no lado do servidor (por padrão, no banco de dados), e o 
+navegador armazena apenas um ID da sessão.
+
+Isso aumenta a segurança, já que dados sensíveis não são visíveis ou manipuláveis diretamente pelo cliente.
+
+	⚙️ Como configurar sessões no Django moderno?
+
+		No settings.py do seu projeto, verifique se as seguintes configurações estão presentes:
+
+			INSTALLED_APPS = [
+				...
+				'django.contrib.sessions',
+				...
+			]
+
+			MIDDLEWARE = [
+				...
+				'django.contrib.sessions.middleware.SessionMiddleware',
+				...
+			]
+
+
+	✅ Estas opções já vêm habilitadas por padrão em projetos criados com django-admin startproject.
+
+	🧪 Exemplo prático: Login com sessão
+	
+		Vamos criar um sistema de login simples que salva o nome de usuário na sessão ao fazer login, exibe a 
+		página de boas-vindas, e remove a sessão ao fazer logout.
+
+	
+		📁 1. Formulário de Login (forms.py)
+
+			from django import forms
+
+			class LoginForm(forms.Form):
+				username = forms.CharField(label="Usuário", max_length=100)
+
+
+		📄 2. Views (views.py)
+
+				from django.shortcuts import render, redirect
+				from django.http import HttpResponse
+				from .forms import LoginForm
+
+				def login_view(request):
+					if request.method == 'POST':
+						form = LoginForm(request.POST)
+						if form.is_valid():
+							username = form.cleaned_data['username']
+							request.session['username'] = username  # Salva na sessão
+							return redirect('logged_in')
+					else:
+						form = LoginForm()
+					return render(request, 'login.html', {'form': form})
+
+				def form_view(request):
+					username = request.session.get('username')
+					if username:
+						return render(request, 'loggedin.html', {'username': username})
+					return redirect('login')
+
+				def logout_view(request):
+					request.session.pop('username', None)  # Remove da sessão
+					return HttpResponse("<strong>Você saiu com sucesso.</strong>")
+
+		🌐 3. URLs (urls.py)
+		
+			from django.urls import path
+			from . import views
+
+			urlpatterns = [
+				path('login/', views.login_view, name='login'),
+				path('connection/', views.form_view, name='logged_in'),
+				path('logout/', views.logout_view, name='logout'),
+			]
+
+		🧾 4. Templates
+
+			📄 login.html
+			
+				<!DOCTYPE html>
+				<html lang="pt-br">
+				<head>
+					<meta charset="UTF-8">
+					<title>Login</title>
+				</head>
+				<body>
+					<h2>Login</h2>
+					<form method="post">
+						{% csrf_token %}
+						{{ form.as_p }}
+						<button type="submit">Entrar</button>
+					</form>
+				</body>
+				</html>
+
+			📄 loggedin.html
+
+				<!DOCTYPE html>
+				<html lang="pt-br">
+				<head>
+					<meta charset="UTF-8">
+					<title>Bem-vindo</title>
+				</head>
+				<body>
+					<h2>Olá, {{ username }}!</h2>
+					<p><a href="{% url 'logout' %}">Sair</a></p>
+				</body>
+				</html>
+
+	💡 Funções úteis com sessões
+
+	Django oferece alguns métodos extras para trabalhar com sessões:
+
+	# Define a expiração da sessão para 5 minutos
+	request.session.set_expiry(300)
+
+	# Tempo restante em segundos
+	tempo_restante = request.session.get_expiry_age()
+
+	# Data/hora de expiração
+	data_expiracao = request.session.get_expiry_date()
+
+	# Apaga sessões expiradas do banco de dados
+	from django.contrib.sessions.models import Session
+	Session.objects.all().delete()  # ou Session.objects.clear_expired()
+
+	# Sessão expira ao fechar o navegador?
+	expira_ao_fechar = request.session.get_expire_at_browser_close()
+
+	🧼 Onde o Django armazena sessões?
+
+	Por padrão:
+
+	No banco de dados, na tabela django_session.
+
+	Mas você pode mudar o backend da sessão no settings.py:
+
+		SESSION_ENGINE = 'django.contrib.sessions.backends.db'         # padrão
+		SESSION_ENGINE = 'django.contrib.sessions.backends.cache'      # em cache
+		SESSION_ENGINE = 'django.contrib.sessions.backends.file'       # em arquivos
+		SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'  # cookies assinados

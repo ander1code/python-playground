@@ -1,0 +1,580 @@
+Python - Dictionaries
+
+	In Python, a dictionary is a built-in data type that stores data in key-value pairs.
+	It is an unordered, mutable, and indexed collection.
+	Os dicionários são frequentemente usados para armazenar dados relacionados, como informações 
+	associadas a uma entidade ou objeto específico, onde você pode recuperar rapidamente um valor 
+	com base em sua chave.
+	
+	Exemplos de criação de dicionários:
+	
+		dict1 = {"id":1, "name": "Anderson"}
+		print(dict1)
+		
+		dict2 = [{"id":1, "name": "Anderson"}, {"id":2, "name": "Joana"}]
+		print(len(dict2))
+
+		dict3 = {"id":1, "id":"ander1code"}
+		print(dict3)
+
+		try:
+			dict4 = {[1,2,3,5]:"Anderson"}
+		except TypeError as err:
+			print("Não é permitido indice mutavel.")
+			
+		try:
+			dict5 = {{"name":"Objeto mutavel"}:"Anderson"}
+		except TypeError as err:
+			print("Não é permitido indice mutavel.")
+			
+		dict6 = {(1,2,3,4,5):"Objeto imutavel!"}
+		print(dict6)
+
+		dict7 = {frozenset({1,2,3,4,5}):"Objeto imutavel!"}
+		print(dict7)
+		
+	Acessando:
+	
+		Exemplo 01:
+	
+			from datetime import date
+
+			person = {
+				"id": 1,  # int
+				"name": "Anderson",  # str
+				"status": True,  # bool
+				"salary": 61523.11,  # float
+				"gender": 'M',  # str
+				"birthday": date(1981,1,1),
+				"address": {
+					"street": "Street 01",
+					"district": "bairro",
+					"uf": "JR",
+					"city": "cidade"
+				},
+				"competencies": ["Programmer", "Analyst", "DBA"],  # list of str
+				"age": 35,  # int
+				"married": False,  # bool
+				"phone_numbers": {"home": "212222222", "mobile": "21999999999"},  # dict
+				"languages": ("Python", "SQL", "JavaScript"),  # tuple
+				"projects": [
+					{"name": "ERP", "year": 2022},
+					{"name": "E-commerce", "year": 2024}
+				],  # list of dicts
+				"email": None,  # NoneType to represent missing data
+				"certifications": {"AWS", "Azure", "Oracle"},  # set
+				"schedule": {
+					"Monday": ["09:00", "17:00"],
+					"Tuesday": ["10:00", "18:00"]
+				},  # dict of list
+			}
+
+			print(f"Name: {person["name"]}")
+			print(f"Birthday: {person.get("birthday")}")
+
+			person["name"] = "Anderson C."
+			print(f"Name: {person["name"]}")
+
+			try:
+				print(person["status"])
+				del person["status"]
+				print(person["status"])
+			except KeyError as err:
+				print("person[\"status\"] no exists.")
+
+			# iteration:
+			for key in person:
+				print(f"{key}:{person[key]}")
+
+			# key par, value:
+			for k, v in person.items():
+				print(f"{k}:{v}")
+
+	# --------------------------------------------------
+
+		Exemplo 02:
+
+			d1 = {'a': 2, 'b': 4, 'c': 30}
+			d2 = {'a1': 20, 'b1': 40, 'c1': 60}
+
+			d1['b'] = "Z"
+			print(d1)
+
+			print(d1|d2) # União de dois dicionário, retornando novo objeto.
+
+			d1.update(d2) # dict1|=dict2
+			print(d1)
+
+			d1.clear()
+			print(d1)
+
+			d1 = d2.copy()
+			print(d2)
+
+			seq = ("id","name","gender")
+			dfk = dict.fromkeys(seq)
+			print(dfk)
+
+			try:
+				dfk.has_key("id")
+			except AttributeError as err:
+				if "id" in dfk:
+					print("Present!")
+
+			dfk.setdefault("status", True) # como adicional!
+
+			print(dfk.keys())
+			print(dfk.values())
+
+
+Python - Access Dictionary Items
+
+	Tipos de iteração sobre dicionários em python.
+	
+		d1 = {'a': 40, 'b': 35, 'c': 15}
+		d2 = {'a': 10, 'b': 40, 'c': 25}
+
+		# Accesses:
+
+		print(f"Original value of 'a' in d1: {d1['a']}")
+		d1['a'] = 80
+		print(f"Updated dictionary d1: {d1}")
+		print(f"Value of 'c' in d2: {d2.get('c')}")
+
+		# Iterations:
+
+		print("\nIterating over d1 using keys:")
+		for key in d1:
+			print(f"{key}: {d1[key]}")
+
+		print("\nIterating using .keys():")
+		for key in d1.keys():
+			 print(f"{key}: {d1[key]}")
+
+		print("\nIterating using .items():")
+		for key, value in d1.items():
+			 print(f"{key}: {value}")
+
+		# Comparisons:
+
+		try:
+			print(cmp(d1, d2))
+		except NameError as err:
+			print("The 'cmp' function is not available in Python 3.")
+			if d1 == d2:
+				print("The dictionaries are equal.")
+			else:
+				print("The dictionaries are different.")
+				
+	
+Python - Change Dictionary Items
+
+	Updating Multiple Dictionary Values
+	
+		Exemplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d2 = {'a': 10, 'b': 40, 'c': 25}
+			d1.update(d2)
+			print(d1)
+			
+		Exemplo 02:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.update({'a': 10, 'b': 40, 'c': 25})
+			print(d1)
+			
+		Exemplo 03:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1['z'] = 999
+			print(d1)
+		
+		Exemplo 04 - se the setdefault() method to add a new key-value pair:
+
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.setdefault('z', 999)
+			print(d1)
+			
+		Exemplo 05 - Using the del Statement:
+		
+			try:
+				d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+				del d1['z']
+				print(d1)
+			except KeyError as err:
+				print("d1['z'] no exists!")
+				
+		Exemplo 06 - Using the pop() Method:
+			
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.pop('c')
+			print(d1)
+			
+		Exemplo 07: Using the popitem() Method
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.popitem()
+			print(d1)
+			
+
+Python - Add Dictionary Items
+
+	Add Dictionary Item Using Unpacking
+	
+		Exemplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d2 = {'a': 10, 'b': 40, 'c': 25}
+			d3 = {*d1, *d2}   # {'d', 'a', 'b', 'c'}
+			print(d3)
+			d3 = {**d1, **d2} # {'a': 10, 'b': 40, 'c': 25, 'd': 0}
+			print(d3)
+			d3 = {**d2, **d1} # {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			print(d3)
+		
+	Add Dictionary Item Using the Union Operator (|)
+	
+		Exemplo 01:
+
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d2 = {'a': 10, 'b': 40, 'c': 25}
+			d3 = d1|d2 # {'a': 10, 'b': 40, 'c': 25, 'd': 0}
+			print(d3)
+	
+	Add Dictionary Item Using the "|=" Operator
+	
+		Exemplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d2 = {'a': 10, 'b': 40, 'c': 25}
+			d1 |= d2
+			print(d1)
+
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d2 = {'a': 10, 'b': 40, 'c': 25}
+			d2 |= d1
+			print(d2)
+			
+	Add Dictionary Item Using the setdefault() Method:
+
+		Exemplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.setdefault("z", 999)
+			print(d1)
+			
+	Add Dictionary Item Using the collections.defaultdict() Method
+
+		Exemplo 01:
+		
+			from collections import defaultdict
+
+			try:
+				d = dict()
+				print(d['x'])
+			except KeyError as err:
+				print("'x' no exists!")
+
+			d = defaultdict(int) # preciso passar um tipo primitivo
+			print(d['x'])
+			del d
+
+			d = defaultdict(str) # preciso passar um tipo primitivo
+			print(f"{d['x'] if d['x'] != "" else "Empty!"}")
+			del d
+
+			d = defaultdict(float) # preciso passar um tipo primitivo
+			print(d['x'])
+			del d
+
+			group = defaultdict(list)
+			group['even'].extend([2,4])
+			group['odd'].extend([1,3])
+			print(group)
+					
+
+Python - Remove Dictionary Items
+
+	Remove Dictionary Items Using del Keyword
+	
+		Exemplo 01:	
+	
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			del d1['a']
+			print(d1)
+		
+	Remove Dictionary Items Using pop() Method
+	
+		Exemplo 01:	
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.pop('a')
+			print(d1)
+
+	Remove Dictionary Items Using popitem() Method
+	
+		Exemplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.popitem()
+			print(d1)
+	
+	Remove Dictionary Items Using clear() Method
+	
+		Exemplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			d1.clear()
+			print(d1)
+	
+	Remove Dictionary Items Using Dictionary Comprehension
+	
+		Exemplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			for i in [i for i in d1 if d1[i] % 2 != 0]:
+				print(d1[i])
+				
+		Exemplo 02 - Key/Pair, value:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			for i in {k:v for k, v in d1.items() if v % 2 != 0}:
+				print(f"'{i}':{d1[i]}")
+				
+
+Python - Dictionary View Objects
+
+	The items() Method
+	
+		Exemplo 01:
+
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			print(d1.items()) # dict_items([('a', 40), ('b', 35), ('c', 15), ('d', 0)])]
+			
+	The keys() Method
+	
+		Exemplo 01:
+
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			print(d1.keys()) # dict_keys(['a', 'b', 'c', 'd'])
+	
+	The values() Method
+	
+		Exemplo 01:
+
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			print(d1.values()) # dict_values([40, 35, 15, 0])
+		
+		
+Python - Loop Dictionaries
+	
+	Loop Through Dictionary Using a For Loop
+	
+		Examplo 01: Iterating over Key-Value Pairs		
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			for i in d1: # iterando sobre os indices
+				print(f"{i}:{d1[i]}")
+
+	Loop Through Dictionary Using dict.items() Method
+
+		Examplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			for k,v in d1.items():
+				print(f"{k}:{v}")
+		
+	Loop Through Dictionary Using dict.keys() Method
+	
+		Examplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			print(d1.keys())
+		
+	Loop Through Dictionary Using dict.values() Method	
+	
+		Examplo 01:
+		
+			d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+			print(d1.values())
+
+	
+		
+Python - Copy Dictionaries
+
+	Exemplo - Using the copy() Method
+	
+		d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+		d2 = d1.copy()
+		d2['b'] = 70
+		print(d1)
+		print(d2) #  modificar a lista na cópia superficial também afeta o original porque a lista é um 
+				  #  objeto mutável e apenas uma referência é copiada.
+
+	Exemplo - Using the dict() Method
+	
+		d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+		d2 = dict(d1)
+		d2['b'] = 70
+		print(d1)
+	
+	Exemplo - Deep Copy deepcopy()
+	
+		Isso significa que não apenas o dicionário em si, mas também todos os objetos que ele contém 
+		(incluindo dicionários aninhados, listas, etc) são copiados.
+		
+		person = {
+            "id": 1,  # int
+            "name": "Anderson",  # str
+            "status": True,  # bool
+            "salary": 61523.11,  # float
+            "gender": 'M',  # str
+			"address": {
+					"street": "Street 01",
+					"district": "bairro",
+					"uf": "JR",
+					"city": "cidade"
+				},
+        }
+
+		import copy
+		person_copy = copy.deepcopy(person)
+		print(person_copy)
+				
+	
+	Exemplo - Copy Dictionaries Using copy() Method
+		... não pode ser copiado diretamente usando o operador de atribuição (=)...
+		
+		d1 = {'a': 40, 'b': 35, 'c': 15, 'd': 0}
+		d2 = d1.copy()
+		
+
+Python - Nested Dictionaries
+
+	Usando um Loop
+
+		Exemplo 01 - Criando atraves de looping:
+		
+			nested_dict = {}
+			keys = ['key01', 'key02']
+
+			for k in keys:
+				nested_dict[k]  = {"inner_key1": "value1", "inner_key2": "value2"}
+			print(nested_dict)
+
+			
+	Adicionando itens a um dicionário aninhado em Python
+
+		Exemplo 01:
+		
+			person = {
+				"id": 1,  # int
+				"name": "Anderson",  # str
+				"status": True,  # bool
+				"salary": 61523.11,  # float
+				"gender": 'M',  # str
+				"address": {
+					"street": "Street 01",
+					"district": "bairro",
+					"uf": "JR",
+					"city": "cidade"
+				},
+			}
+
+			person["address"]["number"] = 59
+			print(person)
+	
+	Acessando itens de um dicionário aninhado em Python	
+	
+		Exemplo 01 - por index:
+		
+			person["address"]["number"] = 59
+		
+		Exemplo 02 - por get():
+		
+			print(person.get("address")["number"])
+			
+			print(person.get("address").get("number"))
+		
+	Excluindo um Dicionário de um Dicionário Aninhado del:
+	
+		Exemplo 01:
+		
+			del person["address"]["number"]
+			print(person)
+		
+	Iterando por meio de um dicionário aninhado em Python:
+	
+		Exemplo 01:
+		
+			for k, v in person.get("address").items():
+				print(k, v)
+		
+		Exemplo 02:
+		
+			person = {
+				"id": 1,
+				"name": "Anderson",
+				"status": True,
+				"salary": 61523.11,
+				"gender": 'M',
+				"address": {
+					"street": "Street 01",
+					"district": "bairro",
+					"uf": "JR",
+					"city": "cidade"
+				},
+			}
+
+			for p, d in person.items():
+				print(p)
+				if isinstance(d, dict):
+					for k, v in d.items():
+						print(f"  {k}: {v}")
+					
+	
+			
+Python - Dictionary Methods
+
+	# Métodos de dicionário (dict) em Python
+
+		# Remove todos os elementos do dicionário
+		dict.clear()
+
+		# Retorna uma cópia rasa (shallow copy) do dicionário
+		dict.copy()
+
+		# Cria um novo dicionário com as chaves da sequência 'seq' e valores definidos como 'value'
+		dict.fromkeys(seq, value)
+
+		# Retorna o valor da chave 'key' ou 'default' se a chave não existir
+		dict.get(key, default=None)
+
+		# OBS: Removido no Python 3 — use 'key in dict' ao invés de 'dict.has_key(key)'
+		# "key" in dict
+
+		# Retorna uma lista de tuplas (chave, valor) do dicionário
+		dict.items()
+
+		# Retorna uma lista com todas as chaves do dicionário
+		dict.keys()
+
+		# Remove a chave especificada e retorna o valor associado
+		dict.pop(key)
+
+		# Remove e retorna o último par inserido (chave, valor)
+		dict.popitem()
+
+		# Retorna o valor da chave; se ela não existir, define 'key' com o valor 'default' e retorna 'default'
+		dict.setdefault(key, default=None)
+
+		# Atualiza o dicionário com os pares de outro dicionário
+		dict.update(dict2)
+
+		# Retorna uma lista com todos os valores do dicionário
+		dict.values()
+	
+	
+
+	

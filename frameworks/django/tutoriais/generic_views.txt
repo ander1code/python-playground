@@ -1,0 +1,188 @@
+ChatGPT said:
+
+	Perfeito! Vamos criar um pequeno projeto Django usando Generic Views com o seu modelo Person, que permite:
+
+		✅ Exibir uma lista de pessoas com ListView
+
+		✅ Exibir o detalhe de uma pessoa com DetailView
+
+		✅ Criar, editar e excluir pessoas com CreateView, UpdateView, e DeleteView
+
+		Tudo isso de forma moderna e em português.
+
+	✅ 1. Modelo Person
+	
+			# models.py
+			
+				from django.db import models
+
+				class Person(models.Model):
+					name = models.CharField(max_length=50)
+
+					def __str__(self):
+						return f"{self.id} - {self.name}"
+
+	✅ 2. Formulário (opcional)
+
+		Se você quiser personalizar os campos, crie um forms.py:
+
+			# forms.py
+			
+				from django import forms
+				from .models import Person
+
+				class PersonForm(forms.ModelForm):
+					class Meta:
+						model = Person
+						fields = ['name']
+
+		✅ 3. Views com Django Generic Views
+		
+			# views.py
+			
+				from django.urls import reverse_lazy
+				from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+				from .models import Person
+				from .forms import PersonForm  # opcional, se usar o forms.py
+
+				class PersonListView(ListView):
+					model = Person
+					template_name = 'person_list.html'
+					context_object_name = 'pessoas'
+
+				class PersonDetailView(DetailView):
+					model = Person
+					template_name = 'person_detail.html'
+					context_object_name = 'pessoa'
+
+				class PersonCreateView(CreateView):
+					model = Person
+					form_class = PersonForm
+					template_name = 'person_form.html'
+					success_url = reverse_lazy('person-list')
+
+				class PersonUpdateView(UpdateView):
+					model = Person
+					form_class = PersonForm
+					template_name = 'person_form.html'
+					success_url = reverse_lazy('person-list')
+
+				class PersonDeleteView(DeleteView):
+					model = Person
+					template_name = 'person_confirm_delete.html'
+					success_url = reverse_lazy('person-list')
+
+		✅ 4. URLs
+			
+			# urls.py
+			
+				from django.urls import path
+				from .views import (
+					PersonListView, PersonDetailView,
+					PersonCreateView, PersonUpdateView, PersonDeleteView
+				)
+
+				urlpatterns = [
+					path('pessoas/', PersonListView.as_view(), name='person-list'),
+					path('pessoas/<int:pk>/', PersonDetailView.as_view(), name='person-detail'),
+					path('pessoas/novo/', PersonCreateView.as_view(), name='person-create'),
+					path('pessoas/<int:pk>/editar/', PersonUpdateView.as_view(), name='person-update'),
+					path('pessoas/<int:pk>/excluir/', PersonDeleteView.as_view(), name='person-delete'),
+				]
+
+		✅ 5. Templates
+		
+			📄 person_list.html
+			
+				{% extends 'base.html' %}
+				{% block content %}
+				
+					<h2>Lista de Pessoas</h2>
+					<a href="{% url 'person-create' %}">Nova Pessoa</a>
+					<ul>
+						{% for pessoa in pessoas %}
+							<li>
+								<a href="{% url 'person-detail' pessoa.id %}">
+									{{ pessoa.name }}
+								</a>
+								[<a href="{% url 'person-update' pessoa.id %}">Editar</a>]
+								[<a href="{% url 'person-delete' pessoa.id %}">Excluir</a>]
+							</li>
+						{% empty %}
+							<li>Nenhuma pessoa cadastrada.</li>
+						{% endfor %}
+					</ul>
+				
+				{% endblock %}
+
+			📄 person_detail.html
+			
+				{% extends 'base.html' %}
+				{% block content %}
+				
+				
+					<h2>Detalhes da Pessoa</h2>
+					<p><strong>ID:</strong> {{ pessoa.id }}</p>
+					<p><strong>Nome:</strong> {{ pessoa.name }}</p>
+					<a href="{% url 'person-update' pessoa.id %}">Editar</a> |
+					<a href="{% url 'person-delete' pessoa.id %}">Excluir</a> |
+					<a href="{% url 'person-list' %}">Voltar</a>
+					
+				{% endblock %}
+
+			📄 person_form.html
+			
+				{% extends 'base.html' %}
+				{% block content %}
+				
+					<h2>{% if form.instance.pk %}Editar{% else %}Nova{% endif %} Pessoa</h2>
+					<form method="post">
+						{% csrf_token %}
+						{{ form.as_p }}
+						<button type="submit">Salvar</button>
+					</form>
+					<a href="{% url 'person-list' %}">Cancelar</a>
+					
+				{% endblock %}
+
+		📄 person_confirm_delete.html
+		
+			{% extends 'base.html' %}
+			{% block content %}
+			
+				<h2>Excluir Pessoa</h2>
+				<p>Tem certeza que deseja excluir <strong>{{ object.name }}</strong>?</p>
+				<form method="post">
+					{% csrf_token %}
+					<button type="submit">Sim, excluir</button>
+					<a href="{% url 'person-list' %}">Cancelar</a>
+				</form>
+				
+			{% endblock %}
+
+		📄 base.html (layout base)
+		
+			<!DOCTYPE html>
+			<html lang="pt-br">
+			<head>
+				<meta charset="UTF-8">
+				<title>Gerenciador de Pessoas</title>
+			</head>
+			<body>
+				<h1>Gerenciador de Pessoas</h1>
+				{% block content %}{% endblock %}
+			</body>
+			</html>
+
+🧪 Teste final
+
+		/pessoas/ → lista todas as pessoas
+
+		/pessoas/novo/ → formulário para nova pessoa
+
+		/pessoas/<id>/ → detalhes de uma pessoa
+
+		/pessoas/<id>/editar/ → editar pessoa
+
+		/pessoas/<id>/excluir/ → excluir pessoa
+

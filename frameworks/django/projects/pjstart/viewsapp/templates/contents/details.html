@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block contents %}
+    <h3>Details</h3>
+    <ul>
+        <li><span>ID:</span>&nbsp{{person.id}}</li>
+        <li><span>Name:</span>&nbsp{{person.name}}</li>
+        <li><span>Salary:</span>&nbsp{{person.salary}}</li>
+        <li><span>Gender:</span>&nbsp{{person.gender}}</li>
+        <li><span>Birthday:</span>&nbsp{{person.birthday}}</li>
+        <li><span>Status:</span>&nbsp{{person.status}}</li>
+    </ul>
+{% endblock %}

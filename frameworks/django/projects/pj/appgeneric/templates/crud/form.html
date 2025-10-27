@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% load form_tags %}  <!-- Carrega o filtro personalizado -->
+
+{% block content %}
+    <form method="post" class="my-form">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="errors">
+            {{ form.name.errors }}
+        </div>
+        {% endif %}
+
+        {% comment %} {% if form.name.errors %}
+            <div class="errors">
+                {{ form.name.errors }}
+            </div>
+        {% endif %} {% endcomment %}
+
+        <div>
+        <label for="{{ form.name.id_for_label }}">Name:</label>
+        {{ form.name|add_class:"form-control" }}
+        </div>
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}

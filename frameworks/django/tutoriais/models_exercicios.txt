@@ -1,0 +1,135 @@
+🧠 Lista de Exercícios para Construir o Modelo Person
+🔹 Parte 1: Fundamentos do Django ORM
+Crie um projeto Django e uma app chamada people.
+
+Configure o banco de dados e registre a app no settings.py.
+
+Crie um modelo simples chamado Person com os campos: name, gender, birthday, email, salary, status.
+
+🔹 Parte 2: Validações Personalizadas
+Crie o arquivo validators.py e implemente:
+
+validate_gender
+
+validate_birthday_to_register
+
+validate_salary
+
+validate_email
+
+Adicione essas validações aos campos correspondentes no modelo Person.
+
+Use RegexValidator para validar o formato do email.
+
+🔹 Parte 3: Constraints e Meta
+Adicione UniqueConstraint para garantir unicidade do email.
+
+Adicione CheckConstraint para:
+
+Validar os valores possíveis de gender.
+
+Garantir que salary esteja entre 1 e 9.999.999.999.
+
+Validar que status seja booleano.
+
+Configure db_table, managed, e Meta.verbose_name_plural.
+
+🔹 Parte 4: Managers e QuerySets Personalizados
+Crie a classe PersonQuerySet com métodos como:
+
+with_pk
+
+with_name
+
+with_salary_above
+
+with_salary_under
+
+with_max_salary
+
+with_min_salary
+
+with_salary_above_avg
+
+with_salary_under_avg
+
+Crie PersonManager que retorna PersonQuerySet e delega os métodos.
+
+Crie PersonAdminManager que filtra apenas registros com status=True.
+
+Adicione os managers manager, admin, e queryset ao modelo Person.
+
+🔹 Parte 5: Métodos Especiais e Proxy
+Implemente __str__ para retornar "{self.pk} - {self.name}".
+
+Implemente get_absolute_url usando reverse.
+
+Sobrescreva save para chamar full_clean() antes de salvar.
+
+Crie a classe MyPerson como proxy de Person, ordenando por name.
+
+🔹 Parte 6: Testes e Fixtures
+Crie fixtures com dados de exemplo (people.json).
+
+Teste os métodos do QuerySet e dos managers no shell do Django.
+
+Crie views e templates para listar e detalhar pessoas usando get_absolute_url.
+
+Utilizando:
+
+🧩 Lista de Usos Práticos com o Modelo Person
+🔹 1. Inicialização do Ambiente Django
+Configurar DJANGO_SETTINGS_MODULE e executar django.setup() para acesso ao ORM fora do ambiente padrão.
+
+🔹 2. Operações de Agregação com ORM
+Calcular estatísticas com aggregate():
+
+Média, soma, mínimo, máximo e contagem de salários.
+
+Agrupar e anotar com annotate():
+
+Agrupar por nome e mostrar salário máximo.
+
+Filtrar com expressões Q e F.
+
+🔹 3. Uso de Cursores SQL
+Executar SQL direto com connection.cursor():
+
+SELECT * FROM PERSON usando o banco padrão.
+
+Executar com connections['my_database'].cursor() para múltiplos bancos.
+
+🔹 4. Procedures e Consultas Customizadas
+Chamar stored procedure com callproc('get_person_by_name', [name]).
+
+Criar função com @non_atomic_requests('my_database') para consultas fora de transações.
+
+🔹 5. Criação e Exclusão de Registros
+Criar pessoa com Person.manager.create(...).
+
+Excluir pessoa com Person.manager.filter(...).delete().
+
+🔹 6. Transações e Controle de Erros
+Usar @atomic para garantir atomicidade.
+
+Usar transaction.on_commit() para ações pós-commit.
+
+Capturar IntegrityError e realizar rollback() manual.
+
+🔹 7. Operações com Múltiplos Bancos
+Usar .using('my_database') para operações específicas.
+
+Buscar pessoa com maior pk no banco alternativo.
+
+Salvar e deletar registros em my_database.
+
+🔹 8. Criação em Massa (Bulk)
+Usar bulk_create() para inserir múltiplos registros.
+
+Preparar ambiente com delete_person_to_bulk_create().
+
+🔹 9. Mensagens Pós-Ação
+Usar functools.partial() com transaction.on_commit() para exibir mensagens como "Successfully created."
+
+🔹 10. Extensões Avançadas
+Preparar uso de db_tablespace e models.Index para otimização de índices e tablespaces.

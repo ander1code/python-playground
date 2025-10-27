@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example_01</title>
+</head>
+<body style="background-color: antiquewhite;">
+    <div style="position: relative;">
+        <div align="right" style="background-color:#ccc; border:2px solid black; border-radius:3px;">
+            <h3>| <a href="{% url 'index' %}">Home</a> | <a href="{% url 'PersonListView' %}">People</a> |  <a href="{% url 'template_view_01' %}">template_view_01</a> | <a href="{% url 'Example02TemplateView' %}">template_view_02</a> |||||</h3>
+        </div>
+        {% block contents %}
+        {% endblock contents %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+Login com Sessão + Senha (sem forms.Form)
+
+	📁 1. Modelo de Usuário (models.py)
+
+		from django.db import models
+
+		class Usuario(models.Model):
+			username = models.CharField(max_length=100, unique=True)
+			password = models.CharField(max_length=100)  # Armazenado em texto simples (não recomendado para produção)
+
+			def __str__(self):
+				return self.username
+			
+		⚠️ Em produção, use make_password e check_password do Django para criptografar senhas.
+
+
+
+	📄 2. Views (views.py)
+		
+		from django.shortcuts import render, redirect
+		from django.http import HttpResponse
+		from .models import Usuario
+
+		def login_view(request):
+			if request.method == 'POST':
+				username = request.POST.get('username')
+				password = request.POST.get('password')
+
+				try:
+					user = Usuario.objects.get(username=username, password=password)
+					request.session['username'] = user.username
+					return redirect('logged_in')
+				except Usuario.DoesNotExist:
+					return render(request, 'login.html', {'error': 'Usuário ou senha inválidos.'})
+
+			return render(request, 'login.html')
+
+		def logout_view(request):
+			request.session.pop('username', None)
+			return HttpResponse("<strong>Você saiu com sucesso.</strong>")
+			
+			
+	🌐 3. URLs (urls.py)
+	
+		from django.urls import path
+		from . import views
+
+		urlpatterns = [
+			path('login/', views.login_view, name='login'),
+			path('connection/', views.logged_in_view, name='logged_in'),
+			path('logout/', views.logout_view, name='logout'),
+		]
+		
+		
+	🧾 4. Templates
+	
+		📄 login.html
+
+			<!DOCTYPE html>
+			<html lang="pt-br">
+			<head>
+				<meta charset="UTF-8">
+				<title>Login</title>
+			</head>
+			<body>
+				<h2>Login</h2>
+				{% if error %}
+					<p style="color:red;">{{ error }}</p>
+				{% endif %}
+				<form method="post">
+					{% csrf_token %}
+					<label for="username">Usuário:</label>
+					<input type="text" name="username" id="username" required>
+					<br>
+					<label for="password">Senha:</label>
+					<input type="password" name="password" id="password" required>
+					<br>
+					<button type="submit">Entrar</button>
+				</form>
+			</body>
+			</html>
+		
+	🛠️ 5. Banco de Dados SQLite3
+	
+		No settings.py, o Django já vem configurado com SQLite3 por padrão:
+
+		python
+		DATABASES = {
+			'default': {
+				'ENGINE': 'django.db.backends.sqlite3',
+				'NAME': BASE_DIR / 'db.sqlite3',
+			}
+		}
+
+	Depois de criar o modelo, rode:
+
+		bash
+			python manage.py makemigrations
+			python manage.py migrate
+	
+	E para adicionar usuários manualmente:
+
+		bash
+			python manage.py shell
+			python
+		
+				from app.models import Usuario
+				Usuario.objects.create(username='admin', password='1234')
+				

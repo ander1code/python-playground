@@ -1,0 +1,322 @@
+📁 Estrutura do App com Person
+
+	✅ 1. Modelo Person (models.py)
+	
+		from django.db import models
+
+		class Person(models.Model):
+			name = models.CharField(max_length=100)
+
+			def __str__(self):
+				return self.name
+
+		🔢 O campo id já é criado automaticamente pelo Django.
+
+
+	👁️ 2. Views Genéricas (views.py)
+
+		from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+		from django.urls import reverse_lazy
+		from .models import Person
+
+		class PersonListView(ListView):
+			model = Person
+			template_name = 'person_list.html'
+
+		class PersonDetailView(DetailView):
+			model = Person
+			template_name = 'person_detail.html'
+
+		class PersonCreateView(CreateView):
+			model = Person
+			fields = ['name']
+			template_name = 'person_form.html'
+			success_url = reverse_lazy('person_list')
+
+		class PersonUpdateView(UpdateView):
+			model = Person
+			fields = ['name']
+			template_name = 'person_form.html'
+			success_url = reverse_lazy('person_list')
+
+		class PersonDeleteView(DeleteView):
+			model = Person
+			template_name = 'person_confirm_delete.html'
+			success_url = reverse_lazy('person_list')
+
+
+
+	🌐 3. URLs (urls.py)
+		
+		from django.urls import path
+		from .views import (
+			PersonListView,
+			PersonDetailView,
+			PersonCreateView,
+			PersonUpdateView,
+			PersonDeleteView
+		)
+
+		urlpatterns = [
+			path('', PersonListView.as_view(), name='person_list'),
+			path('person/<int:pk>/', PersonDetailView.as_view(), name='person_detail'),
+			path('person/novo/', PersonCreateView.as_view(), name='person_create'),
+			path('person/<int:pk>/editar/', PersonUpdateView.as_view(), name='person_update'),
+			path('person/<int:pk>/excluir/', PersonDeleteView.as_view(), name='person_delete'),
+		]
+
+	🖼️ 4. Templates
+
+		Crie esses arquivos em yourapp/templates/:
+
+			📄 person_list.html
+			
+				<h1>Lista de Pessoas</h1>
+				<ul>
+					{% for person in object_list %}
+						<li><a href="{% url 'person_detail' person.pk %}">{{ person.name }}</a></li>
+					{% empty %}
+						<li>Nenhuma pessoa encontrada.</li>
+					{% endfor %}
+				</ul>
+				<a href="{% url 'person_create' %}">Adicionar nova pessoa</a>
+
+
+			📄 person_detail.html
+			
+				<h2>{{ object.name }}</h2>
+				<p>ID: {{ object.id }}</p>
+				<a href="{% url 'person_update' object.pk %}">Editar</a> |
+				<a href="{% url 'person_delete' object.pk %}">Excluir</a> |
+				<a href="{% url 'person_list' %}">Voltar</a>
+
+
+			📄 person_form.html
+			
+				<h2>{% if object %}Editar{% else %}Nova{% endif %} Pessoa</h2>
+				<form method="post">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<button type="submit">Salvar</button>
+				</form>
+				<a href="{% url 'person_list' %}">Cancelar</a>
+
+
+			📄 person_confirm_delete.html
+
+				<h2>Tem certeza que deseja excluir "{{ object.name }}"?</h2>
+				<form method="post">
+					{% csrf_token %}
+					<button type="submit">Sim, excluir</button>
+				</form>
+				<a href="{% url 'person_list' %}">Cancelar</a>
+
+	⚙️ 5. Migração e Execução
+
+		No terminal:
+
+		# Criar o app se ainda não existir
+		
+			python manage.py startapp yourapp
+
+		# Adicionar 'yourapp' no settings.py > INSTALLED_APPS
+
+		# Migrar banco
+		
+			python manage.py makemigrations
+			
+			python manage.py migrate
+
+		# Rodar o servidor
+		
+			python manage.py runserver
+
+	✅ Resultado
+
+		Você terá:
+
+		/ – Lista de pessoas
+
+		/person/1/ – Detalhes da pessoa com ID 1
+
+		/person/novo/ – Criar nova pessoa
+
+		/person/1/editar/ – Editar pessoa
+
+		/person/1/excluir/ – Excluir pessoa
+		
+-------------------------
+
+	E agora você quer adicionar uma validação para o campo nome.
+
+	✅ 1. Supondo o model Pessoa
+	
+		# models.py
+		from django.db import models
+
+		class Pessoa(models.Model):
+			nome = models.CharField(max_length=100)
+			idade = models.IntegerField()
+
+
+	✅ 2. Criando o forms.py com validação customizada para nome
+	
+		# forms.py
+		from django import forms
+		from .models import Pessoa
+
+		class PessoaForm(forms.ModelForm):
+			class Meta:
+				model = Pessoa
+				fields = ['nome', 'idade']
+
+			def clean_nome(self):
+				nome = self.cleaned_data.get('nome')
+				if not nome:
+					raise forms.ValidationError('O nome é obrigatório.')
+				if len(nome) < 3:
+					raise forms.ValidationError('O nome deve ter pelo menos 3 caracteres.')
+				if any(char.isdigit() for char in nome):
+					raise forms.ValidationError('O nome não pode conter números.')
+				return nome
+
+	✅ 3. Usando esse PessoaForm na sua Generic View
+	
+		# views.py
+		from django.views.generic import CreateView
+		from .models import Pessoa
+		from .forms import PessoaForm
+		from django.urls import reverse_lazy
+
+		class PessoaCreateView(CreateView):
+			model = Pessoa
+			form_class = PessoaForm
+			template_name = 'pessoa_form.html'
+			success_url = reverse_lazy('lista-pessoas')
+
+	✅ 4. Atualizando o template para mostrar os erros
+
+		Você pode continuar com o form.as_p, ou — melhor — personalizar para exibir os erros 
+		diretamente:
+
+			{% extends 'index.html' %}
+			{% block content %}
+			  <form method="post" class="meu-formulario">
+				{% csrf_token %}
+
+				<div>
+				  <label for="{{ form.nome.id_for_label }}">Nome:</label>
+				  {{ form.nome }}
+				  {% if form.nome.errors %}
+					<div class="erro">
+					  {{ form.nome.errors }}
+					</div>
+				  {% endif %}
+				</div>
+
+				<div>
+				  <label for="{{ form.idade.id_for_label }}">Idade:</label>
+				  {{ form.idade }}
+				  {% if form.idade.errors %}
+					<div class="erro">
+					  {{ form.idade.errors }}
+					</div>
+				  {% endif %}
+				</div>
+
+				<input type="submit" value="Salvar">
+			  </form>
+			{% endblock %}
+
+	🧪 Validações adicionadas ao nome:
+
+	✅ Obrigatório
+
+	✅ Mínimo de 3 caracteres
+
+	✅ Não pode conter números
+
+	✅ CSS opcional para exibir os erros
+	.erro {
+	  color: red;
+	  font-size: 0.9em;
+	  margin-top: 5px;
+	}
+	
+Perfeito! Se você quer modificar somente o campo name usando um filtro, como adicionar uma classe CSS personalizada, você pode usar o famoso filtro add_class. Mas como falamos antes, ele não vem por padrão no Django — você precisa criá-lo.
+
+✅ Objetivo:
+
+Você quer modificar isso:
+
+{{ form.name }}
+
+
+Para algo como:
+
+{{ form.name|add_class:"form-control" }}
+
+
+E aplicar CSS só nesse campo.
+
+✅ Passo a passo para usar o filtro add_class
+1. Crie o filtro add_class
+
+📁 Dentro do seu app, crie a pasta templatetags, se ainda não existir:
+
+yourapp/
+├── templatetags/
+│   ├── __init__.py
+│   └── form_tags.py  ← você vai criar esse
+
+2. Código do filtro em form_tags.py
+# yourapp/templatetags/form_tags.py
+
+from django import template
+
+register = template.Library()
+
+@register.filter(name='add_class')
+def add_class(field, css_class):
+    return field.as_widget(attrs={'class': css_class})
+
+3. Carregue o filtro no template
+
+No topo do seu template, adicione:
+
+{% load form_tags %}
+
+✅ Seu código final ficará assim:
+{% extends 'index.html' %}
+{% load form_tags %}  <!-- Carrega o filtro personalizado -->
+
+{% block content %}
+    <form method="post" class="my-form">
+        {% csrf_token %}
+        <div>
+            <label for="{{ form.name.id_for_label }}">Name:</label>
+            {{ form.name|add_class:"form-control" }}
+            {% if form.name.errors %}
+                <div class="erro">
+                    {{ form.name.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}
+
+✅ Exemplo de CSS que você pode aplicar
+.form-control {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+⚠️ Importante:
+
+Depois de criar os filtros em templatetags, reinicie o servidor Django
+
+A pasta templatetags precisa ter o arquivo __init__.py

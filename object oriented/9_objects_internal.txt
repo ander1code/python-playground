@@ -1,0 +1,44 @@
+# ------------------------------------------------------------
+
+
+Python - Object Internals
+
+	# Identidade do objeto
+	# Tipo do objeto
+	# Valor do objeto
+
+	class MyClass:
+		pass
+
+	obj = MyClass()
+	print(id(obj))
+	print(type(obj))
+	print(obj)
+	
+	# -------------------------------
+	
+	# A seguir está o exemplo de obtenção da contagem de referência 
+	no gerenciamento de memória.
+	
+	import sys
+	nums = [6,5,7,4,8,3,9,2,0,1]
+	print(sys.getrefcount(nums))
+	
+	# -------------------------------
+	
+	# Atributos e Métodos
+		Objetos Python podem ter atributos e métodos que são acessados 
+		usando notação de ponto.
+		
+	class MyClass:
+
+		def __init__(self, name):
+			self.name = name
+
+		def greeting(self):
+			print(f"Hello, {self.name}!")
+
+	obj = MyClass("Anderson")
+	obj.greeting()
+		
+	# -------------------------------

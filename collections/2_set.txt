@@ -1,0 +1,704 @@
+Python - Sets
+
+	Um conjunto é uma coleção não ordenada de elementos únicos. Ao contrário de 
+	listas ou tuplas, conjuntos não permitem valores duplicados ou seja, cada elemento 
+	em um conjunto deve ser único.
+	
+	... são mutáveis,...
+	
+	Sets are defined using curly braces {} or the built-in set() function.
+	
+	They are particularly useful for membership testing, removing duplicates from a sequence, 
+	and performing common mathematical set operations like union, intersection, and difference.
+	
+	# Criando
+	
+	Exemplo 01 - Curly Braces:
+	
+		myset = {6,5,4,7,8,3,2,9,0,1}
+		print(f"{myset} is {type(myset)}")
+		
+	# ---------------------------------------------------------------
+	
+	Exemplo 02 - Set():
+	
+		myset = set([6,5,4,7,8,3,2,9,0,1])
+		print(f"{myset} is {type(myset)}")
+	
+	# ---------------------------------------------------------------
+	
+	# Duplicate Elements in Set
+	
+	Exemplo 01:
+		
+		myset = {6,5,4,4,7,8,3,2,2,9,0,1,6,4,1}
+		print(f"{myset} is {type(myset)}")
+	
+	# ---------------------------------------------------------------
+	
+	# Adding Elements in a Set add()
+	
+	Exemplo 01:
+	
+		myset = {6,5,4,4,7,8,3,2,2,9,0,1,6,4,1}
+		myset.add(5)
+		myset.add(3)
+		print(f"{myset} is {type(myset)}")
+	
+	# ---------------------------------------------------------------
+	
+	# Removing Elements from a Set remove() e discard() 
+	
+	Exemplo 01 - remove():
+		
+		try:
+			myset = {6,5,4,4,7,8,3,2,2,9,0,1,6,4,1}
+			print(len(myset)) # conta so uma instancia do numero.
+			myset.remove(5)
+			print(len(myset)) # conta so uma instancia do numero.
+			print(f"{myset} is {type(myset)}")
+			myset.remove(5)
+			print(len(myset)) # conta so uma instancia do numero.
+			print(f"{myset} is {type(myset)}")
+		except KeyError as err:
+			print(f"Error: {err}")
+
+	
+	Exemplo 02 - discard() :
+	
+		myset = {6,5,4,4,7,8,3,2,2,9,0,1,6,4,1}
+		print(len(myset)) # conta so uma instancia do numero.
+		myset.discard(5)
+		print(len(myset)) # conta so uma instancia do numero.
+		print(f"{myset} is {type(myset)}")
+		myset.discard(5)
+		print(len(myset)) # conta so uma instancia do numero.
+		print(f"{myset} is {type(myset)}")
+
+	
+	# ---------------------------------------------------------------
+	
+	# Membership Testing in a Set
+	
+	Exemplo 01:
+	
+		myset = {6,5,4,7,8,3,2,9,0,1}
+		if 99 in myset:
+			print("Contain!")
+		else:
+			print("Not contain!")
+	
+	# ---------------------------------------------------------------
+	
+	Set Operations
+	
+		União − Ele combina elementos de ambos os conjuntos usando a função 
+				union () ou o | operador.
+
+		Intersecção − Ele é usado para obter elementos comuns usando a função de 
+					  interseção () ou o & operador.
+
+		Diferença − Ele é usado para obter elementos que estão em um conjunto, mas 
+					não o outro usando a função diferença () ou o - operador.
+
+		Diferença Simétrica − Ele é usado para obter elementos que estão em qualquer um 
+							  dos conjuntos, mas não em ambos usando o método 
+							  simétrico_diferença () ou o ^ operador.
+							  
+	Compreensões de conjuntos Python
+	
+		... criar conjuntos com base em objetos iteráveis, semelhante às compreensões de lista.
+		Ele é usado para gerar conjuntos aplicando uma expressão a cada item de um iterável.
+		... úteis quando você precisa criar um conjunto a partir do resultado da aplicação de 
+		alguma operação ou da filtragem de elementos de outro iterável.
+	
+		Exemplo 01:.
+		
+			myset = {6,5,4,7,8,3,2,9,0,1}
+			square_set = {i * 5 for i in myset}
+			print(square_set)
+				
+		
+		# ---------------------------------------------------------------
+	
+		Exemplo 02 - by range:
+		
+			myset = range(1,6)
+			square = {i for i in myset}
+			print(f"{square} is {type(square)}")
+		
+		# ---------------------------------------------------------------
+		
+	Filtrando elementos usando abordagens de conjunto
+	
+		... incluir instruções condicionais em compreensões de conjuntos para filtrar elementos 
+		com base em determinados critérios.
+	
+		Exemplo 01:
+		
+			myset = {6,5,4,7,8,3,2,9,0,1}
+			square = {i for i in myset if i % 2 == 0}
+			print(square)
+		
+		# ---------------------------------------------------------------
+		
+	Compreensões de conjuntos aninhados
+
+		... criar conjuntos a partir de iteráveis aninhados. Isto pode ser útil para gerar 
+		combinações ou permutações de elementos.
+		
+		Exemplo 01:
+		
+			nested = {(x, y) for x in range(1,4) for y in range(1,4)}
+			print(nested)
+		
+		# ---------------------------------------------------------------
+		
+	Conjuntos Congelados | frozenset() 	
+		
+		Uma vez criados, os elementos dentro de um conjunto congelado não podem ser adicionados, 
+		removidos ou modificados, tornando-se uma escolha adequada quando você precisa de um 
+		conjunto imutável.
+		
+		Exemplo 01:
+		
+			nested = frozenset((x, y) for x in range(1,4) for y in range(1,4))
+			print(f"{nested} is {type(nested)}")
+		
+		# ---------------------------------------------------------------
+		
+	
+Python - Acesse Set Items
+
+	Em Python, conjuntos são coleções não ordenadas de elementos únicos e diferentes de sequências 
+	(como listas ou tuplas), os conjuntos não possuem um índice posicional para seus elementos. 
+	Isso significa que você não pode acessar elementos individuais de um conjunto diretamente 
+	especificando um índice.
+	
+	
+		Exemplo 01 - Iteração:
+		
+			s = {6,5,4,7,8,3,2,9,0,1}
+			for i in s:
+				print(i)
+		
+		# ---------------------------------------------------------------
+		
+
+	Acesse os Itens do Conjunto Usando a Compreensão da Lista
+	
+		... permite gerar uma nova lista aplicando uma expressão a cada item em um iterável, 
+		incluindo opcionalmente uma condição para filtrar elementos.
+		
+		Exemplo 01 - Gerar uma lista apartir de um SET:
+		
+			s = {6,5,4,7,8,3,2,9,0,1}
+			accessed_items = [i for i in s]
+			print(accessed_items)
+		
+		# ---------------------------------------------------------------
+	
+	Subconjunto de acesso de um conjunto
+	
+		Matematicamente, um subconjunto é um conjunto que contém apenas elementos que 
+		também estão contidos em outro conjunto. (denotado como A ⊆ B)
+		
+		Exemplo 01 - issubset(), para verificar se um conjunto é um subconjunto de outro:
+		
+			import itertools
+
+			s1 = {1,2,3,4}
+
+			sb1 = {1}.issubset(s1)
+			print(sb1)
+
+			sb1 = {1,4}.issubset(s1)
+			print(sb1)
+
+			sb1 = {9}.issubset(s1)
+			print(sb1)
+
+			s2 = [set(subset) for subset in itertools.combinations(s1, 3)]
+			print(s2)
+			
+		# ---------------------------------------------------------------
+		
+	Verificando se o item definido existe
+
+		Exemplo 01 - Usando operador in:
+			
+			s1 = {1,2,3,4}
+			if 2 in s1:
+				print("Present!")
+		
+		# ---------------------------------------------------------------
+	
+Python - Add Set Items	
+	
+	Add Set Items Using the add() Method
+	
+		Exemplo 01:
+		
+			numbers = set()
+			for i in range(1,10):
+				numbers.add(i * 5)
+		
+		# ---------------------------------------------------------------
+		
+	Add Set Items Using the update() Method	
+	
+		Exemplo 01:
+		
+			numbers = set()
+			for i in range(1,10):
+				numbers.add(i*5)
+			numbers.update([100])
+			print(numbers)
+		
+		# ---------------------------------------------------------------
+		
+	Add Set Items Using Union Operator
+	
+		Exemplo 01 - union():
+		
+			s1 = {i * 3 for i in range(1,10)}
+			s2 = {i * 5 for i in range(1,10)}
+			s1.union(s2)
+			print(s1)
+		
+		# ---------------------------------------------------------------
+		
+		Exemplo 02 - |:
+		
+			s1 = {i * 3 for i in range(1,10)}
+			s2 = {i * 5 for i in range(1,10)}
+			print(s1 | s2)
+		
+		# ---------------------------------------------------------------
+		
+	Add Set Items Using Set Comprehension
+	
+		Exemplo 01:
+		
+			numbers = {3, 6, 9, 12, 15, 18, 21, 24, 27}
+			sq = {int(i / 3) for i in numbers}
+			print(sq)
+		
+		
+		# ---------------------------------------------------------------
+		
+Python - Remove Set Items
+
+	Remove Set Item Using remove() Method
+	
+		Exemplo 01:
+		
+			try:
+				numbers = {3, 6, 9, 12, 15, 18, 21, 24, 27, 15}
+				numbers.remove(15)
+				print(numbers)
+				numbers.remove(15)
+				print(numbers)
+			except KeyError as err:
+				print(f"Error: {err}")
+		
+		# ---------------------------------------------------------------
+		
+	Remove Set Item Using discard() Method
+	
+		Exemplo 01:
+		
+			numbers = {3, 6, 9, 12, 15, 18, 21, 24, 27, 15}
+			numbers.discard(15)
+			print(numbers)
+			numbers.discard(15)
+		
+		# ---------------------------------------------------------------
+		
+	Remove Set Item Using pop() Method
+	
+		Exemplo 01:
+		
+			numbers = {3, 6, 9, 12, 15, 18, 21, 24, 27, 15}
+			numbers.pop() # remove o ultimo!
+			print(numbers)
+		
+		# ---------------------------------------------------------------
+		
+	Remove Set Item Using clear() Method
+	
+		Exemplo 01:
+		
+			numbers = {3, 6, 9, 12, 15, 18, 21, 24, 27, 15}
+			numbers.clear()
+			print(numbers) # set()
+		
+		# ---------------------------------------------------------------
+		
+	Remove Items Existing in Both Sets - difference_update():
+	
+		Exemplo 01:
+		
+			s1 = {1,2,3,4,5}
+			s2 = {4,5,6,7,8}
+			print ("s1 before running difference_update: ", s1)
+			s1.difference_update(s2) # remove 4 e 5
+			print ("s1 after running difference_update: ", s1)
+		
+		# ---------------------------------------------------------------
+		
+	Remove Items Existing in Either of the Sets - symmetric_difference():
+	
+		Exemplo 01:
+		
+			set1 = {1, 2, 3, 4}
+			set2 = {3, 4, 5, 6}
+
+			# Removing items that exist in either set 
+			result_set = set1 ^ set2
+			print("Resulting Set:", result_set)
+		
+		# ---------------------------------------------------------------
+	
+	Remove Uncommon Set Items - intersection_update():	
+	
+		Exemplo 01:
+		
+			set1 = {1, 2, 3, 4}
+			set2 = {3, 4, 5, 6}
+
+			set1.intersection_update(set2)  # mantem o 3,4
+			print("Set 1 after keeping only common items:", set1)
+
+		
+		# ---------------------------------------------------------------
+		
+	The intersection() Method:
+	
+		Exemplo 01:
+		
+			set1 = {1, 2, 3, 4}
+			set2 = {3, 4, 5, 6}
+
+			set1.intersection(set2) # mantem os presentes em ambos
+			print(set1)
+
+		
+		# ---------------------------------------------------------------
+	
+	Symmetric Difference Update of Set Items - symmetric_difference_update():
+	
+		Exemplo 01:
+		
+			set1 = {1, 2, 3, 4}
+			set2 = {3, 4, 5, 6}
+
+			set1.symmetric_difference_update(set2) # mantem os que sao unicos nos 2 sets.
+			print(set1)
+		
+		# ---------------------------------------------------------------
+		
+	Symmetric Difference of Set Items - symmetric_difference_update():
+	
+		Exemplo 01:
+		
+			s1 = {1,2,3,4,5}
+			s2 = {4,5,6,7,8}
+			print ("s1: ", s1, "s2: ", s2)
+			s3 = s1.symmetric_difference(s2) # elimina os que tao presente em ambos
+			print ("s1 = s1^s2 ", s3)
+		
+		# ---------------------------------------------------------------
+	
+
+Python - Loop Sets
+
+	Loop Through Set Items with For Loop
+	
+		Exemplo 01:
+
+			numbers = {25, 12, 10, -21, 10, 100}
+			for i in numbers:
+				print(i)
+				
+		# ---------------------------------------------------------------
+		
+	Loop Through Set Items with While Loop
+
+		Exemplo 01:
+	
+			numbers = {25, 12, 10, -21, 10, 100}	
+			set_interator = iter(numbers)
+			print(type(set_interator))
+
+			while True:
+				try:
+					print(next(set_interator))
+				except: # except StopIteration:
+				break
+				
+		# ---------------------------------------------------------------
+				
+	Iterate using Set Comprehension
+	
+		Exemplo 01:
+		
+			import random
+			import time
+
+			for i in range(5):
+				list = []
+				for i in range(10):
+					list.append(int(random.randrange(1,99)))
+
+				even = {i for i in list if i % 2 == 0}
+				print(even)
+				time.sleep(2)
+		
+		
+		# ---------------------------------------------------------------
+
+	Iterate through a Set Using the enumerate() Function
+	
+		Exemplo 01:
+		
+			s = {38, 44, 81, 17, 52, 22, 87, 24, 61, 30}
+			for index, item in enumerate(s):
+				print(f"{index}:{item}")
+		
+		# ---------------------------------------------------------------
+	
+	Loop Through Set Items with add() Method
+	
+		Exemplo 01:
+		
+			import random
+
+			s = set()
+			for i in range(10):
+				s.add(random.randrange(1,99))
+
+			print(s)
+		
+		# ---------------------------------------------------------------
+		
+Python - Join Sets
+
+	Join Python Sets Using "|" Operator
+	
+		Exemplo 01:
+		
+		s1={1,2,3,4,5}
+		s2={4,5,6,7,8}
+		s3 = s1 | s2 # {1, 2, 3, 4, 5, 6, 7, 8}
+		print(s3)
+
+		# ---------------------------------------------------------------
+		
+	Join Python Sets Using union() Method
+	
+		Exemplo 01:
+		
+		s1={1,2,3,4,5}
+		s2={4,5,6,7,8}
+		s3 = s2.union(s1)
+		print(s3) # {1, 2, 3, 4, 5, 6, 7, 8}
+		
+		# ---------------------------------------------------------------
+	
+	Join Python Sets Using update() Method
+
+		Exemplo 01:
+		
+		s1={1,2,3,4,5}
+		s2={4,5,6,7,8}
+		s1.update([77])
+		s1.update(s2)
+		print(s1) # {1, 2, 3, 4, 5, 77}
+		
+		# ---------------------------------------------------------------
+		
+	Join Python Sets Using Unpacking Operator
+	
+		Exemplo 01:
+		
+		s1={1,2,3,4,5}
+		s2={4,5,6,7,8}
+		s3 = {*s1, *s2} # print(s1) # 1,2,3,4,5
+		print(s3)
+		
+		# ---------------------------------------------------------------
+		
+	Join Python Sets Using Set Comprehension
+	
+		Exemplo 01:
+		
+		s1={1,2,3,4,5}
+		s2={4,5,6,7,8}
+		join = {x for s in [s1,s2] for x in s}
+		print(join)
+		
+		# ---------------------------------------------------------------
+	
+	Join Python Sets Using Iterative Addition
+	
+		Exemplo 01:
+		
+		s1={1,2,3,4,5}
+		s2={4,5,6,7,8}
+		join = set()
+		for i in s1:
+			join.add(i)
+		for i in s2:
+			join.add(i)
+		print(join)
+		
+		# ---------------------------------------------------------------
+	
+
+Python - Copy Sets
+
+	Copy Sets Using the copy() Method
+
+	Exemplo 01:
+	
+		s1 = {5,6,4,7,3,8}
+		s2 = s1.copy()
+		print(f"id(s1) == id(s2): {id(s1) == id(s2)}")
+		s1.add(10)
+		print(s1)
+		print(s2)
+	
+	
+	# ---------------------------------------------------------------
+	
+	Copy Sets Using the set() Function
+	
+	Exemplo 01:
+	
+		s1 = {5,6,4,7,3,8}
+		s2 = set(s1)
+		print(f"id(s1) == id(s2): {id(s1) == id(s2)}")
+		print(s1)
+		print(s2)
+	
+	# ---------------------------------------------------------------
+	
+	Copy Sets Using Set Comprehension
+	
+	Exemplo 01:
+	
+		s1 = {5,6,4,7,3,8}
+		s2 = {i for i in s1}
+		print(s2)
+	
+	# ---------------------------------------------------------------
+	
+Python - Set Operators
+
+	Defina operadores em Python
+	
+	O Set operadores em Python são símbolos e funções especiais que permitem executar várias 
+	operações em conjuntos, como união, interseção, diferença e diferença simétrica. 
+	
+	Operador de União de Conjunto Python (|)
+	
+	Exemplo 01:
+	
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		union = s1 | s2
+		print(union)
+	
+	# ---------------------------------------------------------------
+	
+	Exemplo 02:
+	
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		s1.union(s2)
+		print(s1)
+	
+	# ---------------------------------------------------------------
+	
+	Operador de interseção de conjunto Python (&)
+	
+	Exemplo 01:
+	
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		intersection = s1 & s2 # mostra apenas o que é comum ambos
+		print(intersection)
+	
+	# ---------------------------------------------------------------
+	
+	Exemplo 02:
+	
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		s1.intersection(s2) # mostra apenas o que é comum ambos
+		print(s1)
+	
+	# ---------------------------------------------------------------
+	
+	Operador de diferença de conjunto Python (-)
+	
+	Exemplo 01:
+	
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		difference  = s1 - s2 # mostra apenas o que ta em s1, e os que repetem e estão presente em s2.
+		print(difference)
+		
+	Exemplo 02:
+	
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		s1.difference(s2) # mostra apenas o que ta em s1, e os que repetem e estão presente em s2.
+		print(s1)
+	
+	# ---------------------------------------------------------------
+	
+	Operador de diferença simétrica do conjunto Python
+	
+	Exemplo 01:
+	
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		symmetric_difference  = s1 ^ s2 # elimina os que estão presentes em ambos.
+		print(symmetric_difference)
+
+
+	Exemplo 02:
+
+		s1 = {1, 2, 3}
+		s2 = {3, 4, 5}
+		s1.symmetric_difference(s2) # elimina os que estão presentes em ambos.
+		print(symmetric_difference)
+	
+	# ---------------------------------------------------------------
+	
+Python - Set Methods
+
+	Adição e Remoção de Elementos
+	Método	Descrição	Exemplo
+	set.add(elem)			Adiciona um elemento ao conjunto.	s = {1, 2}; s.add(3) → {1, 2, 3}
+	set.clear()				Remove todos os elementos do conjunto.	s = {1, 2}; s.clear() → set()
+	set.copy()				Retorna uma cópia superficial do conjunto.	s = {1, 2}; c = s.copy() → c = {1, 2}
+	set.discard(elem)		Remove o elemento se ele existir. Não gera erro se não existir.	s = {1, 2}; s.discard(2) → {1}
+	set.pop()				Remove e retorna um elemento aleatório do conjunto.	s = {1, 2, 3}; s.pop() → 1 (exemplo)
+	set.remove(elem)		Remove o elemento. Gera erro se o elemento não existir.	s = {1, 2}; s.remove(3) → erro
+	
+	⚙️ Operações com Conjuntos
+	Método	Descrição	Exemplo	
+	set.update(outro)						Atualiza o conjunto com a união de si mesmo com outros.	s = {1, 2}; s.update({3, 4}) → {1, 2, 3, 4}
+	set.difference_update(outro)			Remove do conjunto os elementos que estão no outro.		s = {1, 2, 3}; s.difference_update({2}) → {1, 3}
+	set.intersection(outro)					Retorna um novo conjunto com a interseção.				{1, 2} ∩ {2, 3} → {2}
+	set.intersection_update(outro)			Atualiza o conjunto com a interseção.					s = {1, 2}; s.intersection_update({2, 3}) → {2}
+	set.isdisjoint(outro)					Retorna True se os conjuntos não tiverem elementos em comum.	{1, 2}.isdisjoint({3, 4}) → True
+	set.issubset(outro)						True se o conjunto atual é subconjunto do outro.	{1, 2}.issubset({1, 2, 3}) → True
+	set.issuperset(outro)					True se o conjunto atual contém o outro.	{1, 2, 3}.issuperset({2}) → True
+	set.symmetric_difference(outro)			Retorna um novo conjunto com elementos que estão em um dos dois, mas não em ambos.	{1, 2} Δ {2, 3} → {1, 3}
+	set.symmetric_difference_update(outro)	Atualiza o conjunto com a diferença simétrica.	s = {1, 2}; s.symmetric_difference_update({2, 3}) → {1, 3}
+	set.union(outro)						Retorna a união de dois conjuntos.	{1, 2} ∪ {2, 3} → {1, 2, 3}
+	set.difference(outro)					Retorna a diferença entre conjuntos.	{1, 2} - {2} → {1}

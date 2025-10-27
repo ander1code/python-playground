@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block contents %}
+<h2>Login</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {# Erros gerais (non_field_errors) #}
+    {% comment %} {% if form.non_field_errors %}
+        <div style="color: red; margin-bottom: 10px;">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %} {% endcomment %}
+
+    {# Erros de campos (field errors) #}
+    {% if form.errors %}
+        <div style="color: red; margin-bottom: 10px; background-color: beige;">
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div style="margin-bottom: 10px;">
+        <label for="id_username">Usuário:</label><br>
+        {{ form.username }}<br>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        <label for="id_password">Senha:</label><br>
+        {{ form.password }}<br>
+    </div>
+
+    <input type="submit" value="Login">
+</form>
+{% endblock contents %}

@@ -1,0 +1,453 @@
+Python - Arrays
+
+	Ao contrário de outras linguagens de programação como C++ ou Java, o Python não possui suporte integrado para arrays. 
+	No entanto, Python possui vários tipos de dados, como listas e tuplas (especialmente listas), que são frequentemente 
+	usados como arrays, mas os itens armazenados nesses tipos de sequências não precisam ser do mesmo tipo.
+	
+	Um Array é um contêiner que pode conter um número fixo de itens e esses itens DEVEM SER DO MESMO TIPO. Cada item 
+	armazenado em uma matriz é chamado de elemento e eles podem ser de qualquer tipo, incluindo inteiros, 
+	flutuadores, strings, etc.
+	
+	Criando Array em Python
+	
+		Exemplo 01 - import array:
+		
+			import array as arr
+
+			arr_int = arr.array("i",[1,2,3,4,5,6,7,8,9,0])
+			print(arr_int, type(arr_int))
+
+			arr_chr = arr.array("u","binary")
+			print(arr_chr, type(arr_chr))
+
+			arr_flt = arr.array("d",[1.3, 6.5, 9.1, 2.3])
+			print(arr_flt, type(arr_flt))
+	
+	Accessing Array Element
+	
+		Exemplo 01:
+		
+			import array as arr
+
+			arr_int = arr.array("i",[1,2,3,4,5,6,7,8,9,0])
+			print(arr_int[6]) # 7
+		
+	Insertion Operation
+	
+		Exemplo 01 - by index, insert():
+		
+			import array as arr
+
+			arr_int = arr.array("i",[2,3,7,4,1,5,6,7,5,9])
+			print(arr_int)
+			arr_int.insert(5, 99) 
+			print(arr_int)
+	
+	Deletion Operation
+	
+		Exemplo 01 - remove():
+		
+			import array as arr
+
+			arr_int = arr.array("i",[2,3,7,4,1,5,6,7,5,9])
+			print(arr_int)
+			arr_int.remove(5) # remove a primeira ocorrencia de 5.
+			print(arr_int)
+	
+	Search Operation
+	
+		Exemplo 01 - index():
+		
+			import array as arr
+
+			arr_int = arr.array("i",[2,3,7,4,1,5,6,7,5,9])
+			print(arr_int.index(5)) # 0,1,2,3,4,[5] = 6 posições
+		
+	Update Operation - by index:
+	
+		Exemplo 01:
+		
+			import array as arr
+
+			arr_int = arr.array("i",[2,3,7,4,1,5,6,7,5,9])
+			arr_int[2] = 777
+			print(arr_int)	
+
+	
+Python - Access Array Items
+
+	Using iteration
+	
+		Exemplo 01:
+		
+			import array as arr
+
+			arr_int = arr.array("i",[2,3,7,4,1,5,6,7,5,9])
+
+			for num in arr_int: 
+				print(f"{num}")
+
+		
+	Using enumerate() function
+	
+		Exemplo 01:
+		
+			import array as arr
+
+			arr_int = arr.array("i",[2,3,7,4,1,5,6,7,5,9])
+
+			for index, num in enumerate(arr_int): 
+				print(f"[{index}] = {num}")
+		
+	Accessing a range of array items in Python (slicing operation [:])
+	
+		Exemplo 01:
+		
+			import array as arr
+
+			arr_int = arr.array("i",[2,3,7,4,1,5,6,7,5,9])
+
+			print(arr_int[:]) # todos
+			print(arr_int[:-1]) # sem o ultimo
+			print(arr_int[0:3]) # 3 primeiros
+			print(arr_int[-1:]) # ultimo item
+			print(arr_int[-3:]) # 3 ultimos
+			print(arr_int[:-3]) # todos sem os 3 ultimos
+		
+	
+Python - Add Array Items
+	
+	Using append() method
+	
+		It accepts a single item as an argument and append it at the end of given array.
+	
+		Exemplo 01:
+		
+			import array
+
+			array_int = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			array_int.append(100)
+			print(array_int)
+		
+	Using insert() method
+		
+		It accepts two parameters which are index and value and returns a new array after adding the specified value.	
+		
+		Exemplo 01:
+		
+			import array
+
+			array_int = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			array_int.insert(5,100)
+			print(array_int)
+	
+	Using extend() method
+	
+		It is used to add all elements from an iterable or array of same data type.
+	
+		Exemplo 01:
+		
+			import array
+
+			array1 = array.array('i', [63, 87, 5, 2, 44])
+			array2 = array.array('i', [42, 68, 22, 29, 39])
+			array1.extend(array2)
+			print(array1)
+
+		
+Python - Remove Array Items
+
+	Remove First Occurrence - remove()
+	
+		Exemplo 01:
+		
+			import array
+
+			array1 = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			array1.remove(2)
+			print(array1)
+	
+	Remove Items from Specific Indices pop(index)
+	
+		Exemplo 01:
+			
+			import array
+
+			array1 = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			array1.pop(2) # remove o 5
+			print(array1)
+			
+	
+Python - Loop Arrays
+
+	Python for Loop with Array
+	
+		Exemplo 01:
+		
+		import array
+
+		array1 = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+		for i in array1:
+			print(i)
+
+		for k,v in enumerate(array1):
+			print(f"[{k}] = {v}")
+		
+	Python while Loop with Array
+
+		Exemplo 01:
+		
+			import array
+
+			array1 = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			i = 0
+			while i < len(array1):
+				print(f"{array1[i]}")
+				i+=1
+				
+		Exemplo 02:
+		
+	Python for Loop with Array Index
+	
+		Exemplo 01:
+		
+			import array
+			array1 = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			array_interable = iter(array1)
+			while True:
+				try:
+					print(f"{next(array_interable)}")
+				except:
+					break
+		
+		
+Python - Copy Arrays
+
+	Copy Arrays Using Assignment Operator (operator (=))
+	
+		Exemplo 01:
+		
+			import array
+			array1 = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			array2 = array1
+			print(array2)
+		
+	Copy Arrays Using Deep Copy
+	
+		Exemplo 01:
+		
+			import array
+			import copy
+			array1 = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			array2 = copy.deepcopy(array1)
+			print(array2)
+			
+		Exemplo 02:
+		
+			import copy
+
+			matrix = [[0,0],[2,2]]
+			my_copy = copy.copy(matrix)
+			my_copy[0][0] = 77
+			print(matrix)
+			print(my_copy)
+
+			matrix = [[0,0],[2,2]]
+			deep_copy = copy.deepcopy(matrix)
+			deep_copy[0][0] = 77
+			print(matrix)
+			print(deep_copy)
+
+Python - Reverse Arrays
+
+	Using slicing operation
+	
+		Exemplo 01:
+		
+			import array
+			myarray = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			print(myarray[::-1]) # invertendo!
+			
+	Reverse an Array Using reverse() Method
+	
+		Exemplo 01:
+		
+			import array
+			myarray = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			myarray.tolist().reverse()
+			print(myarray)
+		
+	Reverse an Array Using reversed() Method
+	
+		...we are using the reversed() method to reverse an array in Python.
+
+		Exemplo 01:
+		
+			import array
+			myarray = array.array('i', [63, 87, 5, 2, 44, 42, 68, 22, 29, 39])
+			myarray = list(reversed(myarray)) # [39, 29, 22, 68, 42, 44, 2, 5, 87, 63]
+			print(myarray)
+		
+	Using for Loop
+	
+		Exemplo 01:
+		
+			import array as arr
+			array_int = arr.array('i', [10,5,15,4,6,20,9])
+
+			for i in range(len(array_int)-1,-1,-1):
+				print(f"[{i}]:{array_int[i]}")
+	
+	
+Python - Sort Arrays
+
+	Sort Arrays Using a Sorting Algorithm
+	
+		Example 01:
+		
+			import array as arr
+			a = arr.array('i', [10,5,15,4,6,20,9])
+
+			def sort_array(order="desc", array=[]):
+				for i in range(0,len(a)):
+					for j in range(i+1, len(a)):
+						if order=="desc":
+							if a[i] < a[j]:
+								temp = a[i]
+								a[i] = a[j]
+								a[j] = temp
+						else:
+							if a[i] < a[j]:
+								temp = a[i]
+								a[i] = a[j]
+								a[j] = temp
+
+			sort_array(order="desc", array=a)
+			print(a)
+			sort_array(order="asc", array=a)
+			print(a)
+		
+		
+		
+	Sort Arrays Using sort() Method of List	
+	
+		Example 01:
+		
+			import array as arr
+			a = arr.array('i', [10,5,15,4,6,20,9])
+			a = a.tolist() # converto para lista
+			a.sort() # executo o sort()
+			print(a)
+					
+	Sort Arrays Using sorted() Method
+	
+		Example 01:
+		
+			import array as arr
+			a = arr.array('i', [10,5,15,4,6,20,9])
+			a = sorted(a)
+			print(a)
+					
+
+Python - Join Arrays		
+	
+	Using append() Method
+	
+		Exemplo 01 - Join Two Arrays by Appending Elements, append():
+		
+			import array
+			array1 = array.array("i", [5,6,7,4,3])
+			array2 = array.array("i", [8,9,2,1,0])
+			for i in array1:
+				array2.append(i)
+			print(array2)
+		
+	Using + operator
+
+		Exemplo 01:
+		
+			import array
+			array1 = array.array("i", [5,6,7,4,3])
+			array2 = array.array("i", [8,9,2,1,0])
+			array3 = array1+array2
+			print(array3)
+		
+	Using extend() Method
+	
+		Exemplo 01:
+		
+			import array
+			array1 = array.array("i", [5,6,7,4,3])
+			array2 = array.array("i", [8,9,2,1,0])
+			array2.extend(array1)
+			print(array2)
+
+
+Python - Array Methods
+	
+🔧 Manipulação de Elementos do Array
+
+	1	reverse()	Inverte a ordem dos elementos do array.
+	2	byteswap()	Inverte os bytes de cada elemento do array. 
+	                Útil para ler dados vindos de máquinas com ordem de 
+					bytes diferente (endianness).
+
+🔄 Métodos de Conversão
+
+	Nº	Método	Descrição
+	1	frombytes(buffer)	Adiciona elementos ao array a partir de um objeto 
+	    do tipo bytes, interpretando seu conteúdo como valores binários.
+	2	tobytes()	Converte o array em uma representação do tipo bytes.
+	3	fromfile(f, n)	Lê n itens de um arquivo e os adiciona ao array.
+	4	tofile(f)	Escreve todos os itens do array em um arquivo.
+	5	fromlist(lista)	Adiciona elementos de uma lista ao array.
+	6	tolist()	Converte o array em uma lista com os mesmos elementos.
+	7	fromunicode(s)	Adiciona dados de uma string Unicode ao array. 
+	    O tipo do array deve ser 'u' (Unicode).
+	8	tounicode()	Converte o array em uma string Unicode. O tipo do array 
+	    deve ser 'u'.
+		
+	Exemplos de manipulação de elementos do array:
+	
+		import array
+
+		array1 = array.array("i", [5,6,7,4,3])
+		print(array1)
+		bytes = array1.tobytes()
+		print(bytes)
+
+		array2 = array.array("i")
+		array2.frombytes(bytes)
+		print(array2)
+		array2.byteswap()
+		print(array2)
+		
+	Exemplos dos métodos acima:
+	
+		import array
+		array1 = array.array("i", [5,6,7,4,3])
+
+		print(array1.tobytes())
+
+		with open("file.txt", "wb") as file:
+			array1.tofile(file)
+			file.close()
+
+		array1 = array.array("i", [5,6,7,4,3])
+		bytes = array1.tobytes()
+		array3 = array.array("i")
+		array3.frombytes(bytes)
+		print(array3)
+
+		my_list = [8,9,2,1,0]
+		array4 = array.array("i")
+		array4.fromlist(my_list)
+		print(array4)
+
+		name = "Anderson"
+		array5 = array.array("u")
+		array5.fromunicode(name)
+		print(array5)
+
+		name_output = array5.tounicode()
+		print(name_output)

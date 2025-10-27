@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <h1>People</h1><br>
+    <div style='color:blue;text-align:right;'>Registereds:&nbsp;{{people.count}}</div>
+    <table align="center">
+        <tr style="font-weight: bold;">
+            <td align="center" style="width:200px">ID</td><td style="width:400px;">NAME</td><td align="center" style="width:100px;">DELETE</td>
+        </tr>
+        {% for p in people %}
+            <tr>
+                <td align="center">{{p.id}}</td><td>{{p.name}}</td><td align="center"><a href='#' onclick="if (confirm('Do you want to delete Alice?')) window.location.href = '/delete/{{p.id}}'; return false;">delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

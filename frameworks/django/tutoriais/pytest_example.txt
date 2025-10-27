@@ -1,0 +1,60 @@
+Claro! Aqui está um exemplo simples de como você pode usar pytest para 
+testar uma calculadora em Python. 
+
+	Vamos criar dois arquivos:
+
+		🧮 Arquivo da calculadora: calculadora.py
+		
+			python
+			def somar(a, b):
+				return a + b
+
+			def subtrair(a, b):
+				return a - b
+
+			def multiplicar(a, b):
+				return a * b
+
+			def dividir(a, b):
+				if b == 0:
+					raise ValueError("Não é possível dividir por zero")
+				return a / b
+			
+	
+	🧪 Arquivo de testes: test_calculadora.py
+			python
+			import pytest
+			from calculadora import somar, subtrair, multiplicar, dividir
+
+			def test_somar():
+				assert somar(2, 3) == 5
+				assert somar(-1, 1) == 0
+
+			def test_subtrair():
+				assert subtrair(5, 3) == 2
+				assert subtrair(0, 4) == -4
+
+			def test_multiplicar():
+				assert multiplicar(2, 3) == 6
+				assert multiplicar(-1, 5) == -5
+
+			def test_dividir():
+				assert dividir(10, 2) == 5
+				assert dividir(9, 3) == 3
+
+			def test_dividir_por_zero():
+				with pytest.raises(ValueError):
+					dividir(5, 0)
+
+	▶️ Como rodar os testes
+
+		No terminal, na mesma pasta dos arquivos, execute:
+
+			bash
+			
+			pytest
+
+		O pytest vai procurar automaticamente por arquivos que começam com test_ e executar os testes definidos.
+
+		Se quiser, posso te ajudar a expandir essa calculadora com funções mais avançadas, como raiz quadrada, 
+		potência ou até mesmo expressões matemáticas completas. Quer seguir por esse caminho?

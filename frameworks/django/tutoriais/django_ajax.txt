@@ -1,0 +1,167 @@
+✅ Objetivo
+
+Criar um formulário em Django que envia dados via Ajax (Fetch API) e retorna uma resposta sem recarregar a página.
+
+🧱 Estrutura
+
+Suponha que temos um app chamado myapp.
+
+	1. Model (models.py)
+
+		from django.db import models
+
+		class Dreamreal(models.Model):
+			website = models.CharField(max_length=100)
+			name = models.CharField(max_length=100)
+			phonenumber = models.CharField(max_length=50)
+			email = models.EmailField()
+
+			def __str__(self):
+				return self.name
+
+		2. Formulário (forms.py)
+		
+			from django import forms
+			from .models import Dreamreal
+
+			class DreamrealForm(forms.ModelForm):
+				class Meta:
+					model = Dreamreal
+					fields = ['website', 'name', 'phonenumber', 'email']
+
+	3. View (views.py)
+	
+		from django.shortcuts import render
+		from django.http import JsonResponse
+		from .forms import DreamrealForm
+
+		def dreamreal_view(request):
+			form = DreamrealForm()
+			return render(request, 'dreamreal.html', {'form': form})
+
+		def submit_dreamreal(request):
+			if request.method == "POST":
+				form = DreamrealForm(request.POST)
+				if form.is_valid():
+					instance = form.save()
+					return JsonResponse({'success': True, 'message': f"{instance.name} salvo com sucesso!"})
+				else:
+					return JsonResponse({'success': False, 'errors': form.errors})
+			return JsonResponse({'success': False, 'message': 'Requisição inválida'})
+
+
+	4. URLs (urls.py)
+	
+		from django.urls import path
+		from . import views
+
+		urlpatterns = [
+			path('dreamreal/', views.dreamreal_view, name='dreamreal'),
+			path('dreamreal/submit/', views.submit_dreamreal, name='submit_dreamreal'),
+		]
+
+	5. Template (dreamreal.html)
+	
+		{% load static %}
+		<!DOCTYPE html>
+		<html lang="pt-br">
+		<head>
+			<meta charset="UTF-8">
+			<title>Dreamreal Form</title>
+		</head>
+		<body>
+			<h2>Formulário com Ajax (Fetch)</h2>
+
+			<form id="dreamreal-form" method="post">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit">Enviar</button>
+			</form>
+
+			<div id="response-message"></div>
+
+			<script>
+				const form = document.getElementById("dreamreal-form");
+				const responseDiv = document.getElementById("response-message");
+
+				form.addEventListener("submit", async function(e) {
+					e.preventDefault();
+
+					const formData = new FormData(form);
+					
+					const response = await fetch("{% url 'submit_dreamreal' %}", {
+						method: "POST",
+						headers: {
+							'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+						},
+						body: formData
+					});
+
+					const data = await response.json();
+
+					if (data.success) {
+						responseDiv.innerHTML = `<p style="color:green;">${data.message}</p>`;
+						form.reset();
+					} else if (data.errors) {
+						let errors = "";
+						for (const [field, msgs] of Object.entries(data.errors)) {
+							errors += `<p style="color:red;">${field}: ${msgs.join(", ")}</p>`;
+						}
+						responseDiv.innerHTML = errors;
+					} else {
+						responseDiv.innerHTML = `<p style="color:red;">${data.message}</p>`;
+					}
+				});
+			</script>
+		</body>
+		</html>
+
+	6. Configuração extra no settings.py (se necessário)
+
+		Certifique-se de ter:
+
+		# settings.py
+
+		INSTALLED_APPS = [
+			...
+			'myapp',
+		]
+
+		# Templates
+		TEMPLATES = [
+			{
+				...
+				'OPTIONS': {
+					'context_processors': [
+						...
+						'django.template.context_processors.request',
+					],
+				},
+			},
+		]
+
+🚀 Resultado
+
+Acesse /dreamreal/
+
+Preencha o formulário
+
+Clique em Enviar
+
+O envio será feito com Ajax moderno (Fetch API) sem recarregar a página
+
+A resposta será exibida diretamente na página
+
+🔚 Conclusão
+
+Essa versão:
+
+Não usa jQuery
+
+Não usa bibliotecas externas antigas
+
+Funciona com Django 4.x e 5.x
+
+É mais leve, moderna e segura
+
+Se quiser, posso adaptar isso com Django REST Framework ou adicionar validações no frontend também.

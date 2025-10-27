@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% block contents %}
+{{person}}
+
+    <h3>Details</h3>
+    <ul>
+        <li><span style="font-weight:bold;">ID: </span>{{person.id}}</li>
+        <li><span style="font-weight:bold;">NAME: </span>{{person.name}}</li>
+    </ul>
+{% endblock contents %}
+

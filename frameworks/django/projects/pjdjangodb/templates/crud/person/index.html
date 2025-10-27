@@ -1,0 +1,15 @@
+{% extends "crud/index.html" %}
+
+{% block content %}
+    <h1>PEOPLES</h1>
+    {% if people|length > 0 %}
+    <ul>
+        {% for person in people %}
+            <li>{{person.id}} | {{person.name}} = <a href="/details/{{person.id}}">DETAILS</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h3>No person registered!</h3>
+    {% endif %}
+    <h3 align="right">&nbsp;|&nbsp;<a href="/create">CREATE</a>&nbsp;|&nbsp;</h3>
+{% endblock %}

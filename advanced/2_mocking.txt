@@ -1,0 +1,134 @@
+Python - Mocking and Stubbing	
+	
+	... são técnicas importantes em testes unitários que ajudam a isolar a funcionalidade 
+	que está sendo testada, substituindo objetos ou métodos reais por substitutos 
+	controlados.
+	
+	Isso é útil ao testar um pedaço de código que interage com componentes complexos, 
+	imprevisíveis ou lentos, como bancos de dados, serviços da Web ou 
+	dispositivos de hardware.
+	
+	Mocking: é uma técnica de teste na qual objetos simulados são criados para simular 
+	o comportamento de objetos reais.
+	
+	# Exemplo de Mocking Python
+	
+	VERSION 01:
+	
+	from unittest.mock import Mock
+
+	database = Mock()
+
+	database.get_person_id.return_value = [
+		{"id":1, "name":"Anderson"},
+		{"id":2, "name":"Jason"},
+		{"id":3, "name":"Anne"},
+		{"id":4, "name":"Lucy"},
+		{"id":5, "name":"Sara"},
+		{"id":6, "name":"Tiffany"},
+		{"id":7, "name":"Anne"},
+	]
+
+	person = database.get_person("id")
+
+	print(person)
+
+	database.get_person.assert_called_with("id")
+	
+	# -------------------------------	
+	
+	VERSION 02:
+	
+	from unittest.mock import Mock
+
+	people = [
+		{"id":1, "name":"Anderson"},
+		{"id":2, "name":"Jason"},
+		{"id":3, "name":"Anne"},
+		{"id":4, "name":"Lucy"},
+		{"id":5, "name":"Sara"},
+		{"id":6, "name":"Tiffany"},
+		{"id":7, "name":"Anne"},
+	]
+
+	database = Mock()
+
+	def get_person_by_id(id):
+		return next((p for p in people if p["id"] == id), None)
+
+	database.get_person_by_id.side_effect = get_person_by_id
+
+	person = database.get_person_by_id(3)
+
+	print(person)
+
+	database.get_person_by_id.assert_called_with(3)
+	
+	# -------------------------------
+	
+	Stubbing: é uma técnica de teste relacionada onde certa métodos ou funções são substituídos 
+	por "stubs" que retornam respostas fixas e predeterminadas.
+		
+	# Exemplo de Python Stubbing
+	
+	from unittest.mock import patch
+
+	def get_person_by_id(id):
+		pass
+
+	with patch('__main__.get_person_by_id', return_value={"id":1, "name":"Anderson"}):
+		p = get_person_by_id("id")
+		print(p)
+	
+	# -------------------------------
+
+	Mocking Vs. Stubbing: 
+
+		Stub: Você diz "quando isso for chamado, quero esse resultado".
+
+		Mock: Você diz "quero ter certeza que isso foi chamado corretamente".
+
+
+Python - Monkey Patching
+
+	... refere-se à prática de modificar ou estender código dinamicamente em tempo de execução, 
+	normalmente substituindo ou adicionando novas funcionalidades às existentes módulos, classes 
+	ou métodos sem alterar o código-fonte original. Esta técnica é frequentemente usada para correções 
+	rápidas, depuração ou adição de recursos temporários.
+	
+	# EXEMPLO 01 - Crie uma função ou método de patch: 
+	
+	# module.py
+	
+		class GreetingClass:
+		def greeting(self):
+			return "Hello, World!"
+
+	# patch_module.py
+	
+		from module import GreetingClass
+
+		def new_greeting(self):
+			return "Olá, Mundo!"
+
+		GreetingClass.greeting = new_greeting
+	
+	# main.py
+	
+		from module import GreetingClass
+		import patch_module
+
+		obj = GreetingClass()
+		print(obj.greeting())
+	
+	Desvantagens do remendo de macacos:
+	
+		A seguir estão as desvantagens:
+
+		Uso excessivo: A correção excessiva de macacos pode levar a códigos difíceis de entender e 
+		manter. Temos que usá-lo criteriosamente e considerar padrões de design alternativos, 
+		se possível.
+		
+		Compatibilidade: A correção de macacos pode introduzir comportamento inesperado, 
+		especialmente em sistemas complexos ou com grandes bases de código.
+		

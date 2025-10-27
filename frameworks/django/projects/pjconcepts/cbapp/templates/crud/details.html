@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+{% block contents %}
+    <h1>Details</h1>
+    <ul>
+        <li><span>Name:&nbsp</span>{{person.name}}</li>
+        <li><span>E-mail:&nbsp</span>{{person.email}}</li>
+        <li><span>Gender:&nbsp</span>{{person.gender}}</li>
+    </ul>
+    <a href="{% url 'person-index' %}">list</a>
+{% endblock contents %}

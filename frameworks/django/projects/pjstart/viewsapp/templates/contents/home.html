@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+{% block contents %}
+    <form action="{% url 'execute_post' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="execute" style="cursor:pointer;">
+    </form>
+    <a href="{% url 'execute_post' %}">execute</a>
+{% endblock contents %}
+
+
+    

@@ -1,0 +1,2714 @@
+# Python code to print "Hello, World!"
+print ("Hello, World!")
+
+# para mostrar os principios do Python:
+import this
+
+# Exemplo de colocar comandos no REPL:
+>>> 2*3+1
+7
+>>> print ("Hello World")
+Hello World
+
+# ------
+
+>>> price = 100
+>>> qty = 5
+>>> total = price*qty
+>>> total
+500
+>>> print ("Total = ", total)
+Total = 500
+
+# saindo do REPL:
+
+>>> quit()
+
+
+# Leitura de dados:
+
+a = int(input("Enter value for a"))
+b = int(input("Enter value for b"))
+
+print("The number you have entered for a is ", a)
+print("The number you have entered for b is ", b)
+
+# Executando comando pelo CMD:
+
+# Windows
+
+C:\>python hello.py
+
+# Linux
+
+python3 hello.py
+
+
+# Transformando um py no auto-executavel no Linux:
+
+#!/usr/bin/python3
+
+ou 
+
+#! /usr/bin/python3.11
+
+print ("Hello World")
+
+# Necessaário isso no Linux:
+
+$ chmod +x prog.py
+
+$ ./hello.py
+
+# Install IPython with PIP installer utility.
+
+pip3 install ipython
+
+C:\Users\Acer>ipython
+
+# Executando comando CMD dentro IPython:
+
+In [8]: ipconfig /all
+
+# Executando python no cmd com parametros:
+
+C:> python # Windows/DOS
+
+-d     It provides debug output.
+-O     It generates optimized bytecode (resulting in .pyo files).
+-S     Do not run import site to look for Python paths on startup.
+-v 	   verbose output (detailed trace on import statements).
+-X 	   disable class-based built-in exceptions (just use strings); obsolete starting with version 1.6.
+-c cmd run Python script sent in as cmd string.
+file   run Python script from given file.
+
+# Criando um ambiente em Python:
+
+	python -m venv myvenv
+
+	activate
+
+	deactivate
+
+# Python Reserved Words
+
+and		as			assert
+break	class		continue
+def		del			elif
+else	except		False
+finally	for			from
+global	if			import
+in		is			lambda
+None	nonlocal	not
+or		pass		raise
+return	True		try
+while	with		yield
+
+.
+.
+.
+
+# exemplos do uso de algumas palavras reservadas:
+
+print("\n\n\nassert")
+
+def check_number(num):
+ try:
+	 assert num > 0
+	 return "Positivee!"
+ except AssertionError as err:
+	 print(err)
+	 return "Negative!"
+
+print(check_number(-1))
+
+# ------------------------
+
+print("\n\n\nnonlocal")
+
+def function1():
+ num = 0
+
+ def function2():
+	 nonlocal num
+	 num+=1
+	 return num
+
+ return function2
+
+f = function1()
+for el in range(7):
+ print(f())
+ 
+# ------------------------
+
+
+print("\n\n\nyield")
+
+def counter(limit):
+ i = 1
+ while i <= limit:
+	 yield i
+	 i += 1
+	
+numbers = counter(7)
+
+for i in numbers:
+ print(i)
+ 
+# ------------------------
+
+print("\n\n\rraise")
+
+def div(a, b):
+ if b == 0:
+	 raise ZeroDivisionError("Não é possível dividir por zero.")
+ return a/b
+
+try:
+ print(div(5,0))
+except ValueError as err:
+ print(f"Error: {err}")
+
+# -------------------------------------------------------
+
+
+# Exemplo de um código que trabalha com arquivo em Python:
+
+	import sys
+
+	try:
+		...
+	except IOError:
+		sys.exit()
+		
+# Quebrando linhas de código em Python:
+
+total = item_one + \
+        item_two + \
+        item_three
+		
+
+# Não existe no Python 3:
+
+raw_input("\n\nPress the enter key to exit.")
+
+# Comandos em multiplas linhas:
+
+import sys; x = 'foo'; sys.stdout.write(x + '\n')
+
+# Execução pelo CMD:
+
+C:\Users\Anderson\Desktop\teste>python -h
+usage: python [option] ... [-c cmd | -m mod | file | -] [arg] ...
+Options (and corresponding environment variables):
+-b     		: issue warnings about converting bytes/bytearray to str and comparing
+              bytes/bytearray with str or bytes with int. (-bb: issue errors)
+-B     		: don't write .pyc files on import; also PYTHONDONTWRITEBYTECODE=x
+-c cmd 		: program passed in as string (terminates option list)
+-d     		: turn on parser debugging output (for experts only, only works on
+              debug builds); also PYTHONDEBUG=x
+-E     		: ignore PYTHON* environment variables (such as PYTHONPATH)
+-h     		: print this help message and exit (also -? or --help)
+-i     		: inspect interactively after running script; forces a prompt even
+			  if stdin does not appear to be a terminal; also PYTHONINSPECT=x
+-I     		: isolate Python from the user's environment (implies -E and -s)
+-m mod 		: run library module as a script (terminates option list)
+-O     		: remove assert and __debug__-dependent statements; add .opt-1 before
+              .pyc extension; also PYTHONOPTIMIZE=x
+-OO    		: do -O changes and also discard docstrings; add .opt-2 before
+              .pyc extension
+-P     		: don't prepend a potentially unsafe path to sys.path; also
+              PYTHONSAFEPATH
+-q     		: don't print version and copyright messages on interactive startup
+-s     		: don't add user site directory to sys.path; also PYTHONNOUSERSITE=x
+-S     		: don't imply 'import site' on initialization
+-u     		: force the stdout and stderr streams to be unbuffered;
+			  this option has no effect on stdin; also PYTHONUNBUFFERED=x
+-v     		: verbose (trace import statements); also PYTHONVERBOSE=x
+              can be supplied multiple times to increase verbosity
+-V     		: print the Python version number and exit (also --version)
+              when given twice, print more information about the build
+-W arg 		: warning control; arg is action:message:category:module:lineno
+              also PYTHONWARNINGS=arg
+-x     		: skip first line of source, allowing use of non-Unix forms of #!cmd
+-X opt 		: set implementation-specific option
+--check-hash-based-pycs always|default|never:
+         control how Python invalidates hash-based .pyc files
+--help-env: print help about Python environment variables and exit
+--help-xoptions: print help about implementation-specific -X options and exit
+--help-all: print complete help information and exit
+
+Arguments:
+file   : program read from script file
+-      : program read from stdin (default; interactive mode if a tty)
+arg ...: arguments passed to program in sys.argv[1:]
+
+# Memory Addresses
+
+>>> id(18)
+140714055169352
+
+# Deleting Python Variables
+
+del var
+del var_a, var_b
+
+print(var_a) # error: NameError: name 'var_a' is not defined
+
+# Getting Type of a Variable
+
+x = "Zara"
+print(type(x)) # <class 'str'>
+
+# Casting Python Variables
+
+x = str(10)    
+y = int(10)    
+z = float(10)  
+
+print( "x =", x ) # x will be '10'
+print( "y =", y ) # y will be 10 
+print( "z =", z ) # z will be 10.0
+
+# Case-Sensitivity of Python Variables
+
+age = 20
+Age = 30
+
+# Multiple Assignment
+
+>>> a=b=c=10
+>>> print (a,b,c)
+10 10 10
+
+>>> a,b,c = 10,20,30
+>>> print (a,b,c)
+10 20 30
+
+# Global
+
+x = 10
+
+def function():
+    global x 
+    x = 20
+    print(x)
+
+function()
+print(x)
+
+# Constantes (inconstantes: os valores podem ser mudados):
+
+PI = 3.14159
+print(PI)
+
+# A Python variable refers to the object and not the memory location. An object is stored in memory only once. Multiple variables are really the multiple labels to the same object.
+
+>>> a=b=20
+
+>>> id(a)
+	140716673992200
+	
+>>> id(b)
+	140716673992200
+	
+# Python Numeric Data Types
+
+var1 = 1       # int data type
+var2 = True    # bool data type
+var3 = 10.023  # float data type
+var4 = 10+3j   # complex data type
+
+# Python Sequence Data Types
+
+	list = [ 'abcd', 786 , 2.23, 'john', 70.2 ]
+
+	tuple = ( 'abcd', 786 , 2.23, 'john', 70.2  )
+
+	range(start, stop, step)
+	Ex:
+		for i in range(1, 5, 2):
+		  print(i)
+
+# Python Binary Data Types
+
+
+# (a) Python Bytes Data Type
+	
+	b1 = bytes([65, 66, 67, 68, 69])  
+	print(b1)  
+
+	ou 
+
+	b2 = b'Hello'  
+	print(b2)  
+x	
+# (b) Python Bytearray Data Type
+
+	# Creating a bytearray from an iterable of integers
+	value = bytearray([72, 101, 108, 108, 111])  
+	print(value) 
+	
+	value = bytearray([72, 101, 108, 108, 111])  
+	print(value)  
+
+# (c) Tipo de dados Memoryview do Python
+
+# ERRO
+	name = "Anderson"      
+	print(memoryview(name)) 
+# ERRO
+	
+	name = b"Anderson"      
+	print(memoryview(name)) 
+	
+	# ---------------------
+	
+	import array
+
+	arr = array.array('i', [1,2,3,4,5,6,7])
+	mv = memoryview(arr)
+	print(mv)
+
+	# ---------------------
+
+	import array
+
+	arr = array.array('i', [1,2,3,4,5,6,7])
+	mv = memoryview(arr[4:len(arr)])
+	print(mv)
+	
+# Dicionário Python
+
+>>> type({1:'one', 2:'two', 3:'three'})
+<class 'dict'>
+
+>>> tinydict.keys() # Prints all the keys
+
+>>> tinydict.values() # Prints all the values
+
+# Conjunto Python
+
+"""
+Conjunto é uma implementação em Python de conjunto, conforme definido em matemática. 
+Um conjunto em Python é uma coleção, mas não é uma coleção indexada ou ordenada 
+como string, lista ou tupla. Não aceita dados mutaveis, como lista.
+"""
+
+>>> {2023, "Python", 3.11, 5+6j, 1.23E-4}
+{(5+6j), 3.11, 0.000123, 'Python', 2023}
+
+>>> type({2023, "Python", 3.11, 5+6j, 1.23E-4})
+<class 'set'>
+
+set1 = {123, 452, 5, 6}
+print(set1)
+
+# Python Boolean Data Type
+
+>>> type (True)
+<class 'bool'>
+
+>>> a = -1
+>>> print(bool(a))
+True
+
+>>> a = 0
+>>> print(bool(a))
+False
+
+# Python None Type
+
+>>> type(None)
+<class 'NoneType'>
+
+# Tipos de dados primitivos e não primitivos
+
+# 1. Tipos primitivos
+
+Integers
+Floats
+Booleans, and
+Strings
+
+
+# 2. Tipos não primitivos
+
+Lists
+Tuples
+Dictionaries, and
+Sets
+
+# Data Type Conversion Functions
+
+
+# 4. complex() - Cria um número complexo
+print(complex(3, 4))  # Saída: (3+4j)
+
+# 6. repr() - Representação do objeto em string
+print(repr(10.5))  # Saída: '10.5'
+
+# 7. eval() - Avalia uma expressão
+print(eval("3 + 5"))  # Saída: 8
+
+# 8. tuple() - Converte para tupla
+print(tuple([1, 2, 3]))  # Saída: (1, 2, 3)
+
+# 9. list() - Converte para lista
+print(list("abc"))  # Saída: ['a', 'b', 'c']
+
+# 10. set() - Converte para conjunto
+print(set([1, 2, 2, 3]))  # Saída: {1, 2, 3}
+
+>>> type(set([1, 2, 3, 4, 5]))
+<class 'set'>
+
+# 11. dict() - Cria um dicionário
+print(dict([(1, 'a'), (2, 'b')]))  # Saída: {1: 'a', 2: 'b'}
+
+	>>> ('id',123),('name','Anderson')
+	(('id', 123), ('name', 'Anderson'))
+	>>> dict((('id', 123), ('name', 'Anderson')))
+	{'id': 123, 'name': 'Anderson'}
+
+# 12. frozenset() - Converte para conjunto imutável
+print(frozenset([1, 2, 3]))  # Saída: frozenset({1, 2, 3})
+
+# 13. chr() - Converte número em caractere
+print(chr(65))  # Saída: 'A'
+
+# 14. unichr() - Depreciado, chr já cobre Unicode
+# print(unichr(65))  # Python 3 não possui unichr()
+
+# 15. ord() - Converte caractere em número
+print(ord('A'))  # Saída: 65
+
+# 16. hex() - Converte número para hexadecimal
+print(hex(255))  # Saída: '0xff'
+
+# 17. oct() - Converte número para octal
+print(oct(8))  # Saída: '0o10'
+
+
+# Python - Conversão de Tipos
+
+O Python suporta dois tipos de conversão: implícita e explícita .
+
+Quando qualquer compilador/interpretador de linguagem converte 
+automaticamente um objeto de um tipo em outro, 
+isso é chamado de conversão automática ou implícita .
+
+Por exemplo, um objeto inteiro em Python ocupa 4 bytes de memória, enquanto um objeto float precisa de 8 bytes devido à sua parte fracionária.
+
+<<< a=10   # int object
+<<< b=10.5 # float object
+<<< c=a+b
+<<< print (c)
+20.5
+
+Na conversão implícita de tipos, um objeto Python com menor tamanho de bytes é atualizado para corresponder ao maior tamanho de bytes de outro objeto na operação. 
+
+a=True;
+b=10.5;
+c=a+b;
+print (c);
+
+## Conversão explícita em Python
+
+<<< a = int(10)
+<<< a
+10
+
+## String binária para inteiro
+
+<<< a = int("110011", 2) #  composta apenas de 1 e 0
+<<< a
+51
+
+## String Octal para Inteiro
+
+<<< a = int("20", 8) # apenas de 0 a 7 dígitos
+<<< a
+16
+
+## String hexadecimal para inteiro
+
+<<< a = int("2A9", 16) #  0-9 e A, B, C, D, E ou F.
+<<< a
+681
+
+## Comentário sobre a Função Python str();
+
+## Conversão de Tipos de Sequência
+
+
+Lista, Tupla e String são tipos de sequência do Python. 
+São coleções ordenadas ou indexadas de itens.
+
+Uma string e uma tupla podem ser convertidas em um objeto de lista 
+usando a função list() . 
+Da mesma forma, a função tuple() converte uma string ou 
+lista em uma tupla.
+
+# Python - Sistema Unicode
+
+## Existem três tipos de codificações: UTF-8, UTF-16 e UTF-32. 
+## UTF significa Unicode Transformation Format .
+
+string = "Hello"
+tobytes = string.encode('utf-8')
+print (tobytes)
+string = tobytes.decode('utf-8')
+print (string)
+
+# Python - Literals
+
+## Literais ou constantes em Python são a notação para representar um 
+## valor fixo no código-fonte.
+
+## 1. Literal decimal
+
+x = 10
+
+## 2. Literal Octal
+
+x = 0O34
+type(x) # 0O34 in octal is 28 <class 'int'>
+
+## 3. Literal hexadecimal
+
+x = 0X1C
+type(x) # 0X1c in Hexadecimal is 28 <class 'int'>
+
+Demais saída de type():
+
+1.23 in normal float literal is 1.23 <class 'float'>
+1.23E5 in scientific notation is 123000.0 <class 'float''>
+1.23E-2 in scientific notation is 0.0123 <class 'float''>
+
+2+3j complex literal is (2+3j) <class 'complex'>
+2.5+4.6j complex literal is (2+3j) <class 'complex'>
+
+[1, 'Ravi', 75.5, True] <class 'list'>
+
+[1, 'Ravi', 75.5, True] <class tuple>
+
+ATENÇÃO AQUI:
+
+	>>> teste = 1,2,True,"Anderson",6j+3j,17621.11
+	>>> type(teste)
+	<class 'tuple'>
+	
+
+## Dicionário Python Literal
+
+## O dicionário também é um tipo de dado de coleção. 
+## No entanto, não é uma sequência.
+
+<<< dict = {"hgashgdhs":"jhdasjhdjsjh", "dhgasjdhasjdhsj":"jhdsjhdjashj"}
+
+# Python - Operadores
+
+## Operadores Aritméticos Python
+
+Em Python, a operação // é chamada de divisão inteira ou divisão de piso. Ela 
+retorna o quociente inteiro de uma divisão, 
+descartando qualquer parte decimal.
+
+## Operadores de comparação em Python
+
+## Operadores de Atribuição Python
+
+>>> num = 9
+>>> num**=2
+>>> num
+81
+
+# ------------
+
+>>> num = 5
+>>> num//=2
+>>> num
+2
+
+# ------------
+
+>>> x = 6      # binário: 110
+>>> x &= 3     # binário de 3: 011
+>>> print(x)   # Resultado: 2, pois 110 & 011 = 010
+
+# ------------
+
+>>> x = 6
+>>> x |= 3
+>>> print(x)
+7
+
+# ------------
+
+>>> x = 5      # binário: 101
+>>> x ^= 3     # binário de 3: 011
+>>> print(x)   # Resultado: 6, pois 101 ^ 011 = 110
+
+O XOR (ou exclusivo) não é o mesmo que o OU (OR) comum. 
+Vamos comparar os dois rapidinho:
+
+OU (OR) |:
+Retorna 1 se pelo menos um dos bits for 1.
+
+python
+5 | 3  # 101 | 011 = 111 => 7
+XOR (OU exclusivo) ^:
+Retorna 1 somente se os bits forem diferentes.
+
+python
+5 ^ 3  # 101 ^ 011 = 110 => 6
+
+# ------------
+
+# O operador de deslocamento de bits para a direita com atribuição.
+
+>>> x = 8
+>>> x>>=2
+>>> print(x)
+2
+
+# O operador de deslocamento de bits para a esquerda com atribuição.
+
+>>> x = 8
+>>> x<<=3
+>>> x
+64
+
+# ------------
+
+## Exemplo de operadores de atribuição
+
+## Operadores Bitwise Python
+
+a = 6   # 110
+b = 3   # 011
+print(a & b)  # Resultado: 2 (010)
+| – OU (OR) bit a bit
+Retorna 1 se pelo menos um dos bits for 1.
+
+a = 6   # 110
+b = 3   # 011
+print(a | b)  # Resultado: 7 (111)
+^ – XOR (OU exclusivo) bit a bit
+Retorna 1 somente se os bits forem diferentes.
+
+a = 6   # 110
+b = 3   # 011
+print(a ^ b)  # Resultado: 5 (101)
+~ – NÃO (NOT) bit a bit
+Inverte todos os bits — mas cuidado: em Python o resultado é um número com sinal (complemento de dois).
+
+a = 6   # 000...0110
+print(~a)  # Resultado: -7 (inverte todos os bits e soma 1 negativo)
+<< – Deslocamento para a esquerda
+Empurra os bits para a esquerda, multiplicando por 2 a cada posição.
+
+a = 3   # 011
+print(a << 2)  # Resultado: 12 (1100)
+>> – Deslocamento para a direita com sinal
+Empurra os bits para a direita, dividindo por 2 a cada posição.
+
+a = 16  # 10000
+print(a >> 3)  # Resultado: 2 (00010)
+
+## Operadores Lógicos Python
+
+## Operadores de Associação Python
+
+	a = 20
+	b = [1,2,4,5]
+	print(a in b)
+	print(a not in b)
+
+## Operadores de identidade Python
+
+	a = 10
+	b = 20
+	print(a is b)
+	print(a is not b)
+
+
+
+## Python - Comparison Operators
+
+## Python Bitwise Operators
+ 
+	0 & 0 is 0
+	1 & 0 is 0
+	0 & 1 is 0
+	1 & 1 is 1
+	
+	a = 60 
+	print ("a:", bin(a)) # a: 0b111100
+	
+	>>> int('00001100',2)
+	12
+	
+## Python Bitwise OR Operator (|)
+
+	
+	0 | 0 is 0
+	0 | 1 is 1
+	1 | 0 is 1
+	1 | 1 is 1
+	
+	>>> a = 0 | 0 is 1
+	>>> a
+	False
+	
+## Python Bitwise XOR Operator (^)
+
+	0 ^ 0 is 0
+	0 ^ 1 is 1
+	1 ^ 0 is 1
+	1 ^ 1 is 0
+	
+	>>>  1 ^ 0 is 1
+	True
+	
+# Python - Membership Operators
+	
+## The membership operators in Python help us determine whether 
+## an item is present in a given container type object, or in other words, 
+## whether an item is a member of the given container type object.
+	
+Python has two membership operators: in and not in.
+
+# Python - Identity Operators
+
+	Python provided two identity operators; 
+	we have listed them as follows:
+
+	'is' Operator
+	'is not' Operator
+	
+# Python Operator Precedence
+
+## Python Operator Precedence Table
+
+	import asyncio
+
+	async def tarefa():
+		print("Started!")
+		i = 1
+		while True:
+			await asyncio.sleep(2)
+			i+=1
+		print("Done!")
+
+	async def main():
+		await tarefa()
+
+	asyncio.run(main())
+	print("Done!")
+	
+
+# Comentários
+
+	def greeting(name):
+		"""
+		Método para mostrar uma imagem de saudação.
+		"""
+		print(f"Hello, {name}!")
+
+	print(greeting.__doc__)
+
+## Python - User Input
+
+	>>> name = input("Informe seu nome:")
+	Informe seu nome:Anderson
+	>>> name
+	
+## end=","
+
+	city="Hyderabad"
+	print("City:", city, end=" ")
+	
+	
+## Number Type Conversion
+
+Type int(x) to convert x to a plain integer.
+Type long(x) to convert x to a long integer.
+Type float(x) to convert x to a floating-point number.
+Type complex(x) to convert x to a complex number with real part x and imaginary part zero. In the same way type complex(x, y) to convert x and y to a complex number with real part x and imaginary part y. x and y are numeric expressions
+
+## -----------------------------------
+
+Theoretic and Representation Functions
+
+math.ceil(x)
+math.comb(n,k)
+math.copysign(x, y)
+math.cmp(x, y)
+math.fabs(x)
+math.factorial(n)
+math.floor(x)
+math.fmod(x, y)
+math.frexp(x)
+math.fsum(iterable)
+math.gcd(*integers)
+math.isclose()
+math.isfinite(x)
+math.isinf(x)
+math.isnan(x)
+math.isqrt(n)
+math.lcm(*integers)
+math.ldexp(x, i)
+math.modf(x)
+math.nextafter(x, y, steps)
+math.perm(n, k)
+math.prod(iterable, *, start)
+math.remainder(x,y)
+math.trunc(x)
+math.ulp(x)
+
+## -----------------------------------
+
+Power and Logarithmic Functions
+
+math.cbrt(x)
+math.exp(x)
+math.exp2(x)
+math.expm1(x)
+math.log(x)
+math.log1p(x)
+math.log2(x)
+math.log10(x)
+math.pow(x, y)
+math.sqrt(x)
+
+## -----------------------------------
+
+Trigonometric Functions
+
+math.acos(x)
+math.asin(x)
+math.atan(x)
+math.atan2(y, x)
+math.cos(x)
+math.sin(x)
+math.tan(x)
+math.hypot(x, y)
+
+## -----------------------------------
+
+Angular conversion Functions
+
+math.degrees(x)
+math.radians(x)
+
+## -----------------------------------
+
+Mathematical Constants
+
+math.pi
+math.e
+math.tau
+math.inf
+math.nan
+
+## -----------------------------------
+
+Hyperbolic Functions
+
+math.acosh(x)
+math.asinh(x)
+math.atanh(x)
+math.cosh(x)
+math.sinh(x)
+math.tanh(x)
+
+## -----------------------------------
+
+Special Functions
+
+math.erf(x)
+math.erfc(x)
+math.gamma(x)
+math.lgamma(x)
+
+## -----------------------------------
+
+Random Number Functions
+
+random.choice(seq)
+random.randrange([start,] stop [,step])
+random.random()
+random.seed([x])
+random.shuffle(seq)
+random.uniform(a, b)
+
+## -----------------------------------
+
+Built-in Mathematical Functions
+
+abs() 
+max() 
+min() 
+pow() 
+round() 
+sum() 
+	
+	
+RESUMO: 
+
+	🔢 Matemática Geral
+
+	math.ceil(x) – arredonda pra cima
+	math.floor(x) – arredonda pra baixo
+	math.trunc(x) – descarta as casas decimais
+	math.fabs(x) – valor absoluto (float)
+	abs(x) – valor absoluto (int ou float)
+
+	🧮 Operações Aritméticas
+
+	math.factorial(n) – fatorial
+	math.gcd(a, b) – máximo divisor comum
+	math.lcm(a, b) – mínimo múltiplo comum
+	math.prod(iterável) – produto de todos os valores
+	math.remainder(x, y) – resto da divisão real
+	sum() – soma dos valores
+
+	🧠 Comparação e Checagens
+
+	math.isclose(a, b) – verifica se dois números são “quase” iguais
+	math.isnan(x) – verifica se é NaN
+	math.isinf(x) – verifica se é infinito
+	math.isfinite(x) – verifica se é número finito
+
+	🧮 Potência e Logaritmos
+
+	math.pow(x, y) – x elevado a y
+	math.sqrt(x) – raiz quadrada
+	math.exp(x) – exponencial
+	math.log(x) – logaritmo natural
+	math.log10(x) – log na base 10
+	math.log2(x) – log na base 2
+
+	📐 Trigonometria
+
+	math.sin(x) / cos(x) / tan(x) – seno, cosseno, tangente
+	math.atan2(y, x) – arco tangente com dois parâmetros
+	math.hypot(x, y) – hipotenusa
+
+	🎲 Aleatoriedade
+
+	random.random() – número entre 0 e 1
+	random.choice(seq) – escolhe item aleatório
+	random.shuffle(seq) – embaralha itens
+	random.uniform(a, b) – valor aleatório entre a e b
+
+	🔄 Funções embutidas úteis
+
+	round() – arredondar número
+	max() / min() – maior ou menor valor
+	pow(x, y) – potência, alternativa a math.pow	
+
+
+# Python - Booleans
+
+# Python - Control Flow
+
+# Python - Decision Making
+
+# Python - if Statement
+
+# Python if-else Statement
+
+# Python - Nested if Statement
+
+# Python - Match-Case Statement
+
+	opc = 0
+
+	match opc:
+		case 1: 
+			print("Opção 01")
+		case 2: 
+			print("Opção 02")
+		case 3: 
+			print("Opção 03")
+		case 4 | 0: 
+			print("Opção 04")  # combinando "cases".
+		case _:
+			print("Default!")
+
+## List as the Argument in Match Case Statement
+
+	def function(opc):
+		match opc:
+			case 1: 
+				print("Opção 01")
+			case [id, name]: 
+				print(f"ID: {id} | NAME: {name}")
+			case [id, name, birthday]: 
+				print(f"ID: {id} | NAME: {name} | BIRTHDAY: {birthday}")
+			case 4 | 0: 
+				print("Opção 04")
+			case _:
+				print("Default!")
+
+
+	function([123, "Anderson"])
+		
+	from datetime import date
+	function([123, "Anderson", date(1981,1,1)])
+	
+
+## Using "if" in "Case" Clause
+
+	number = 10
+
+	match number:
+		case 1 if number > 5:
+			print("Ok!")
+		case _:
+			print("Error!")
+
+# Python - Loops
+
+## Python for Loop with Dictionaries
+
+	dict = {"a":70,"b":20,"c":50,"d":40,"e":60,"f":30,"g":10}
+
+	for i in dict:
+		print(f"{i}: {dict[i]}")
+		
+	
+	dict = {"a":70,"b":20,"c":50,"d":40,"e":60,"f":30,"g":10}
+
+	for i in dict.items():
+		print(f"{i}")  # ('a', 70), ('b', 20), ('c', 50), ...
+		
+		
+# Python for-else Loops
+
+	dict = {"a":70,"b":20,"c":50,"d":40,"e":60,"f":30,"g":10}
+
+	for i in dict.items():
+		print(f"{i}")
+	else:
+		print("Terminou!")
+		
+	# With break
+	
+	
+	for i in dict.items():
+		print(f"{i}")
+		break
+	else:
+		print("Terminou!")
+	
+	
+	# Break with if:
+	
+	dict = {"a":70,"b":20,"c":50,"d":40,"e":60,"f":30,"g":10}
+
+	for i in dict:
+		print(f"{i}")
+		if(((dict[i]/2) /2 ) % 2 == 0):
+			break
+	else:
+		print("Terminou!")
+		
+# Python - While Loops
+
+	## While com else...:
+	
+	i = 0
+
+	while i < 10:
+		print(i)
+		i+=1
+	else:
+		print("Done!")
+
+	## Single Statement Suites
+	
+	flag = 0
+	while flag: print("Is True!")
+	print("Done!")
+	
+# Python - break Statement
+
+	i = 0
+	while True:
+		if i == 10:
+			break
+		print(i)
+		i+=1
+
+# Python - Continue Statement
+
+	name = "Anderson"
+
+	for l in name:
+		if l == 'r':
+			print('x', end="")
+			continue
+		print(l, end="")
+	
+# Python - pass Statement	
+		
+	def function():
+		pass
+
+	opc = 2
+
+	if opc == 1:
+		pass
+	else:
+		pass
+
+	print("Done!")
+	
+# Python - Nested Loops
+
+	listas = [[1,2,3],[4,5,6],[7,8,9]]
+
+	for l in listas:
+		for x in l:
+			print(x)
+
+	# While:
+	
+	listas = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+	x = 0
+
+	while x < len(listas):
+		y = 0  # reinicia o índice da coluna a cada nova linha
+		while y < len(listas[x]):
+			print(listas[x][y])
+			y += 1
+		x += 1
+		
+# Python - Functions
+
+	def greetings():
+		"This is docstring of greetings function"
+		print ("Hello World")
+		return
+		
+	# Argumentos posicionais com (/):
+
+		
+	def show_data(id, /, name):
+		print(f"ID: {id} | NAME: {name}")
+
+	show_data(123, name="Anderson")
+	
+	
+	# Argumentos somente de palavras-chave
+	
+	def show_data(id, *, name):
+		print(f"ID: {id} | NAME: {name}")
+
+	show_data(123, name="Anderson")
+	
+	
+## Função Python com valor de retorno
+	
+## As Funções Anônimas (lambda):
+
+	sum = lambda x, y: x + y
+	print(sum(20, 30))
+	
+# Python - Default Arguments
+
+## Argumentos Padrão do Python
+
+	>>> def show_data(name, city="Rio de Janeiro"):
+	...     print(f"{name}, {city}")
+	...
+	>>> show_data("Anderson")
+	Anderson, Rio de Janeiro
+	>>>
+	
+	
+## Objetos Mutáveis como Argumento Padrão
+
+	>>> def fcn(list = []):
+	...     for el in list:
+	...         print(el)
+	...
+	>>> fcn([1,2,3,4,5,6,7,8,9,0])
+	1
+	2
+	3
+	4
+	5
+	6
+	7
+	8
+	9
+	0
+	
+# Python - Argumentos de Palavras-chave
+
+	>>> def div(num1,num2):
+	...     print(num1/num2)
+	...
+	>>> div(10,2)
+	5.0
+	>>> div(num1=10, 2)
+	  File "<python-input-18>", line 1
+		div(num1=10, 2)
+					  ^
+	SyntaxError: positional argument follows keyword argument
+	>>>
+	
+	
+# Python - Keyword-Only Arguments
+
+## Example of Keyword-Only Arguments
+
+	print ("Hello", "World", sep="-")
+	
+# Python - Positional Arguments
+
+# Python - Positional-Only Arguments
+
+	>>> input(prompt="Enter your name:")
+	Enter your name:Anderson
+	'Anderson'
+	
+	>>> def show(x, /, y, *, z):
+	...  print(x,y,z)
+	...
+	>>> show(10, 20, z=30)
+	10 20 30
+	>>> show(10, y=20, z=30)
+	10 20 30
+	
+# Python - Arbitrary or, Variable-length Arguments
+
+
+## Argumentos arbitrários (*args)
+
+
+	>>> def show_args(*args):
+	...   for el in args:
+	...     print(el, type(el))
+	...
+	>>>
+	>>> show_args(123, "Anderson", 'M', True, 7312.11)
+	123 <class 'int'>
+	Anderson <class 'str'>
+	M <class 'str'>
+	True <class 'bool'>
+	7312.11 <class 'float'>
+	
+## Argumentos de palavras-chave arbitrárias (**kwargs)
+	
+	def show_data(**kwargs):
+		for k, v in kwargs.items():
+        print(f"{k.capitalize()}:{v}")
+
+	show_data(id=123, name="Anderson", gender='M', status=True, salary=7312.11)
+    
+
+# Python Variable Scope
+
+## Função globals() do Python
+
+	print(globals())
+
+	print(__name__)
+	# print(__main__)
+	print(__doc__)
+	print(__package__)
+	print(__loader__)
+	print(__spec__)
+	print(__annotations__)
+	print(__builtins__)
+	print(__cached__)
+	
+	id=123 
+	name="Anderson" 
+	gender='M' 
+	status=True 
+	salary=7312.11
+
+	print(globals())
+	"""
+	{
+	 '__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader object at 0x000001DD59039E00>, 
+	 '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, '__file__': 'C:\\Users\\Anderson\\Desktop\\teste\\main.py', 
+	 '__cached__': None, 'id': 123, 'name': 'Anderson', 'gender': 'M', 'status': True, 'salary': 7312.11
+	}
+	"""
+		
+	
+## Função Python locals()
+
+	print(locals())
+
+# Python - Anotações de Função
+
+	Adicionar metadados explicativos adicionais sobre os argumentos declarados em 
+	uma definição de função, bem como o tipo de dado de retorno. Esses metadados 
+	não são considerados pelo interpretador Python durante a execução da função . 
+	Eles são usados ​​principalmente em IDEs Python para fornecer documentação 
+	detalhada ao programador. 
+	
+	
+	def sum_nums(num1: int, num2: int) -> int:
+		return num1 + num2
+	print(sum_nums(20,10))
+
+	print(sum_nums.__annotations__)
+
+	def sum_nums(num1: 'integer_num', num2: 'integer_num') -> 'integer_num':
+		return num1 + num2
+	print(sum_nums(20,10))
+
+	def show_data(**kwargs: "arbitrary_keyword_args") -> 'person_data':
+		for k, v in kwargs.items():
+			print(f"{k.capitalize()}:{v}")
+
+	show_data(id=123, name="Anderson", gender='M', status=True, salary=7312.11)
+		
+	print(sum_nums.__annotations__)
+	print(show_data.__annotations__)
+
+	def division(num: dict(type=float, msg='numerator'), den: dict(type=float, msg='denominator')) -> float:
+	   return num/den
+
+	print (division.__annotations__)
+
+
+# Python - Módulos
+
+	os
+	This module provides a unified interface to a number of operating system functions.
+
+	string
+	This module contains a number of functions for string processing
+
+	re
+	This module provides a set of powerful regular expression facilities. Regular expression (RegEx), 
+	allows powerful string search and matching for a pattern in a string
+
+	math
+	This module implements a number of mathematical operations for floating point numbers. 
+	These functions are generally thin wrappers around the platform C library functions.
+
+	cmath
+	This module contains a number of mathematical operations for complex numbers.
+
+	datetime
+	This module provides functions to deal with dates and the time within a day. It wraps the C runtime library.
+
+	gc
+	This module provides an interface to the built-in garbage collector.
+
+	asyncio
+	This module defines functionality required for asynchronous processing
+
+	Collections
+	This module provides advanced Container datatypes.
+
+	functools
+	This module has Higher-order functions and operations on callable objects. Useful in functional programming
+
+	operator
+	Functions corresponding to the standard operators.
+
+	pickle
+	Convert Python objects to streams of bytes and back.
+
+	socket
+	Low-level networking interface.
+
+	sqlite3
+	A DB-API 2.0 implementation using SQLite 3.x.
+
+	statistics
+	Mathematical statistics functions
+
+	typing
+	Support for type hints
+
+	venv
+	Creation of virtual environments.
+
+	json
+	Encode and decode the JSON format.
+
+	wsgiref
+	WSGI Utilities and Reference Implementation.
+
+	unittest
+	Unit testing framework for Python.
+
+	random
+	Generate pseudo-random numbers
+
+	sys
+	Provides functions that acts strongly with the interpreter.
+
+	requests
+	It simplifies HTTP requests by offering a user-friendly interface for sending and handling responses.
+
+	itertools
+	An iterator object is used to traverse through a collection (i.e., list, tuple etc..). 
+	This module provides various tools which are used to create and manipulate iterators.
+
+	locale
+	The locale module in Python is used to set and manage cultural conventions for formatting data. 
+	It allows programmers to adapt their programs to different languages and regional formatting standards by 
+	changing how numbers, dates, and currencies are displayed.
+
+
+	lista resumida:
+
+		os – Manipular arquivos, caminhos e variáveis de ambiente é quase obrigatório em qualquer projeto real.
+		json – Essencial para ler e escrever arquivos no formato de dados mais comum em APIs e integrações.
+		datetime – Usado em praticamente qualquer sistema que lide com datas, registros ou logs.
+		re – Dominar expressões regulares te dá superpoderes em busca e validação de strings.
+		requests – Se você for trabalhar com APIs ou web scraping, esse módulo é fundamental.
+		sys – Ajuda a interagir com o interpretador, manipular argumentos de linha de comando etc.
+		unittest – Testes são parte vital de qualquer aplicação profissional.
+		asyncio – Se você for pra caminhos como web, bots, ou alta performance, programação assíncrona é ouro.
+		string – Para trabalhar com manipulação básica e eficiente de textos.
+		typing – Cada vez mais essencial para código limpo, legível e robusto com sugestões inteligentes.
+		
+
+# Custom modules:
+
+	# Module 01:
+
+		def greeting(**kwargs):
+			print(f"Hello, {kwargs["name"]}!")
+
+		def sum_nums(*args):
+			result = 0
+			for num in args:
+				result+=num
+			return result
+
+	# ---------------------------
+
+	# Module 02:
+
+		def hello():
+			print("Hello, World!")
+
+		def sub_nums(*args):
+			result = 0
+			for num in args:
+				result-=num
+			return result
+			
+	# ---------------------------
+
+	# main.py
+
+		import module1 as first_module
+		first_module.greeting(name="Anderson")
+		print(first_module.sum_nums(10,20,40))
+
+		from module2 import sub_nums as substraction
+		print(substraction(10,20,40))
+
+		# print(first_module.__file__)
+		# print(first_module.__package__)
+		# print(first_module.__doc__)
+		# print(first_module.__dict__) 
+		# print(first_module.__name__)
+
+		print(dir(first_module))
+
+	# ---------------------------
+	
+	
+## Module Attributes
+
+	__file__    returns the physical name of the module.
+	__package__ returns the package to which the module belongs.
+	__doc__     returns the docstring at the top of the module if any
+	__dict__    returns the entire scope of the module
+	__name__    returns the name of the module
+	
+dir() => The dir() built-in function returns a sorted list 
+of strings containing the names defined by a module.
+
+reload() => 
+
+## Python - Built-in Functions
+
+
+	✅ Lista de Funções Built-in do Python (v3.12.2)
+	Funções Gerais
+	Nº	Função	Descrição
+	1	aiter()	Retorna um iterador assíncrono para um iterável assíncrono.
+	2	all()	Retorna True se todos os elementos do iterável forem verdadeiros.
+	3	anext()	Retorna o próximo item de um iterador assíncrono.
+	4	any()	Retorna True se algum item do iterável for verdadeiro.
+	5	ascii()	Retorna uma versão imprimível do objeto.
+	6	bin()	Converte um número inteiro em string binária.
+	7	bool()	Converte o valor para booleano.
+	8	breakpoint()	Entra no modo de depuração (debugger).
+	9	bytearray()	Retorna um array mutável de bytes.
+	10	bytes()	Retorna um objeto imutável de bytes.
+	11	callable()	Verifica se o objeto pode ser chamado como uma função.
+	12	chr()	Converte inteiro em caractere Unicode.
+	13	classmethod()	Cria um método de classe.
+	14	compile()	Compila código-fonte para um objeto executável.
+	15	complex()	Cria um número complexo.
+	16	delattr()	Remove um atributo de um objeto.
+	17	dict()	Cria um dicionário.
+	18	dir()	Lista os atributos de um objeto.
+	19	divmod()	Retorna quociente e resto.
+	20	enumerate()	Adiciona contadores a um iterável.
+	21	eval()	Avalia uma expressão como código.
+	22	exec()	Executa código Python dinamicamente.
+	23	filter()	Filtra elementos com base em uma função.
+	24	float()	Converte para ponto flutuante.
+	25	format()	Formata dados em string.
+	26	frozenset()	Cria um conjunto imutável.
+	27	getattr()	Obtém o valor de um atributo.
+	28	globals()	Retorna o dicionário de variáveis globais.
+	29	hasattr()	Verifica se um objeto possui um atributo.
+	30	hash()	Retorna o hash de um objeto.
+	31	help()	Abre o sistema de ajuda.
+	32	hex()	Converte inteiro para hexadecimal.
+	33	id()	Retorna o identificador do objeto.
+	34	input()	Lê e retorna uma linha de entrada.
+	35	int()	Converte para inteiro.
+	36	isinstance()	Verifica se o objeto é instância de uma classe.
+	37	issubclass()	Verifica se uma classe é subclasse de outra.
+	38	iter()	Retorna um iterador.
+	39	len()	Retorna o comprimento de um objeto.
+	40	list()	Cria uma lista.
+	41	locals()	Retorna as variáveis locais.
+	42	map()	Aplica uma função a cada item do iterável.
+	43	memoryview()	Retorna uma visão de memória do argumento.
+	44	next()	Retorna o próximo item de um iterador.
+	45	object()	Cria um objeto genérico vazio.
+	46	oct()	Converte inteiro para octal.
+	47	open()	Abre e retorna um objeto de arquivo.
+	48	ord()	Retorna o código Unicode de um caractere.
+	49	print()	Exibe no terminal.
+	50	property()	Define um atributo com métodos getters/setters.
+	51	range()	Cria uma sequência de números.
+	52	repr()	Retorna uma representação string do objeto.
+	53	reversed()	Inverte a ordem de um iterável.
+	54	set()	Cria um conjunto.
+	55	setattr()	Define um atributo em um objeto.
+	56	slice()	Cria um objeto de fatia (slice).
+	57	sorted()	Retorna uma lista ordenada.
+	58	staticmethod()	Define um método estático.
+	59	str()	Converte para string.
+	60	super()	Referência à superclasse.
+	61	tuple()	Cria uma tupla.
+	62	type()	Retorna o tipo do objeto.
+	63	vars()	Retorna o __dict__ de um objeto.
+	64	zip()	Agrupa iteráveis em tuplas.
+	65	__import__()	Função interna usada pelo import.
+	66	unichr()	Converte um código Unicode em caractere. (obsoleto no Python 3)
+	67	long()	Inteiros de precisão arbitrária (Python 2 apenas)
+
+	🧮 Funções Matemáticas Built-in
+	Nº	Função	Descrição
+	1	abs()	Valor absoluto.
+	2	max()	Valor máximo.
+	3	min()	Valor mínimo.
+	4	pow()	Potência (com opção de módulo).
+	5	round()	Arredonda número.
+	6	sum()	
+
+RESUMO: 
+
+	🛠️ Funções Built-in Mais Usuais em Python
+	print() – Exibir valores no terminal.
+	input() – Ler entrada do usuário.
+	len() – Obter o tamanho de listas, strings etc.
+	range() – Gerar sequências numéricas.
+	type() – Verificar o tipo de uma variável.
+	int(), float(), str() – Conversões básicas.
+	list(), dict(), set(), tuple() – Criar coleções.
+	sum(), max(), min() – Operações matemáticas rápidas.
+	enumerate() – Iterar com índice.
+	zip() – Agrupar valores de múltiplas listas.
+	sorted() – Ordenar listas e iteráveis.
+	map(), filter() – Aplicar funções em coleções.
+	isinstance() – Testar tipos.
+	open() – Ler e gravar arquivos.
+	eval() – Executar strings como código (com muito cuidado!).
+	abs() – Valor absoluto.
+	round() – Arredondar números.
+	help() – Acessar a documentação embutida.
+	dir() – Ver atributos de objetos.
+	id() – Identificador único do objeto (memória).
+	
+# Python - Listas
+
+## Uma lista Python é uma sequência de itens separados por vírgulas, entre colchetes [ ].
+## Os itens em uma lista Python não precisam ser do mesmo tipo de dados.
+
+## Lista é uma coleção ordenada de itens.
+
+## Uma lista em Python é semelhante a uma matriz em C, C++ ou Java. 
+## No entanto, a principal diferença é que em C/C++/Java, os elementos de 
+## matriz devem ser do mesmo tipo. Por outro lado, as listas 
+## Python podem ter objetos de diferentes tipos de dados.
+
+## Uma lista Python é mutável. Qualquer item da lista pode ser 
+## acessado usando seu índice e pode ser modificado. Um ou mais 
+## objetos da lista podem ser removidos ou adicionados. 
+## Uma lista pode ter o mesmo item em mais de uma posição de índice.
+
+
+## Acessando Valores em Listas
+
+## Atualizando Listas
+
+## Excluir Elementos da Lista
+
+	list = [1,2,3,4,5]
+	print(list)
+	
+	del list[2]
+	
+	print(list)
+	
+## Operações de Lista Python
+
+	list = [1,2,3] + [4,5,6]
+	print(list)
+	
+	message = ['Hello!'] * 7
+	print(message)
+	
+	test = 3 in [6,5,4,8,3,8,9,0]
+	print(test)	
+	
+## Indexação, Fatiamento e Matrizes
+
+	message = "Hello, World!"
+	print(message[-1])             # !
+	print(message[7:len(message)]) # World!
+	
+	
+## Python List Methods
+
+
+	🧰 Métodos de Listas em Python
+	Nº	Método	Descrição
+	1	list.append(obj)	Adiciona o objeto obj ao final da lista.
+	2	list.clear()	Remove todos os itens da lista.
+	3	list.copy()	Retorna uma cópia superficial da lista.
+	4	list.count(obj)	Conta quantas vezes o obj aparece na lista.
+	5	list.extend(seq)	Adiciona os elementos da sequência seq ao final da lista.
+	6	list.index(obj)	Retorna o menor índice em que obj aparece na lista.
+	7	list.insert(index, obj)	Insere o objeto obj na posição index.
+	8	list.pop([index])	Remove e retorna o item na posição index (ou o último, se não especificado).
+	9	list.remove(obj)	Remove a primeira ocorrência de obj na lista.
+	10	list.reverse()	Inverte os elementos da lista in place.
+	11	list.sort([key], [reverse])	Ordena os itens da lista; aceita função key e parâmetro reverse.
+
+	🔧 Funções Built-in com Listas
+	Nº	Função	Descrição
+	1	len(lista)	Retorna o número total de elementos na lista.
+	2	max(lista)	Retorna o maior elemento da lista.
+	3	min(lista)	Retorna o menor elemento da lista.
+	4	list(seq)	Converte uma sequência (como tupla) em lista.
+	5	cmp(lista1, lista2)	(Python 2) Compara dois elementos; não existe mais no Python 3.
+
+	
+	RESUMO:
+	
+		append(obj): adiciona um item ao final da lista.
+		extend(seq): junta outra sequência (como outra lista).
+		insert(index, obj): insere um item em uma posição específica.
+		pop([index]): remove e retorna o item dado (ou o último).
+		remove(obj): remove a primeira ocorrência de um item.
+		sort() / reverse(): ordena ou inverte a lista no lugar.
+
+		🔧 Funções Built-in Fundamentais
+		len(lista): conta quantos itens tem na lista.
+		max(lista) / min(lista): encontra o maior ou o menor valor.
+		list(seq)
+		
+# Python - Access List Items
+
+	list = [1,2,3,4,5,6,7,8,9]
+	print(list[3:len(list)-2])  # [4, 5, 6, 7]
+	
+# Python - Change List Items
+
+	list3 = [1, 2, 3, 4, 5]
+	print ("Original list ", list3)
+	list3[2] = 10
+	print ("List after changing value at index 2: ", list3)
+
+## Change Consecutive List Items
+
+	list = [1,2,3,4,5,6,7,8,9]
+	list[3:len(list)-2] = 0-1,66,21,-17
+	print(list) # [1, 2, 3, -1, 66, 21, -17, 8, 9]
+	
+# Python - Add List Items
+
+# Python - Remove List Items
+
+# Python - Loop Lists
+
+## Loop Through List Items with Index
+
+	list1 = [9,8,7,6,5]
+	list2 = [1,2,3,4,5]
+	list1.extend(list2)
+
+	for el in range(len(list1)):
+		print(f"{list1[el]}")
+
+## Iterate using List Comprehension
+
+	list1 = [9,8,7,6,5]
+	sqr = [item ** 2 for item in list1]
+	print(sqr)
+	
+## Iterate using the enumerate() Function
+	
+	people = ["Anderson", "Sara", "Carol", "Jason", "Taylor", "Jacqueline"]
+
+	for index, name in enumerate(people):
+		print(f"{index + 1}:{name}")
+			
+# Python - List Comprehension
+
+	nums = [6,5,7,4,8,3,9,2,0,1]
+
+	# ------------------------------------------------------------ # 
+
+	new_list = [n for n in nums if n % 2 == 0]
+	print(new_list) # [6, 4, 8, 2, 0]
+	
+	# ------------------------------------------------------------ # 
+
+	new_list = [n * 3 for n in nums if n % 2 == 0]
+	print(new_list) # [18, 12, 24, 6, 0]
+	
+	# ------------------------------------------------------------ # 
+
+	new_list = [n * 3 for n in nums if n % 2 != 0]
+	print(new_list) # [15, 21, 9, 27, 3]
+	
+	# ------------------------------------------------------------ # 
+	
+	message = "Hello, Python 03!"
+	new_message = [c for c in message if c.isalpha()]
+	print(new_message)
+	print("".join(new_message))
+	
+	# ------------------------------------------------------------ # 
+	
+## Python - List Comprehensions and Lambda Functions
+
+	nums = [6,5,7,4,8,3,9,2,0,1]
+
+	# Só imprimindo:
+	list1 = [(lambda x: x)(x) for x in nums]
+	print(list1)
+
+	# Raiz quadrada
+	list2 = [(lambda x: x**2)(x) for x in nums]
+	print(list2)
+
+## Loops Aninhados na Compreensão de Lista do Python
+
+	list1 = [1,2,3,4,5]
+	list2 = [5,6,7,8,9]
+
+	combo = [(x,y) for x in list1 for y in list2]
+	print(combo)
+	
+## Condicionais em Python List Comprehension
+
+
+	list = [x for x in range(0,100,3) if x % 3 == 0]
+	print(list)
+	
+## Compreensões de Lista vs Para Loop
+
+## Compreensões de lista são como atalhos para criar listas em Python. 
+## Eles permitem que você gere uma nova lista aplicando uma operação a cada 
+## item em uma lista existente.
+
+	chars = []
+	for c in "Hello, World!":
+		chars.append(c)
+	print(chars) # ['H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o', 'r', 'l', 'd', '!']
+	
+	# Em compreensão:
+	
+	chars = [c for c in "Hello, World!"]
+	print(chars)
+	
+	# ------------------------------------------------------------ # 
+	
+	squares = [(x * x) for x in range(1,10) if x % 2 == 0]
+	print(squares)
+	
+	# ------------------------------------------------------------ # 
+	
+Vantagens da Compreensão de Lista
+
+A seguir estão as vantagens de usar a compreensão de lista −
+
+	Concisão − Mais concisas e legíveis em comparação com os loops tradicionais.
+
+	Eficiência − Mais rápidas e mais eficientes do que para loops porque 
+	são otimizadas pelo Python.
+
+	Clarity − Código mais claro e expressivo.
+
+	Chance de Erros Reduzida − Menos chances de erros em comparação com os 
+	loops tradicionais.
+	
+	
+	
+# Python - Sort Lists
+
+## Classificando Listas Usando o método sort()
+
+	# ------------------------------------------------------------ # 
+
+	list = [1,2,1,2,11,7,5]
+
+	from functools import reduce
+	list.sort(key=lambda x: x % 2 == 0)
+
+	print(list) # ordenando colocando os pares primeiros.
+	
+	# ------------------------------------------------------------ # 
+
+## Classificando Listas Usando o método sorted()
+
+	from functools import reduce
+	list = [1,2,1,2,11,7,5]
+	list = sorted(list, key=lambda x: x % 2 == 0)
+	print(list)
+
+	# ------------------------------------------------------------ # 
+	
+## Classificando Itens de Lista com Função de Retorno de Chamada	
+
+	Podemos classificar itens de lista com uma função de retorno de 
+	chamada usando a função sorted() ou sort() em Python.
+	
+	
+	### Usando str.lower() como chave Parâmetro
+	
+		list = ["Tyuweuqwyew","jhdHksjkdJkdasjkds", "Uiwquieuwie"]
+		list.sort(key=str.lower)
+		print(list)
+		
+	### Exemplo Usando a função definida pelo usuário como chave Parâmetro
+	
+		def function(x):
+			return x % 2 == 0
+
+		list = [5,6,4,7,3,8,2,9,1,0]
+		list.sort(key=function)
+		print(list)
+		
+# Python - Copy Lists
+
+	list = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+	import copy
+
+	new_list = copy.copy(list)
+	print(new_list)	
+	
+	
+## Copiando Lista Usando a Notação de Fatia
+
+	list = [1,2,3,4,5,6,7,8,9,0]
+	print(list[0:len(list):2])
+
+	
+# Python - Join Lists	
+
+## Junte-se a Listas Usando Operador de Concatenação
+
+	list1 = [1,2,3,4,5,6,7,8,9,0]
+	list2 = ["jhdasjhdas","ijdasjhdjasd","oieqowieoqiw"]
+	nlist = list1 + list2
+	print(nlist)
+	
+## Participe de Listas Usando a Compreensão de Lista
+
+	l1 = [1,2,3,4,5,6,7,8,9,0]
+	l2 = ["jhdasjhdas","ijdasjhdjasd","oieqowieoqiw"]
+	
+	j = [i for s in [l1,l2] for i in s]
+	
+	print(j)
+
+## Cadastre-se nas listas usando a função append ()
+
+
+	l1 = [1,2,3,4,5,6,7,8,9,0]
+	l2 = ["jhdasjhdas","ijdasjhdjasd","oieqowieoqiw"]
+
+	for item in l1:
+		l2.append(item)
+
+	print(l2)
+	
+## Listas de Junta Usando extend() Função
+
+	l1 = [1,2,3,4,5,6,7,8,9,0]
+	l2 = ["jhdasjhdas","ijdasjhdjasd","oieqowieoqiw"]
+	l2.extend(l1)
+	print(l2)	
+	
+	
+# Python - Métodos de Lista
+
+
+## Imprimindo todos os métodos da lista
+
+	print(dir([])) # imprime todos os metodos para dir().
+	
+	print(help(str().replace)) # dados sobre o replace de string.
+
+	print(help(str().capitalize))
+	
+	...
+	
+	
+## Métodos para Adicionar Elementos a uma Lista
+
+	list.append(obj) 		: Appends object obj to list.
+	list.extend(seq) 		: Appends the contents of seq to list
+	list.insert(index, obj) : Inserts object obj into list at offset index
+	
+		
+	list.clear()			: Clears all the contents of the list.
+
+	list.pop(obj=list[-1])  : Removes and returns the last object or the object at 
+	                          the specified index from the list.
+
+	list.remove(obj)        : Removes the first occurrence of object obj from the list.
+	
+	# ------------------------------------------------------
+	
+	list = [6,5,7,4,8,3,9,2,0,1]
+	print(list)
+
+	list.pop(-3) # removo o numero 2
+	print(list)
+
+	list.remove(3) # remove o numero 3.
+	print(list)
+
+	list.clear() # limpar a lista.
+	print(list)
+	
+	# ------------------------------------------------------
+	
+## Methods to Access Elements in a List
+
+	list.index(obj) 		: Returns the lowest index in list that obj appears
+		
+	list.count(obj)			: Returns count of how many times obj occurs in the list.
+	
+	
+## Copying and Ordering Methods
+	
+	list.copy() 			: Returns a copy of the list object.
+	list.sort([func]) 		: Sorts the objects in the list in place, using a comparison function if provided.
+	list.reverse() 			: Reverses the order of objects in the list in place.
+	
+	# ------------------------------------------------------
+	
+	# por função
+	print("pares")
+
+	list = [6,5,7,4,8,3,9,2,0,1]
+	print(list)
+
+	def function(x):
+		return x % 2 == 0
+
+	list.sort(key=function) # para que os pares venham primeiro.
+	print(list)
+
+	# por lambda
+	print("impares")
+
+	list = [6,5,7,4,8,3,9,2,0,1]
+	print(list)
+
+	list.sort(key=lambda x: x % 2 != 1) # para que os impares venham primeiro.
+	print(list)
+
+	# sem sort(), por compressão:
+
+	new_list = [x for x in list if x % 2 != 0]
+	print(new_list) # gera uma nova lista
+	
+	# ------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+
+Python Tuples
+
+Python Sets
+
+Python Dictionaries
+
+Python Arrays
+
+------------------------------------------------------------------------------------------
+
+Python File Handling
+
+# Python - File Handling
+
+	# ------------------------------------------------------
+
+	import os
+
+	title = "People list:\n\n"
+	people = ["Anderson\n", "Lucy\n", "Jessie\n", "Anne\n", "Sara\n"]
+
+	filename = "people.txt"
+	if os.path.exists(filename):
+		os.remove(filename)
+
+	try:
+		with open(filename, "w") as file:
+			file.write(title)
+			file.close()
+	except IOError as err:
+		print(f"Error: {err}")
+
+	try:
+		with open(filename, "a") as file:
+			file.writelines(people)
+			file.close()
+	except IOError as err:
+		print(f"Error: {err}")
+
+	try:
+		with open(filename, "r") as file:
+			print(file.readline())
+			file.close()
+	except IOError as err:
+		print(f"Error: {err}")
+
+	try:
+		with open(filename, "r") as file:
+			print(file.read())
+			file.close()
+	except IOError as err:
+    print(f"Error: {err}")
+			
+	# ------------------------------------------------------
+	
+# Python - Write to File
+	
+### Writing to a New File in Binary Mode
+
+	Devemos abrir o arquivo no modo binário adicionando 
+	o prefixo 'b' ao modo de leitura/gravação.
+
+	# ------------------------------------------------------
+
+	filename = "hello.bin"
+	text = b"Hello, World!"
+
+	try:
+		with open(filename, "wb") as file:
+			file.write(text)
+			file.close()
+	except IOError as err:
+		print(f"Error: {err}")
+
+	try:
+		with open(filename, "rb") as file:
+			print(file.readline())
+			file.close()
+	except IOError as err:
+		print(f"Error: {err}")
+		
+	# ------------------------------------------------------
+
+### Escrevendo em um Arquivo em Modos de Leitura e Escrita
+
+	O método seek() é usado para definir a posição do ponteiro de 
+	leitura/gravação dentro do arquivo. 
+	
+	# ------------------------------------------------------
+	
+	filename = "hello.txt"
+	text = "Hello, World!"
+
+	try:
+		with open(filename, "w+") as file:
+			file.write("Hello, World!")
+			file.seek(7,0)
+			file.write("Mundo!")
+			file.close()
+	except IOError as err:
+		print(f"Error: {err}")
+		
+	# ------------------------------------------------------
+
+## Python - Read Files
+
+	# ------------------------------------------------------
+
+	filename = "hello.txt"
+	text = "Hello, World!"
+
+	try:
+		with open(filename, "w+") as file:
+			file.write("Hello, World!")
+			file.seek(7,0)
+			file.write("Mundo!")
+			print(file.read(7))
+			print(file.readline(7))
+			file.close()
+	except IOError as err:
+		print(f"Error: {err}")
+		
+	# ------------------------------------------------------
+	
+### Writing to a Binary File
+	
+	filebin = "test.bin"
+	data = b"Hello, World!"
+
+	with open(filebin, "wb") as file:
+		file.write(data)
+		file.close()
+
+	with open(filebin, "rb") as file:
+		data = file.read()
+		print(data)
+		print(data.decode(encoding="utf-8"))
+		file.close()
+		
+	# ------------------------------------------------------
+
+	# <numero>.to_bytes(8, "big") e int.from_bytes(data, "big")
+
+	n = 13
+	data = n.to_bytes(8, "big")
+	print(data)
+
+	with open("test.bin", "wb") as file:
+		file.write(data)
+		file.close()
+
+	with open("test.bin", "rb") as file:
+		data = file.read()
+		n = int.from_bytes(data, "big")
+		print(n)
+		file.close()
+
+	# ------------------------------------------------------
+	
+	# float to binary
+
+	import struct
+
+	x = 23.50
+	data = struct.pack('f', x)
+	print(data)
+
+	with open("float.bin", "wb") as file:
+		file.write(data)
+		file.close()
+
+	with open("float.bin", "rb") as file:
+		data = file.read()
+		x = struct.unpack('f', data)[0] # nao esquecer que é vetor de dados.
+		print(x)
+		file.close()
+		
+	# ------------------------------------------------------
+
+	# seek in read
+
+	with open("lorem.txt", "r+") as file:
+		file.seek(124,0) # a partir de "Ut...""
+		print(file.read())
+		file.close()
+		
+	# ------------------------------------------------------
+	
+## Reading and Writing to a File Simultaneously in Python
+
+	When a file is opened for writing (with 'w' or 'a'), it is not possible to 
+	read from it, and attempting to do so will throw an UnsupportedOperation error.
+
+	Similarly, when a file is opened for reading (with 'r' or 'rb'), 
+	writing to it is not allowed. To switch between reading and writing, 
+	you would typically need to close the file and reopen it in the desired mode.
+
+	To perform both read and write operations simultaneously, you can add the '+' 
+	character to the mode parameter. Using 'w+' or 'r+' mode enables both write() 
+	and read() methods without needing to close the file.
+
+	Additionally, the File object supports the seek() function, which allows 
+	you to reposition the read/write pointer to any desired byte 
+	position within the file.
+	
+## Reading a File from Specific Offset
+
+	...
+	# Seek to a specific position in the file
+	fo.seek(10, 0)
+
+	# Read a few bytes from the current position
+	data = fo.read(3)
+	...
+	
+	# ------------------------------------------------------
+	
+	
+# Python - Renaming and Deleting Files
+
+	import os
+
+	if os.path.exists("file2.txt"):
+		os.remove("file2.txt")
+
+	if os.path.exists("renamed.txt"):
+		os.remove("renamed.txt")
+
+	with open("file2.txt", "w") as file:
+		file.close()
+
+	os.rename("file2.txt", "renamed.txt")
+	os.remove("renamed.txt")
+	
+	# ------------------------------------------------------
+	
+# Python - Directories
+
+	Caminho relativo − Um caminho relativo ao diretório de trabalho atual.
+
+	Caminho absoluto − Um caminho completo a partir do diretório raiz.
+	
+	Alguns comandos para trabalhar com diretórios:
+	
+		os.path.exists(path) → Verifica se o caminho especificado existe. Pode ser arquivo ou diretório.
+		os.makedirs(new_directory) → Cria diretórios recursivamente. Ou seja, cria todos os diretórios intermediários, se necessário.
+		OSError → Exceção levantada quando ocorre erro relacionado ao sistema operacional. Muito comum ao lidar com arquivos e diretórios.
+		os.mkdir("newdir") → Cria um único diretório. Não cria diretórios pais se eles não existirem (diferente de makedirs).
+		os.getcwd() → Retorna o diretório de trabalho atual.
+		os.listdir(directory_path) → Lista o conteúdo do diretório especificado (arquivos e pastas).
+		os.chdir("newdir") → Muda o diretório de trabalho atual para "newdir".
+		os.rmdir(directory_path) → Remove um diretório vazio. Lança erro se não estiver vazio.
+		shutil.rmtree(directory_path) → Remove recursivamente um diretório e todo o seu conteúdo (atenção: isso é destrutivo!).
+		
+# Python - File Methods
+
+
+	Métodos e Descrição
+
+		file.close()
+		Fecha o arquivo. Um arquivo fechado não pode mais ser lido nem escrito.
+
+		file.flush()
+		Força a gravação do buffer interno, como o fflush do stdio. Pode não ter efeito em alguns objetos semelhantes a arquivos.
+
+		file.fileno()
+		Retorna o descritor de arquivo (um inteiro) usado internamente pelo sistema operacional para operações de E/S.
+
+		file.isatty()
+		Retorna True se o arquivo estiver conectado a um dispositivo tty (ou semelhante), caso contrário, False.
+
+		file.next()
+		Retorna a próxima linha do arquivo a cada chamada.
+
+		file.read([size])
+		Lê no máximo "size" bytes do arquivo (menos se atingir EOF antes).
+
+		file.readline([size])
+		Lê uma linha inteira do arquivo. O caractere de nova linha (newline) é mantido na string.
+
+		file.readlines([sizehint])
+		Lê até o fim do arquivo usando readline() e retorna uma lista com as linhas. Se "sizehint" for especificado, lê linhas totalizando aproximadamente esse número de bytes.
+
+		file.seek(offset[, whence])
+		Define a posição atual do ponteiro de leitura/escrita no arquivo.
+
+		file.tell()
+		Retorna a posição atual do ponteiro no arquivo.
+
+		file.truncate([size])
+		Trunca (corta) o arquivo até o tamanho especificado. Se "size" for omitido, trunca na posição atual.
+
+		file.write(str)
+		Escreve uma string no arquivo. Não há valor de retorno.
+
+		file.writelines(sequence)
+		Escreve uma sequência de strings no arquivo. A sequência pode ser qualquer iterável que produza strings (ex: uma lista de strings).
+
+	RESUMO:
+	
+		file.open() / file.close()
+		Abrir e fechar arquivos com segurança.
+
+		file.read(), file.readline(), file.readlines()
+		Leitura de arquivos — seja o conteúdo todo, linha por linha, ou como lista de linhas.
+
+		file.write(), file.writelines()
+		Escrita em arquivos — escrevendo strings únicas ou várias de uma vez.
+
+		file.seek(), file.tell()
+		Controlar e verificar a posição do ponteiro de leitura/escrita dentro do arquivo.
+		
+	
+Python OS File/Directory Methods
+
+	os.access(path, mode)
+	Usa os identificadores reais de usuário/grupo para testar o acesso ao caminho.
+
+	os.chdir(path)
+	Altera o diretório de trabalho atual para o caminho fornecido.
+
+	os.chflags(path, flags)
+	Define os flags do caminho com os valores numéricos indicados.
+
+	os.chmod(path, mode)
+	Altera as permissões de acesso (modo) do caminho.
+
+	os.chown(path, uid, gid)
+	Altera o proprietário e o grupo do caminho.
+
+	os.chroot(path)
+	Altera o diretório raiz do processo atual.
+
+	os.close(fd)
+	Fecha o descritor de arquivo fornecido.
+
+	os.closerange(fd_low, fd_high)
+	Fecha todos os descritores de arquivo entre fd_low e fd_high.
+
+	os.dup(fd)
+	Retorna uma duplicata do descritor de arquivo.
+
+	os.dup2(fd, fd2)
+	Duplica fd para fd2, fechando fd2 antes se necessário.
+
+	os.fchdir(fd)
+	Altera o diretório de trabalho para o representado por fd.
+
+	os.fchmod(fd, mode)
+	Altera as permissões do arquivo representado por fd.
+
+	os.fchown(fd, uid, gid)
+	Altera o dono e grupo do arquivo representado por fd.
+
+	os.fdatasync(fd)
+	Força a gravação do conteúdo do descritor fd no disco.
+
+	os.fdopen(fd[, mode[, bufsize]])
+	Abre um objeto de arquivo associado ao descritor fd.
+
+	os.fpathconf(fd, name)
+	Retorna informações de configuração do sistema para um arquivo aberto.
+
+	os.fstat(fd)
+	Retorna o status de um descritor de arquivo.
+
+	os.fstatvfs(fd)
+	Retorna informações sobre o sistema de arquivos contendo o descritor fd.
+
+	os.fsync(fd)
+	Força a gravação do arquivo em disco.
+
+	os.ftruncate(fd, length)
+	Trunca o arquivo para ter no máximo length bytes.
+
+	os.getcwd()
+	Retorna o diretório de trabalho atual como string.
+
+	os.getcwdu()
+	Retorna o diretório atual como objeto Unicode.
+
+	os.isatty(fd)
+	Retorna True se fd estiver conectado a um terminal.
+
+	os.lchflags(path, flags)
+	Define os flags sem seguir links simbólicos.
+
+	os.lchmod(path, mode)
+	Altera as permissões do arquivo, sem seguir links simbólicos.
+
+	os.lchown(path, uid, gid)
+	Altera dono e grupo, sem seguir links simbólicos.
+
+	os.link(src, dst)
+	Cria um link físico apontando de dst para src.
+
+	os.listdir(path)
+	Lista os nomes dos itens do diretório especificado.
+
+	os.lseek(fd, pos, how)
+	Define a posição de leitura/gravação no arquivo.
+
+	os.lstat(path)
+	Igual ao stat(), mas sem seguir links simbólicos.
+
+	os.major(device)
+	Extrai o número major de um número de dispositivo.
+
+	os.makedev(major, minor)
+	Monta um número de dispositivo a partir dos números major e minor.
+
+	os.makedirs(path[, mode])
+	Cria diretórios recursivamente.
+
+	os.minor(device)
+	Extrai o número minor de um número de dispositivo.
+
+	os.mkdir(path[, mode])
+	Cria um novo diretório.
+
+	os.mkfifo(path[, mode])
+	Cria um FIFO (pipe nomeado).
+
+	os.mknod(filename[, mode=0600, device])
+	Cria um nó no sistema de arquivos (arquivo, dispositivo ou FIFO).
+
+	os.open(file, flags[, mode])
+	Abre um arquivo com os flags e modo indicados.
+
+	os.openpty()
+	Abre um par de pseudoterminais (master, slave).
+
+	os.pathconf(path, name)
+	Retorna configurações do sistema referentes ao arquivo.
+
+	os.pipe()
+	Cria um pipe e retorna descritores de leitura e escrita.
+
+	os.popen(command[, mode[, bufsize]])
+	Abre um canal com um comando do sistema.
+
+	os.read(fd, n)
+	Lê até n bytes do descritor fd.
+
+	os.readlink(path)
+	Retorna o caminho apontado por um link simbólico.
+
+	os.remove(path)
+	Remove um arquivo.
+
+	os.removedirs(path)
+	Remove diretórios recursivamente.
+
+	os.rename(src, dst)
+	Renomeia arquivo ou diretório.
+
+	os.renames(old, new)
+	Renomeia recursivamente um caminho.
+
+	os.rmdir(path)
+	Remove um diretório vazio.
+
+	os.stat(path)
+	Obtém informações de status sobre um caminho.
+
+	os.stat_float_times([newvalue])
+	Define se os tempos de stat() são representados como float.
+
+	os.statvfs(path)
+	Obtém informações do sistema de arquivos.
+
+	os.symlink(src, dst)
+	Cria um link simbólico apontando para src.
+
+	os.tcgetpgrp(fd)
+	Retorna o grupo de processo associado a um terminal.
+
+	os.tcsetpgrp(fd, pg)
+	Define o grupo de processo associado ao terminal.
+
+	os.tempnam([dir[, prefix]])
+	Gera um nome único para um arquivo temporário.
+
+	os.tmpfile()
+	Cria um arquivo temporário em modo de atualização.
+
+	os.tmpnam()
+	Gera um nome único para um arquivo temporário.
+
+	os.ttyname(fd)
+	Retorna o nome do terminal associado a fd.
+
+	os.unlink(path)
+	Remove o arquivo especificado.
+
+	os.utime(path, times)
+	Define os horários de acesso/modificação de um arquivo.
+
+	os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])
+	Percorre diretórios recursivamente, gerando nomes de arquivos.
+
+	os.write(fd, str)
+	Escreve a string no descritor de arquivo e retorna a quantidade de bytes escritos.
+	
+	RESUMO:
+
+		os.getcwd() — Obter o diretório de trabalho atual.
+		os.chdir(path) — Mudar o diretório atual.
+		os.listdir(path) — Listar arquivos e pastas de um diretório.
+		os.mkdir(path) / os.makedirs(path) — Criar diretórios (simples ou recursivamente).
+		os.remove(path) / os.unlink(path) — Remover arquivos.
+		os.rmdir(path) / os.removedirs(path) — Remover diretórios (simples ou recursivamente).
+		os.rename(src, dst) — Renomear arquivos ou diretórios.
+		os.path.exists(path) (não estava na lista, mas é fundamental) — Verificar se um caminho existe.
+		os.walk(path) — Percorrer diretórios de forma recursiva (muito usado em scripts).
+		os.stat(path) — Obter informações sobre um arquivo ou diretório.
+		os.access(path, mode) — Verificar permissões de acesso.
+		
+	
+Python OS.Path Methods	
+	
+	os.path.abspath(path)
+	Retorna uma versão absolutizada e normalizada do caminho especificado.
+
+	os.path.basename(path)
+	Retorna o nome base (nome do arquivo ou último diretório) do caminho.
+
+	os.path.commonprefix(lista)
+	Retorna o maior prefixo comum (caractere a caractere) entre todos os caminhos da lista.
+
+	os.path.dirname(path)
+	Retorna o nome do diretório do caminho especificado.
+
+	os.path.exists(path)
+	Retorna True se o caminho existir. Retorna False para links simbólicos quebrados.
+
+	os.path.lexists(path)
+	Retorna True se o caminho existir. Retorna True mesmo para links simbólicos quebrados.
+
+	os.path.expanduser(path)
+	Em Unix e Windows, substitui `~` ou `~usuario` pelo diretório home correspondente.
+
+	os.path.expandvars(path)
+	Expande variáveis de ambiente presentes no caminho.
+
+	os.path.getatime(path)
+	Retorna a data/hora do último acesso ao arquivo.
+
+	os.path.getmtime(path)
+	Retorna a data/hora da última modificação do arquivo.
+
+	os.path.getctime(path)
+	Retorna o tempo de criação do arquivo (ou última modificação no Unix).
+
+	os.path.getsize(path)
+	Retorna o tamanho do arquivo, em bytes.
+
+	os.path.isabs(path)
+	Retorna True se o caminho for absoluto.
+
+	os.path.isfile(path)
+	Retorna True se o caminho for um arquivo comum existente.
+
+	os.path.isdir(path)
+	Retorna True se o caminho for um diretório existente.
+
+	os.path.islink(path)
+	Retorna True se o caminho for um link simbólico.
+
+	os.path.ismount(path)
+	Retorna True se o caminho for um ponto de montagem no sistema de arquivos.
+
+	os.path.join(path1, path2, ...)
+	Une componentes de caminhos de forma inteligente.
+
+	os.path.normcase(path)
+	Normaliza o uso de maiúsculas/minúsculas no caminho (útil no Windows).
+
+	os.path.normpath(path)
+	Normaliza o caminho, eliminando redundâncias como `..` e `.`.
+
+	os.path.realpath(path)
+	Resolve links simbólicos e retorna o caminho absoluto canônico.
+
+	os.path.relpath(path[, start])
+	Retorna o caminho relativo a partir do diretório atual ou de `start`.
+
+	os.path.samefile(path1, path2)
+	Retorna True se ambos os caminhos se referem ao mesmo arquivo ou diretório.
+
+	os.path.sameopenfile(fp1, fp2)
+	Retorna True se os descritores de arquivo se referem ao mesmo arquivo.
+
+	os.path.samestat(stat1, stat2)
+	Retorna True se as informações dos arquivos se referem ao mesmo objeto.
+
+	os.path.split(path)
+	Divide o caminho em uma tupla (diretório, nome do arquivo).
+
+	os.path.splitdrive(path)
+	Divide o caminho em (unidade, restante do caminho). Útil no Windows.
+
+	os.path.splitext(path)
+	Divide o caminho em (nome_base, extensão), onde extensão começa com ponto.
+
+	os.path.walk(path, visit, arg)
+	Chama a função `visit` recursivamente para cada diretório na árvore a partir de `path`.
+
+
+	RESUMO: 
+
+		os.path.abspath(path)
+		Retorna o caminho absoluto normalizado — útil para resolver caminhos relativos.
+
+		os.path.basename(path)
+		Extrai apenas o nome do arquivo (ou último diretório) de um caminho.
+
+		os.path.dirname(path)
+		Retorna apenas o diretório pai de um caminho.
+
+		os.path.exists(path)
+		Verifica se o caminho existe — essencial para validações antes de ler/gravar arquivos.
+
+		os.path.isfile(path)
+		Verifica se o caminho é um arquivo (não uma pasta, link etc).
+
+		os.path.isdir(path)
+		Verifica se o caminho é um diretório.
+
+		os.path.join(path1, path2, ...)
+		Une caminhos de forma robusta e multiplataforma — indispensável.
+
+		os.path.splitext(path)
+		Separa a extensão do nome do arquivo — comum ao processar tipos específicos (.txt, .csv etc).
+
+		os.path.getsize(path)
+		Retorna o tamanho do arquivo — útil para filtros e diagnósticos.
+
+		os.path.realpath(path)
+		Resolve links simbólicos, obtendo o caminho real de um arquivo.
+
+		os.path.relpath(path[, start])
+		Obtem o caminho relativo entre arquivos ou pastas.
+
+Object Oriented Programming
+
+	

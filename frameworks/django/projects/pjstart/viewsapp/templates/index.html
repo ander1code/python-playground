@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewsApp</title>
+</head>
+<body style="background-color: beige;">
+    {% comment %} <div align="right" style="background-color: #ccc; padding:10px;">
+        <h3>| <a href="">Home</a> | <a href="{% url 'greeting' name='Anderson' %}">Greeting</a> | <a href="{% url 'check_age' age=15 %}">Check Age</a> | <a href="">CEP |</a></h3>
+        <h3>| <a href="{% url 'hello_from_project_url' %}">Hello (PJ)!</a> | <a href="{% url 'greeting_to_html' name='Anderson' %}">greeting_to_html</a> |</a></h3>
+        <h3>| <a href="{% url 'list_iteration' %}">Interation</a> | <a href="">redirect</a> |</a></h3>
+    </div> {% endcomment %}
+    {% block contents %}
+    {% endblock %}
+</body>
+</html>

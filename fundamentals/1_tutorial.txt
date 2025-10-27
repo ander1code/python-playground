@@ -1,0 +1,1122 @@
+Python "Hello, World!"
+
+	# Python code to print "Hello, World!"
+	print ("Hello, World!")
+	
+Python - Overview
+
+	>>>import this
+	
+	
+Python - History and Versions
+
+Python - Features
+
+	>>> 2*3+1
+	7
+	>>> print ("Hello World")
+	Hello World	
+	
+Python vs C++
+
+	Python é adequado para programadores C++ e Java novos e experientes. 
+	Guido Van Rossam criou o Python em 1989 no Instituto Nacional de Pesquisa 
+	da Holanda. Python foi lançado em 1991.
+
+	Exemplo Python
+
+		a = int(input("Enter value for a"))
+		b = int(input("Enter value for b"))
+
+		print("The number you have entered for a is ", a)
+		print("The number you have entered for b is ", b)
+	
+	
+Python - Hello World Program
+
+	#!/usr/bin/python3
+
+	print ("Hello World")
+	
+Python - Application Areas
+
+Python Interpreter and Its Modes
+
+	Python Interpreter - Interactive Mode
+	
+		>>> price = 100
+		>>> qty = 5
+		>>> total = price*qty
+		>>> total
+		500
+		>>> print ("Total = ", total)
+		Total = 500
+		>>> quit()
+		
+	Python Interpreter - Scripting Mode
+	
+		print ("My first program")
+		price = 100
+		qty = 5
+		total = price*qty
+		print ("Total = ", total)
+
+	Install IPython with PIP installer utility.
+		
+		pip3 install ipython
+		
+		C:\Users\Acer>ipython
+		
+		Exemplo 01:
+		
+			In [1]: price = 100
+			In [2]: quantity = 5
+			In [3]: total = price*quantity
+			In [4]: total
+			Out[4]: 500
+			In [5]: var = "Hello World"
+			In [6]: var?
+			...
+			Type: str
+			String form: Hello World
+			Length: 11
+			...
+			...
+			In [8]: !dir *.exe (para executar qualquer comando CMD)
+			
+			
+Python - Environment Setup
+
+	Running Python
+
+		-d		Exibe saída de depuração (debug).
+		-O		Gera bytecode otimizado (resultando em arquivos .pyo).
+		-S		Não executa import site para buscar os caminhos do Python ao iniciar.
+		-v		Saída detalhada (verbose), exibindo rastreamento das instruções de 
+		        importação.
+		-X		Desativa exceções embutidas baseadas em classe (usa apenas strings); 
+		        obsoleto desde a versão 1.6.
+		-c cmd	Executa script Python passado como uma string de comando.
+		file	
+		
+Python - Virtual Environment
+
+	Creation of Virtual Environments in Python using venv
+	
+		C:\pythonapp>python -m venv myvenv
+		
+		C:\pythonapp>myvenv\scripts\activate
+		
+		C:\pythonapp>myvenv\scripts\deactivate
+		
+		
+Python - Syntax
+
+	Linux:
+	
+		test.py
+		
+			#!/usr/bin/python3
+			print ("Hello, World!")
+		
+		$ chmod +x test.py     # This is to make file executable
+		$./test.py
+
+	Python Multi-Line Statements
+	
+		total = item_one + \
+        item_two + \
+        item_three
+		
+	Quotations in Python
+	
+		Python accepts single ('), double (") and triple (''' or """) quotes to 
+		denote string literals, as long as the same type of quote starts and ends 
+		the string.
+		
+	Waiting for the User
+	
+		raw_input("\n\nPress the enter key to exit.") # Error in Python 2.
+		
+	Multiple Statements on a Single Line
+		
+		The semicolon ( ; ) allows multiple statements on the single line given 
+		that neither statement starts a new code block.
+		
+		
+Python - Variables
+
+	Memory Addresses
+	
+		>>> id("May")
+		2167264641264
+		
+	Deleting Python Variables
+	
+		counter = 100
+		print (counter)
+
+		del counter
+		print (counter)
+		...
+		NameError: name 'counter' is not defined
+		
+	Getting Type of a Variable
+	
+		x = "Zara"
+		print(type(x)) # <class 'str'>
+		
+	Casting Python Variables
+	
+		x = str(10)    # x will be '10'
+		y = int(10)    # y will be 10 
+		z = float(10)  # z will be 10.0
+		
+	Python Variables - Multiple Assignment
+		
+		Exemplo 01:
+	
+			>>> a=b=c=10
+			>>> print (a,b,c)
+			10 10 10
+		
+		Exemplo 02:
+		
+			>>> a,b,c = 10,20,30
+			>>> print (a,b,c)
+			10 20 30
+		
+		Exemplo 03:
+		
+			>>> a = b = c = 100
+			
+			
+	Python Variables - Naming Convention
+
+		Camel case : A primeira letra da primeira palavra é minúscula, e as demais 
+		             palavras começam com letra maiúscula. kmPerHour, pricePerLitre
+		Pascal case: Todas as palavras começam com letra maiúscula, incluindo a 
+		             primeira.	KmPerHour, PricePerLitre
+		Snake case : As palavras são separadas por sublinhado (_) e geralmente todas 
+		             em minúsculas.	km_per_hour, price_per_litre
+					 
+			🐍 Convenções de Nomenclatura em Python
+			
+				Classe	      Pascal case	MeuObjeto, ClienteVIP
+				Função	      Snake case	calcular_total(), enviar_email()
+				Variável	  Snake case	valor_total, nome_cliente
+				Atributo	  Snake case	self.idade, self.saldo
+				Constante	  UPPER CASE	TAXA_JUROS, PI
+				Módulo/Pacote Snake case	utils_financeiros.py
+				
+	Python Global Variables
+	
+		x = 5
+		y = 10
+		def sum():
+			sum = x + y
+			return sum
+		print(sum())
+		
+	Constants in Python
+	
+		Python não possui nenhuma constante formalmente definida. No entanto, você 
+		pode indicar uma variável a ser tratada como uma constante usando nomes 
+		all-caps com sublinhados. Por exemplo, o nome PI_VALUE indica que você 
+		não deseja que a variável seja redefinida ou alterada de forma alguma.
+		
+	Variáveis Python vs C/C++
+	
+		>>> a=b=10
+		>>> a is b
+		True
+		>>> id(a), id(b)
+		(140731955278920, 140731955278920)
+		
+		
+Python - Data Types
+
+	Types of Data Types in Python
+	
+		Numeric Data Types
+			int
+			float
+			complex
+		String Data Types
+		Sequence Data Types
+			list
+			tuple
+			range
+		Binary Data Types
+			bytes
+			bytearray
+			memoryview
+		Dictionary Data Type
+		Set Data Type
+			set
+			frozenset
+		Boolean Data Type
+		None Type	
+	
+	1. Python Numeric Data Types:
+	
+		Exemplo 01:
+	
+			...
+			var4 = 10+3j   # complex data type
+			
+	3. Python Sequence Data Types:
+
+		List Data Type  : []
+		Tuple Data Type : ()
+		Range Data Type : range(start, stop, step)
+			
+	4. Python Binary Data Types:
+	
+		bytes
+		bytearray
+		memoryview
+		
+	    Bytes Data Type
+		
+			... comumente usado para armazenar dados binários, como 
+			imagens, arquivos ou pacotes de rede.
+			
+			Cada byte é um valor inteiro entre 0 e 255.
+			
+			podemos usar o prefixo "b" antes de uma string para criar automaticamente um objeto bytes.
+		
+			Exemplo 01:
+	
+				# Using bytes() function to create bytes
+				b1 = bytes([65, 66, 67, 68, 69])  
+				print(b1)  
+				
+			Exemplo 02:
+			
+				# Using prefix 'b' to create bytes
+				b2 = b'Hello'  
+				print(b2)  
+				
+		Bytearray Data Type	
+		
+			O tipo de dados de bytearray em Python é bastante semelhante ao tipo de dados de bytes, mas com uma 
+			diferença de chave: é mutável, o que significa que você pode modificar os valores armazenados nele 
+			depois que ele for criado.
+		
+			Exemplo 01:
+
+				# Creating a bytearray from an iterable of integers
+				value = bytearray([72, 101, 108, 108, 111])  
+				print(value) 
+				
+			Exemplo 02:
+
+				# Creating a bytearray by encoding a string
+				val = bytearray("Hello", 'utf-8')  
+				print(val)  
+				
+		Memoryview Data Type	
+		
+			... é um objeto integrado que fornece uma visualização na memória do objeto original, geralmente objetos 
+			que suportam o protocolo buffer, como matrizes de bytes (bytearray) e bytes (bytes). Ele permite acessar 
+			os dados subjacentes do objeto original sem copiá-lo, fornecendo acesso eficiente à memória para grandes 
+			conjuntos de dados.
+		
+			Exemplo 01:
+
+				data = bytearray(b'Hello, world!')
+				view = memoryview(data)
+				print(view)
+
+			Exemplo 02:
+
+				import array
+				arr = array.array('i', [1, 2, 3, 4, 5])
+				view = memoryview(arr)
+				print(view)
+				
+		Configuração do Tipo de Dados
+
+			Em Python, durante a declaração de uma variável ou objeto, você não precisa definir os tipos de dados. 
+			O tipo de dados é definido automaticamente com base no valor atribuído.
+	
+		Tipos de dados primitivos e não primitivos
+		
+			1. Tipos Primitivos
+			
+				Inteiros
+				Flutuadores
+				Booleanos e
+				Strings
+			
+			2. Tipos Não Primitivos			
+			
+				Listas
+				Tuplas 
+				Dicionários
+				Conjuntos
+				
+		Data Type Conversion Functions
+
+			Criar exemplos com funções abaixo.
+		
+		
+Python - Type Casting
+
+		Data Type Conversion Functions
+
+			int()		Converte x para um número inteiro. O parâmetro base define a base numérica se x for uma string.
+			long()		Converte x para um inteiro longo. base funciona como no int(). Obsoleta a partir do Python 3.
+			float()		Converte x para um número de ponto flutuante.
+			complex()	Cria um número complexo.
+			str()		Converte o objeto x para sua representação como string.
+			repr()		Converte o objeto x para uma string de expressão (útil para debug e logs).
+			eval()		Avalia uma string como código Python e retorna o resultado.
+			tuple()		Converte s para uma tupla.
+			list()		Converte s para uma lista.
+			set()		Converte s para um conjunto (sem elementos duplicados).
+			dict()		Cria um dicionário a partir de uma sequência de pares (chave, valor).
+			frozenset()	Converte s para um conjunto imutável.
+			chr()		Converte um inteiro para um caractere correspondente na tabela Unicode.
+			unichr()	Converte um inteiro para um caractere Unicode. Obsoleta no Python 3 (substituída por chr()).
+			ord()		Converte um único caractere para seu valor inteiro correspondente.
+			hex()		Converte um inteiro para uma string hexadecimal.
+			oct()		Converte um inteiro para uma string octal.
+			
+	
+Python - Unicode System
+
+	Os aplicativos de software geralmente exigem a exibição de mensagens emitidas em vários idiomas, como inglês, francês, 
+	japonês, hebraico ou hindi. Corda do Python type usa o padrão Unicode para representar caracteres. Torna o programa 
+	possível trabalhar com todos esses diferentes caracterese possíveis.
+	
+		Exemplo 01:
+		
+			var = "3/4"
+			print (var)
+			var = "\u00BE" # descobrir o unicode de um numero ou letra
+			print (var)
+			
+		Exemplo 02:
+		
+			string = "Hello"
+			tobytes = string.encode('utf-8')
+			print (tobytes)
+			string = tobytes.decode('utf-8')
+			print (string)
+			
+		Exemplo 03:
+		
+			string = "\u20B9"
+			print (string)
+			tobytes = string.encode('utf-8')
+			print (tobytes)
+			string = tobytes.decode('utf-8')
+			print (string)
+			
+Python - Literals
+
+	Different Types of Python Literals
+
+		Integer Literal
+		Float Literal
+		Complex Literal
+		String Literal
+		List Literal
+		Tuple Literal
+		Dictionary Literal
+
+		Exemplo - Integer Literal:
+		
+			x = 10
+			x = 0O34
+			x = 0X1C
+			
+		Exemplo - Float Literal:
+		
+			x = 25.55
+			x = 1.23E-2 # scientific notation
+			
+		Exemplo - Complex Literal:
+
+			Exemplo 01:
+
+				#Using literal notation of complex number
+				x = 2+3j
+				print ("2+3j complex literal is", x, type(x))
+				y = 2.5+4.6j
+				print ("2.5+4.6j complex literal is", x, type(x))
+				
+			Exemplo 02:
+			
+				a = 2 + 3j
+				b = 1 + 4j
+				resultado = a + b
+
+				print(f"{a} + {b} = {resultado}")
+
+				(2+3j) + (1+4j) = (3+7j)
+
+				z = 3 + 4j
+				print(z.real)       # Saída: 3.0
+				print(z.imag)       # Saída: 4.0
+				
+				>>> a.imag
+				3.0
+				>>> b.imag
+				4.0
+				>>> a.imag + b.imag
+				7.0
+
+Python - Operators
+
+	Python Arithmetic Operators
+
+		+	Addition		a + b = 30
+		-	Subtraction		a b = -10
+		*	Multiplication	a * b = 200
+		/	Division		b / a = 2
+		%	Modulus			b % a = 0
+		**	Exponent		a**b =10**20
+		//	Floor Division	9//2 = 4
+		
+	Python Comparison Operators
+	
+		==	Equal					 (a == b) is not true.
+		!=	Not equal				 (a != b) is true.
+		>	Greater than			 (a > b)  is not true.
+		<	Less than				 (a < b)  is true.
+		>=	Greater than or equal to (a >= b) is not true.
+		<=	Less than or equal to	 (a <= b) is true.
+		
+	Python Assignment Operators
+		
+		=		a = 10	a = 10
+		+=		a += 30	a = a + 30
+		-=		a -= 15	a = a - 15
+		*=		a *= 10	a = a * 10
+		/=		a /= 5	a = a / 5
+		%=		a %= 5	a = a % 5
+		**=		a **= 4	a = a ** 4
+		//=		a //= 5	a = a // 5
+		&=		a &= 5	a = a & 5
+		|=		a |= 5	a = a | 5
+		^=		a ^= 5	a = a ^ 5
+		>>=		a >>= 5	a = a >> 5
+		<<=		a <<= 5	a = a << 5
+
+	Python Bitwise Operators
+	
+		Bitwise é um conjunto de operações que trabalha diretamente 
+		com os bits individuais de números inteiros.
+		Em vez de considerar o valor numérico em si, as operações 
+		bitwise analisam e manipulam os dígitos binários (0s e 1s) que 
+		formam aquele número.
+	
+		&	AND						a & b
+		|	OR						a | b
+		^	XOR						a ^ b
+		~	NOT						~a
+		<<	Zero fill left shift	a << 3
+		>>	Signed right shift		a >> 3
+		
+	Python Logical Operators
+		
+		Python logical operators are used to combile two or more conditions and 
+		check the final result.
+
+		and	 AND  a and b
+		or	 OR	  a or b
+		not	 NOT  not(a)
+	
+	Python Membership Operators (está ou não-está)
+	
+		n		Returns True if it finds a variable in the specified sequence, 
+				false otherwise. a in b
+			
+		not in	returns True if it does not finds a variable in the specified 
+			    sequence and false otherwise. a not in b
+				
+	Python Identity Operators (é ou não-é)
+	
+		is		Returns True if both variables are the same object and false otherwise.	
+				a is b
+		
+		is not	Returns True if both variables are not the same object and false otherwise.	
+				a is not b
+	
+	
+Python - Arithmetic Operators
+
+Python - Comparison Operators
+
+Python - Assignment Operators
+
+Python - Logical Operators
+
+Python - Membership Operators
+
+Python - Identity Operators
+
+Python - Comments
+
+	Exemplo 01:
+
+		# Standalone single line comment is placed here
+		
+	Exemplo 02:
+	
+		"""
+			Comentário 01
+		"""
+	
+	Exemplo 03:
+		
+		'''
+			Comentário 02
+		'''
+
+Python - User Input
+
+	In this chapter, we will learn how Python accepts the 
+	user input from the console, and displays the output on the same console.
+	
+	Python User Input Functions
+		
+		Python provides us with two built-in functions to read the input from the keyboard.
+
+		input () 	
+
+			Exemplo 01:
+			
+				name = input()
+				city = input()
+
+				print ("Hello My name is", name)
+				print ("I am from ", city)
+	
+		
+		raw_input () # python 2 , não funciona no python 3
+		
+	Taking Numeric Input in Python
+	
+		Exemplo 01:
+		
+			width = int(input("Enter width : "))
+			height = int(input("Enter height : "))
+
+			area = width*height
+			print ("Area of rectangle = ", area)
+			
+		Exemplo 02:
+
+			amount = float(input("Enter Amount : "))
+			rate = float(input("Enter rate of interest : "))
+
+			interest = amount*rate/100
+			print ("Amount: ", amount, "Interest: ", interest)
+
+	The print() Function
+	
+		Exemplo 01:
+	
+			print ("Hello, World!")
+			
+		Exemplo 02:
+		
+			city="Hyderabad"
+			state="Telangana"
+			country="India"
+			print(city, state, country, sep=',')
+			
+		Exemplo 03:
+		
+			city="Hyderabad"
+			state="Telangana"
+			country="India"
+			print("City:", city, end=" ")
+			print("State:", state)
+
+		
+Python - Numbers
+
+	Python - Number Types
+
+		integers (int)
+		floating point numbers (float)
+		complex numbers
+		
+	Python − Integer Numbers
+	
+		Exemplo 01:
+		
+			a = 10
+			print ("a:", a, "type:", type(a))
+			
+		Binary Numbers in Python
+	
+			Exemplo 01:
+
+				a=0b101
+				print ("a:",a, "type:",type(a))
+
+			Exemplo 02:
+
+				b=int("0b101011", 2)
+				print ("b:",b, "type:",type(b))
+				
+			Exemplo 03:
+			
+				a=43
+				b=bin(a) # There is also a bin() function in Python. It returns a binary string equivalent of an integer.
+				print ("Integer:",a, "Binary equivalent:",b)
+				
+		Octal Numbers in Python
+		
+			... it needs to be prefixed by "0o" (lowercase O) or "0O" (uppercase O). 
+		
+			Exemplo 01:
+			
+				a=0O107
+				print (a, type(a))
+				
+			Exemplo 02:
+			
+				a=int('20',8) # 2 × 8¹ + 0 × 8⁰ = 16
+				print (a, type(a))
+			
+		Hexa-decimal Numbers in Python
+		
+			As the name suggests, there are 16 symbols in the Hexadecimal 
+			number system. They are 0-9 and A to F.
+			
+			Exemplo 01:
+			
+				a=0XA2
+				print (a, type(a))
+			
+			Exemplo 02:
+			
+				a=int('0X1e', 16)
+				print (a, type(a))
+			
+			Exemplo 03:
+			
+				num_string = "A1"
+				number = int(num_string, 16)
+				print ("Hexadecimal:", num_string, "Integer:",number)
+			
+			Exemplo 04:
+			
+				num_string = "A1X001"
+				print (int(num_string, 16))
+				
+				
+			Theoretic and Representation Functions:
+		
+				🧠 Funções Matemáticas Teóricas e de Representação (math)
+					math.ceil(x)			Retorna o menor inteiro maior ou igual a x.
+					math.comb(n, k)			Calcula combinações: maneiras de escolher k itens de n, sem ordem e sem repetição.
+					math.copysign(x, y)		Retorna x com o sinal de y.
+					math.fabs(x)			Valor absoluto de x.
+					math.factorial(n)		Fatorial de n.
+					math.floor(x)			Retorna o maior inteiro menor ou igual a x.
+					math.fmod(x, y)			Resto de divisão com mais precisão que %.
+					math.frexp(x)			Retorna a mantissa e o expoente de x.
+					math.fsum(iterable)		Soma precisa dos números em um iterável.
+					math.gcd(*inteiros)		Maior divisor comum entre os inteiros.
+					math.isclose(x, y)		Verifica se dois valores são próximos.
+					math.isfinite(x)		Verifica se x é finito.
+					math.isinf(x)			Verifica se x é infinito.
+					math.isnan(x)			Verifica se x é NaN ("não é número").
+					math.isqrt(n)			Raiz quadrada inteira de n.
+					math.lcm(*inteiros)		Mínimo múltiplo comum.
+					math.ldexp(x, i)		Calcula x * 2**i.
+					math.modf(x)			Retorna parte inteira e fracionária de x.
+					math.nextafter(x, y)	Retorna o próximo valor flutuante de x em direção a y.
+					math.perm(n, k)			Permutações: escolha com ordem, sem repetição.
+					math.prod(iterable)		Produto dos elementos numéricos do iterável.
+					math.remainder(x, y)	Resto preciso da divisão de x por y.
+					math.trunc(x)			Remove a parte decimal de x.
+					math.ulp(x)				Menor incremento significativo de x.
+				
+				🔋 Funções de Potência e Logaritmo
+					math.cbrt(x)	Raiz cúbica de x.
+					math.exp(x)		Exponencial: e**x.
+					math.exp2(x)	2**x.
+					math.expm1(x)	e**x - 1, preciso para x próximo de zero.
+					math.log(x)		Logaritmo natural.
+					math.log1p(x)	Logaritmo de 1+x, preciso para x pequeno.
+					math.log2(x)	Logaritmo de base 2.
+					math.log10(x)	Logaritmo de base 10.
+					math.pow(x, y)	Potência: x**y.
+					math.sqrt(x)	Raiz quadrada.
+				
+				📐 Funções Trigonométricas
+					math.acos(x)	 Arco cosseno (radianos).
+					math.asin(x)	 Arco seno (radianos).
+					math.atan(x)	 Arco tangente (radianos).
+					math.atan2(y, x) Arco tangente de y/x (radianos).
+					math.cos(x)		 Cosseno de x.
+					math.sin(x)		 Seno de x.
+					math.tan(x)		 Tangente de x.
+				    math.hypot(x, y) Norma euclidiana: sqrt(x² + y²).
+				
+				🔁 Conversão de Ângulos
+					math.degrees(x)	Converte de radianos para graus.
+					math.radians(x)	Converte de graus para radianos.
+				
+				🔢 Constantes Matemáticas
+				    math.pi   Valor de π.
+					math.e	  Valor de e.
+					math.tau  Valor de τ (tau) = 2π.
+					math.inf  Infinito positivo.
+					math.nan	
+					
+Python - Booleans
+
+		Exemplo 01:
+
+			>>> a = 1
+			>>> b = 2
+			>>> bool(a == b)
+			False
+
+Python - Control Flow
+
+	Exemplo 01:
+	
+		match n:
+		  case 'a': return "Vowel alphabet"
+		  case 'e': return "Vowel alphabet"
+		  case 'i': return "Vowel alphabet"
+		  case 'o': return "Vowel alphabet"
+		  case 'u': return "Vowel alphabet"
+		  case _: return "Simple alphabet"
+		  
+	
+Python - Decision Making
+
+	Exemplo 01:
+	
+		var = 100
+		if ( var == 100 ):
+			print("The number is equal to 100")
+			if var % 2 == 0:
+				print("The number is even")
+			else:
+				print("The given number is odd")
+		elif var == 0:
+			print("The given number is zero")
+		else:
+			print("The given number is negative")
+			
+			
+Python - if Statement
+
+Python if-else Statement
+
+Python - Nested if Statement
+
+Python - Match-Case Statement
+
+	Exemplo 01:
+	
+		def weekday(n):
+		   match n:
+			  case 0: return "Monday"
+			  case 1: return "Tuesday"
+			  case 2: return "Wednesday"
+			  case 3: return "Thursday"
+			  case 4: return "Friday"
+			  case 5: return "Saturday"
+			  case 6: return "Sunday"
+			  case _: return "Invalid day number"
+			  
+		print (weekday(3))
+		print (weekday(6))
+		print (weekday(7))
+		
+	
+	Exemplo 02 - Declaração de Casos Combinados em Partida:
+	
+		def access(user):
+			match user:
+				case "admin" | "manager": return "Full access"
+				case "Guest": return "Limited access"
+				case _: return "No access"
+		
+		print (access("manager"))
+		print (access("Guest"))
+		print (access("Ravi"))
+		
+	Exemplo 03 - Lista como o argumento na declaração do caso de correspondência:
+	
+		def greeting(details):
+			match details:
+				case [time, name]:
+					return f'Good {time} {name}!'
+				case [time, *names]:
+					msg=''
+					for name in names:
+						msg+=f'Good {time} {name}!\n'
+					return msg
+
+		print (greeting(["Morning", "Ravi"]))
+		print (greeting(["Afternoon","Guest"]))
+		print (greeting(["Evening", "Kajal", "Praveen", "Lata"]))
+		
+		
+	Exemplo 04 - Usando "if" na cláusula "Case"
+	
+		def intr(details):
+			match details:
+				case [amt, duration] if amt<10000:
+					return amt*10*duration/100
+				case [amt, duration] if amt>=10000:
+					return amt*15*duration/100
+					
+		print ("Interest = ", intr([5000,5]))
+		print ("Interest = ", intr([15000,3]))
+		
+
+Python - Loops
+
+	Python loops allow us to execute a statement or group of statements multiple times.
+	
+	Python for Loop with Dictionaries
+	
+		Exemplo 01:
+	
+			numbers = {10:"Ten", 20:"Twenty", 30:"Thirty",40:"Forty"}
+			for x in numbers:
+				print (x)
+				
+		Exemplo 02:
+		
+			numbers = {10:"Ten", 20:"Twenty", 30:"Thirty",40:"Forty"}
+			for x in numbers:
+				print (x,":",numbers[x])
+		
+
+Python for-else Loops
+
+	Python supports an optional else block to be associated with a for loop. If a else 
+	block is used with a for loop, it is executed only when the for loop terminates normally.
+	
+	Exemplo 01 - Example of For Else Loop:
+	
+		for count in range(6):
+			print ("Iteration no. {}".format(count))
+		else:
+			print ("for loop over. Now in else block")
+		print ("End of for loop")
+			
+	
+	Exemplo 02 - For-Else Construct without break statement:
+			
+		for i in ['T','P']:
+			print(i)
+		else:
+			print("ForLoop-else statement successfully executed")
+				
+	Exemplo 03 - For-Else Construct with break statement:
+	
+		for i in ['T','P']:
+			print(i)
+			break
+		else:
+			print("Loop-else statement successfully executed")
+	
+		
+	Exemplo 04 - For-Else with break statement and if conditions:
+	
+		def positive_or_negative():
+		   for i in [5,6,7]:
+			  if i>=0:
+				 print ("Positive number")
+			  else:
+				 print ("Negative number")
+				 break
+		   else:
+			  print ("Loop-else Executed")
+
+		positive_or_negative()
+		
+		
+Python - While Loops
+
+	A while loop in Python programming language repeatedly executes 
+	a target statement as long as the specified boolean expression is true. 
+	
+	This loop starts with while keyword followed by a boolean expression 
+	and colon symbol (:). Then, an indented block of statements starts.
+
+		Exemplo 01:
+	
+			A função isnumeric() em Python é usada para verificar se todos os caracteres 
+			de uma string são números.
+			
+			lista = ['1', 'A', 'True', '2', '3', '56.1', "Y"]
+			i = 0
+			while i < len(lista):
+				if lista[i].isnumeric():
+					print(lista[i])
+				i += 1
+				
+		Exemplo 02:
+		
+			lista = ['1', 'A', 'True', '2', '3', '56.1', "Y"]
+			i = 0
+			while i < len(lista):
+				if lista[i].isnumeric():
+					print(lista[i])
+				i += 1
+			else:
+				print("Finish!")
+				
+		
+		Single Statement Suites
+		
+			Exemplo 01:
+			
+				flag = 0
+				while flag: print("Flag is true!")
+				print("finish!")
+
+				# output: finish!
+				
+			
+Python - break Statement
+
+Python - Continue Statement
+
+	Exemplo 01:
+
+		list = [5,6,7,4,3,8,9,2,1,0]
+		i = 0
+		while i < len(list):
+			if list[i] % 2 == 0:
+				print("X")
+				i+=1
+				continue
+		print(list[i])
+		i+=1
+		
+		
+Python - pass Statement
+
+	pass: é usado quando uma instrução é necessária sintaticamente, mas você não deseja que nenhum comando 
+	ou código seja executado.
+
+	Exemplo 01:
+	
+		pass
+	
+	Exemplo 02:
+	
+		opc = 1
+		if opc == 1:
+			pass
+		else:
+			pass
+		print("finished!")
+	
+	Exemplo 03:
+	
+		while True: pass
+		
+	Exemplo 04:	
+	
+		def func():
+			pass
+			
+		func()
+		
+Python - Nested Loops
+
+	... quando você escreve um ou mais loops dentro de uma instrução de loop conhecida como loop aninhado. 
+	O loop principal é considerado como loop externo e loop (s) dentro do loop externo são conhecidos 
+	como loops internos.
+	
+	FOR:
+	
+		Exemplo 01:
+		
+			matrix = [[7,6,4],[1,2,8],[9,6,4]]
+			for rows in matrix:
+				for item in rows:
+					print(item)
+					
+		Exemplo 02:
+		
+			matrix = [[7, 6, 4], [1, 2, 8], [9, 6, 4]]
+
+			for row_index in range(len(matrix)):
+				for col_index in range(len(matrix[row_index]) - 1, -1, -1):
+					print(matrix[row_index][col_index])
+
+
+	WHILE:
+				
+		Exemplo 01:
+		
+			matrix = [[7,6,4],[1,2,8],[9,6,4]]
+			x = 0
+			while x < len(matrix):
+				y = 0
+				while y < len(matrix[x]):
+					print(matrix[x][y])
+					y+=1
+				x+=1
+					
+		Exemplos 02:
+		
+			matrix = [[7,6,4],[1,2,8],[9,6,4]]
+			x = 0
+			while x < len(matrix):
+				y = len(matrix[x])
+				while y > 0:
+					print(matrix[x][y-1]) # inverte a ordem da matriz interna
+					y-=1
+				x+=1
+				
+FORMAS DE ITERAR SOBRE COLLECTIONS:
+
+	matrix = [00,11,22,33,44,55,66,77,88,99]
+
+	# PRIMEIRA FORMA:
+	for x in matrix:
+		print(x)
+
+	# SEGUNDA FORMA:
+	for i in range(0,len(matrix)):
+		print(matrix[i])
+
+	# TERCEIRA FORMA:
+	for k,v in enumerate(matrix):
+		print(f"{k}:{v}")
+
+	# QUARTA FORMA:
+	i = 0
+	while i < len(matrix):
+	   print(matrix[i])
+	   i+=1
+
+	# QUINTA FORMA:
+	matrix = iter(matrix)
+	while True:
+		try:
+			print(next(matrix))
+		except StopIteration:
+			break
+			
+Onde usar:
+
+		Forma de Iteração		list	tuple	set	str
+		for x in ...			✅		✅		✅	✅
+		for i in range(len())	✅		✅		❌	✅
+		enumerate(...)			✅		✅		⚠️ 	✅
+		while i < len(...)		✅		✅		❌	✅
+		next(iter(...))			✅		✅		✅	✅

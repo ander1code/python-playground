@@ -1,0 +1,159 @@
+Perfeito! Abaixo eu vou:
+
+Usar o seu modelo Person como base.
+
+Gerar as views genéricas do Django com base nele:
+
+View, TemplateView, RedirectView
+
+DetailView, ListView
+
+FormView, CreateView, UpdateView, DeleteView
+
+Vou comentar cada uma para você entender quando e como usar.
+
+✅ Modelo base (models.py)
+from django.db import models
+from django.core.validators import RegexValidator
+from .validators import validate_gender, validate_birthday_to_register, validate_salary
+
+class Person(models.Model):
+    GENDER = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Others')
+    ]
+    
+    name = models.CharField(
+        max_length=50,
+        null=False,
+        error_messages={'blank': 'Name is empty.', 'null': 'Name is empty.'}
+    )
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER,
+        null=False,
+        validators=[validate_gender]
+    )
+    birthday = models.DateField(
+        null=False,
+        validators=[validate_birthday_to_register]
+    )
+    email = models.EmailField(
+        max_length=50,
+        null=False,
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=r'^[\w\.-]+@[\w\.-]+\.\w+$',
+                message='Invalid E-mail.'
+            )
+        ],
+        error_messages={'unique': 'E-mail already registered.'}
+    )
+    salary = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=False,
+        validators=[validate_salary]
+    )
+    status = models.BooleanField(null=False)
+
+    def __str__(self):
+        return self.name
+
+🌐 Views baseadas em classe (views.py)
+📌 Imports comuns:
+from django.views import View
+from django.views.generic import TemplateView, RedirectView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from django.views.generic.edit import (
+    FormView, CreateView, UpdateView, DeleteView
+)
+from django.urls import reverse_lazy
+from .models import Person
+from .forms import PersonForm  # supondo que você tenha um ModelForm
+
+🔹 1. Views de base
+View – Base pura (você precisa definir os métodos):
+class PersonBaseView(View):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Base View")
+
+TemplateView – Renderiza um template estático:
+class PersonTemplateView(TemplateView):
+    template_name = "person/template.html"
+
+RedirectView – Redireciona para outra URL:
+class PersonRedirectView(RedirectView):
+    url = reverse_lazy("person_list")  # nome da URL de destino
+
+🔹 2. Views de exibição genérica
+DetailView – Exibe detalhes de uma instância:
+class PersonDetailView(DetailView):
+    model = Person
+    template_name = "person/detail.html"
+    context_object_name = "person"
+
+ListView – Lista todas as instâncias:
+class PersonListView(ListView):
+    model = Person
+    template_name = "person/list.html"
+    context_object_name = "people"
+    paginate_by = 10  # se quiser paginação
+
+🔹 3. Views de edição genérica
+FormView – Usa um formulário customizado, sem ligação direta com modelo:
+class PersonFormView(FormView):
+    form_class = PersonForm  # você precisa definir um ModelForm
+    template_name = "person/form.html"
+    success_url = reverse_lazy("person_list")
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+CreateView – Cria nova instância do modelo:
+class PersonCreateView(CreateView):
+    model = Person
+    form_class = PersonForm
+    template_name = "person/create.html"
+    success_url = reverse_lazy("person_list")
+
+UpdateView – Atualiza instância existente:
+class PersonUpdateView(UpdateView):
+    model = Person
+    form_class = PersonForm
+    template_name = "person/update.html"
+    success_url = reverse_lazy("person_list")
+
+DeleteView – Exclui uma instância:
+class PersonDeleteView(DeleteView):
+    model = Person
+    template_name = "person/confirm_delete.html"
+    success_url = reverse_lazy("person_list")
+
+🧾 Formulário (exemplo básico) – forms.py
+from django import forms
+from .models import Person
+
+class PersonForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = '__all__'
+
+🗺️ Exemplo de URLs – urls.py
+from django.urls import path
+from .views import (
+    PersonListView, PersonDetailView, PersonCreateView,
+    PersonUpdateView, PersonDeleteView
+)
+
+urlpatterns = [
+    path('', PersonListView.as_view(), name='person_list'),
+    path('<int:pk>/', PersonDetailView.as_view(), name='person_detail'),
+    path('create/', PersonCreateView.as_view(), name='person_create'),
+    path('<int:pk>/update/', PersonUpdateView.as_view(), name='person_update'),
+    path('<int:pk>/delete/', PersonDeleteView.as_view(), name='person_delete'),
+]

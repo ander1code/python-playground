@@ -1,0 +1,8 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <h1>Person</h1><br>
+    <form action="{url 'create'}" method="post">
+        <input type="text" name="name" id="name"><input type="submit" value="Create">
+    </form>
+{% endblock %}

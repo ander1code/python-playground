@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block contents %}
+    <p>{{message|title}}</p>
+    <p>{{current_date|date:'d/m/Y'}}</p>
+    {% load filters %}
+    <p> {{ 'Hello' | convert_to_uppercase }}</p>
+    <p> {{ 2 | cube }}</p>
+
+    <p><a href="{% url 'view_test' %}"  style="cursor:pointer;">SEND</a>
+        <form action="{% url 'view_test' %}" method="post">
+            {% csrf_token %}
+            <button type='submit' style="cursor:pointer;">SEND</button>
+        </form>
+    </p>
+
+{% endblock contents %}

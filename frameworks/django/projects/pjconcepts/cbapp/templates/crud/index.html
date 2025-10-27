@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+{% block contents %}
+    {% if people %}
+        <h2>Listing</h2>
+        <ul>
+        {% for p in people %}
+            <li>{{p}} <a href="{% url 'person-update' p.id %}">update</a> | <a href="{% url 'person-details' p.id %}">details</a> </li>
+        {% endfor %}
+        </ul>
+        
+        
+        <!-- Pagination AI -->
+        
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+
+         <!-- Pagination AI -->
+
+
+    {% endif %}
+
+
+{% endblock contents %}

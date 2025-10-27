@@ -1,0 +1,212 @@
+Python - Metaclasses
+
+	Metaclasses são um recurso poderoso em Python que permite personalizar a criação de 
+	classes. Ao usar metaclasses, você pode adicionar comportamentos, atributos e métodos 
+	específicos às classes e permitir a criação de programas mais flexíveis e eficientes.
+	
+	Metaclasses são um Conceito OOP presente em todo o código python por padrão.
+	
+	Cada classe em Python é uma instância de sua metaclasse.
+	
+	# Criando classe:
+	
+	class MyClass:
+		pass
+
+	obj = MyClass()
+	print(obj) # <__main__.MyClass object at 0x00000209B3976F90>
+	
+	# -------------------------------
+	
+	# Criando Metaclasses Dinamicamente
+	
+	MyClass = type("MyClass", (), {})
+	obj = MyClass()
+	print(obj) # <__main__.MyClass object at 0x0000012D74946F90>
+	
+	# -------------------------------
+	
+	# Metaclasse simples
+
+	# Versão 01
+
+	MyClass = type("MyClass", (), {"name":"Anderson"})
+	obj = MyClass()
+	print(obj.name)
+	
+	# Versão 02
+
+	MyClass = type("MyClass", (), dict(name="Anderson"))
+	obj = MyClass()
+	print(obj.name)
+
+	# Herança
+
+	class BaseClass:
+		pass
+
+	MyClass = type("MyClass", (BaseClass, ), dict(name="Anderson"))
+	obj = MyClass()
+	print(obj.name)
+	print(obj.__class__.__bases__)
+	
+	# Completo:
+	
+	from abc import ABC, abstractmethod
+
+	def sum(self):
+		return self.x + self.y
+
+	class BaseCalc(ABC):
+
+		@abstractmethod
+		def sum(self):
+			pass
+
+		def greeting(self, name):
+			return f"Hello, {name}!"
+
+	Calc = type("Calc", (BaseCalc, ), {
+		"x" : 10,
+		"y": 3,
+		"sum": sum
+	})
+
+	calc = Calc()
+	print(calc.sum())
+	print(calc.greeting("Anderson"))
+	
+	# -------------------------------
+	
+	# Personalizando a criação de metaclasse
+	
+	VERSÃO 01: Usando __new__
+	
+	class MetaClass(type):
+		def __new__(cls, name, bases, dict):
+			dict["version"] = "1.0"
+			name = "Super" + name
+			return super().__new__(cls, name, bases, dict)
+
+	class Classe(metaclass=MetaClass):
+		pass
+
+	obj = Classe()
+	print(type(obj).__name__)
+	print(obj.version)
+	
+	# -------------------------------
+	
+	VERSÃO 02: Usando __init__
+	
+	class MetaClass(type):
+		def __new__(cls, name, bases, dict):
+			dict["version"] = "1.0"
+			return super().__new__(cls, name, bases, dict)
+
+	class Classe(metaclass=MetaClass):
+		def __init__(self, name):
+			self.name = name
+
+	obj = Classe("SuperClasse")
+	print(type(obj).__name__)
+	print(obj.name)
+	print(obj.version)
+	
+	# -------------------------------
+	
+		
+Python - Metaprogramming with Metaclasses
+
+	Em Python, Metaprogramação refere-se à prática de escrever código que tenha 
+	conhecimento de si mesmo e possa ser manipulado.
+	
+	Metaprogramação em Python envolve técnicas como decoradores e metaclasses.
+	
+	# Definindo Metaclasses __prepare__:
+	
+		... permite a personalização do namespace onde um 
+		corpo de classe será executado.
+		
+			def sum(x,y):
+				print(x + y)
+
+			class HelloMeta(type):
+				@classmethod
+				def __prepare__(cls, name, bases):
+					namespace = {}
+					namespace['NAME'] = ""
+					namespace['ADDER'] = sum
+					return namespace
+
+			class HelloClass(metaclass=HelloMeta):
+
+				def __init__(self, name=None):
+					self.NAME = name if not None else self.__class__.NAME
+
+				def greeting(self):
+					print(f"Hello, {self.NAME}!")
+					self.__class__.ADDER(10,3)
+
+			obj = HelloClass("Anderson")
+			obj.greeting()
+
+	# -------------------------------
+	
+	# Geração Dinâmica de Código com Metaclasses
+	
+		A metaprogramação com metaclasses permite a criação ou modificação de 
+		código durante o tempo de execução.
+		
+		def my_adder(x, y):
+			print(f"{x} + {y} = {x + y}")
+
+		class HelloMeta(type):
+			def __new__(cls, name, bases, attrs):
+				attrs["NAME"] = ""
+
+				def greeting(self):
+					print(f"Hello, {self.NAME}!")
+
+				attrs["greeting"] = greeting  # Corrigido para letra minúscula por convenção
+				attrs["adder"] = my_adder     # Evitar sobrescrever built-in 'sum'
+				
+				return super().__new__(cls, name, bases, attrs)
+
+		class HelloClass(metaclass=HelloMeta):
+			def __init__(self, **kwargs):
+				self.NAME = kwargs.get("name", self.__class__.NAME)
+				self.adder = kwargs.get("adder", self.__class__.adder)
+
+		obj = HelloClass(name="Anderson", adder=my_adder)
+		obj.greeting()      # Saída: Hello, Anderson!
+		obj.adder(10, 3)    # Saída: 10 + 3 = 13
+	
+	# -------------------------------	
+	
+	# Reflexão e Metaprogramação
+	
+		A metaprogramação com metaclasses geralmente envolve reflexão, permitindo 
+		introspecção e modificação de atributos e métodos de classe em 
+		tempo de execução.
+		
+		class HelloMeta(type):
+			def __new__(cls, name, bases, dict):
+				
+				print(f"*************************************")
+				for k, v in dict.items():
+					print(f"{k}: {v}")
+				print(f"*************************************")
+
+				dict["NAME"] = "Anderson"
+
+				return  super().__new__(cls, name, bases, dict)
+
+		class HelloClass(metaclass=HelloMeta):
+			def greeting(self):
+				print(f"Hello, {self.NAME}!")
+
+		obj = HelloClass()
+		obj.greeting()
+		
+	# -------------------------------	

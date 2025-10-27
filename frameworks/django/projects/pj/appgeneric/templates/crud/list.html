@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div align="center">
+        <table>
+            <tr>
+                <th align="center">ID</th>
+                <th align="right">NAME</th>
+                <th align="center">DELETE</th>
+                <th align="center">DELETE_DIRECT_GET</th>
+                <th align="center">DELETE_DIRECT_POST</th>
+                <th align="center">EDIT</th>
+                <th align="center">DETAIL</th>
+            </tr>
+            {% for p in object_list  %}
+                <tr>
+                    <td align="center">{{p.id}}</td>
+                    <td align="right">{{p.name}}</td>
+                    <td align="center"><a href="{% url 'delete' p.id %}">delete</a></td>
+                    <td align="center"><a href="{% url 'delete_direct' p.pk %}">delete_direct_get</a></td>
+                    <td align="center"><form method="post" action="{% url 'delete_direct' p.pk %}">{% csrf_token %}<button type="submit">delete_direct_post</button></form></td>
+                    <td align="center"><a href="{% url 'update' p.pk %}">edit</a></td>
+                    <td align="center"><a href="{% url 'detail' p.pk %}">detail</a></td>
+                </tr>
+            {% endfor %}
+        </table>    
+        <div align="right"><a href="{% url 'create' %}">create</a></div>
+    </div>
+{% endblock  %}

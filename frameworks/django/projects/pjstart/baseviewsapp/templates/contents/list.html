@@ -1,0 +1,9 @@
+{% extends 'index.html' %}
+{% block contents %}
+    <ul>
+    {% for p in people %}
+        <li>{{p.name}}</li>
+    {% endfor %}
+    </ul>
+{% endblock contents %}
+    

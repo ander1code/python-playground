@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div>
+        <h4>Do you want delete this register?</h4>
+        <ul>
+            <li><span>ID:&nbsp;</span>{{object.pk}}</li>
+            <li><span>NAME:&nbsp;&nbsp;</span>{{object.name}}</li>
+        </ul>
+        <div align="right">
+            <a href="{% url 'list' %}">Go back</a> |
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+    </div>
+{% endblock  %}

@@ -1,0 +1,610 @@
+Python - Functions
+
+	Types of Python Functions
+
+		Built-in functions
+		Python's STANDARD LIBRARY INCLUDES number of built-in functions. Some of Python's built-in 
+		functions are print(), int(), len(), sum(), etc. These functions are always available, 
+		as they are loaded into computer's memory as soon as you start Python interpreter.
+
+		Functions defined in built-in modules
+		The standard library also bundles a number of modules. Each module defines a group of functions. 
+		These functions are not readily available. YOU NEED TO IMPORT them into the memory from 
+		their respective modules.
+		
+		User-defined functions
+		In addition to the built-in functions and functions in the built-in modules, you can also create 
+		your own functions. These functions are called user-defined functions.
+		
+	Pass by Reference vs Value
+	
+		Python uses pass by reference mechanism.
+		
+			Exemplo 01:
+			
+				def testfunction(arg):
+					print ("ID inside the function:", id(arg))
+
+				var = "Hello"
+				print ("ID before passing:", id(var))
+				testfunction(var)
+			
+		Positional-only arguments
+		
+			Exemplo 01:
+			
+				def func(x, y, /, z):
+					print(x, y, z)
+				func(20,10,z=30)
+
+
+				def func(x, /, y, z):
+					print(x, y, z)
+				func(20,y=10,z=30)
+				
+		Keyword-only arguments
+
+			def func(*, x, y, z):
+				print(x, y, z)
+			func(x=20,y=10,z=30)
+
+			def func(x, *, y, z):
+				print(x, y, z)
+			func(20,y=10,z=30)
+
+			def func(x, y, *, z):
+				print(x, y, z)
+			func(20,10,z=30)
+			
+	The Anonymous Functions
+	
+		As funções são chamadas anônimo quando não forem declarados da maneira padrão usando o def 
+		palavra-chave. Em vez disso, eles são definidos usando o palavra-chave lambda.
+		
+		Exemplo 01:
+
+			sum = lambda x, y : x + y
+			print(sum(1,2))
+			
+		Exemplo 02:
+		
+			num = 1
+			def increment():
+				global num
+				num *= 2
+
+			for i in range(0,10):
+				increment()
+			print(num) # 1024
+			
+
+Python - Default Arguments
+
+	Mutable Objects as Default Argument
+	
+	Exemplo 01:
+	
+		def fcn(nums, numericlist = []):
+			numericlist.append(nums + 1)
+			print(numericlist) 
+
+		# function calls
+		fcn(66)
+		fcn(68)
+		fcn(70)
+		
+		
+Python - Keyword Arguments
+
+	Exemplo 01:
+	
+		Como o argumento Posicional não pode aparecer após argumentos de palavras-chave, 
+		Python levanta a seguinte mensagem de erro:
+		
+		def func(arg1,arg2):
+			print(arg1, arg2)
+		
+		func(arg1=11,22)
+		
+Python - Keyword-Only Arguments
+
+	
+	Exemplo 01 - Exemplo de argumentos somente por palavra-chave:
+	
+		print ("Hello", "World", sep="-")
+		
+		
+	Usando argumento somente palavra-chave no método definido pelo usuário:
+
+	Exemplo 01:
+
+		def func(x,*,y):
+			print(x,y)
+
+		func(10,y=11)
+		
+		
+Python - Positional Arguments	
+
+	Positional Arguments Examples
+	
+	Exemplo 01:
+	
+		def func(x,y,z):
+			print(x,",", y,",",z)
+		func(25,65,15)
+
+	
+Python - Positional-Only Arguments
+
+	Positional Only Arguments
+
+		Exemplo 01:
+		
+			def func(x,y,z):
+				print("{},{},{}".format(x,y,z))
+			func(25,65,15)
+		
+	Positional-Only Arguments Examples
+	
+		Exemplo 01:
+		
+			def func(x,*,y,z):
+				print("{},{},{}".format(x,y,z))
+			func(25,y=65,z=15)
+			
+		Exemplo 02:
+		
+			def func(x,/,y,z):
+				print("{},{},{}".format(x,y,z))
+			func(25,65,z=15)
+			
+		
+		/	Tudo antes deve ser passado por posição	func(1, 2, z=3)
+		*	Tudo depois deve ser passado por nome	func(1, y=2, z=3)
+
+
+Python - Arbitrary or, Variable-length Arguments
+
+	Exemplo 01 - *args:
+	
+		def func(*args):
+			print(len(args))
+			print(args[0])
+			print(args[1])
+
+		func("Person01", "Person02")
+	
+	
+	Exemplo 02 - **kwargs:
+	
+		def show_data(**kwargs):
+			print(f"Name: {kwargs["name"]}")
+			for k, v in kwargs.items():
+				print(f"{k.capitalize()}:{v}")
+
+		show_data(id=123, name="Anderson", status=True)
+	
+	
+	Exemplo 03 - **kwargs e *args:	
+	
+		def show_data(*args, **kwargs):
+			for k, v in kwargs.items():
+				print(f"{k.capitalize()}: {v}")
+			print(f"Status: {args[0]}")
+
+		show_data(True, id=123, name="Anderson")
+	
+Python Variable Scope
+
+	Nonlocal Variables
+	
+		As variáveis Python que não são definidas no escopo local ou global são chamadas de variáveis 
+		não locais. Eles são usados em funções aninhadas.
+	
+		Exemplo 01:
+		
+			def func1():
+				a = 10
+				b = 20
+				def func2():
+					nonlocal a
+					nonlocal b
+					a = 30
+					b = 50
+					return a + b
+				print(func2())
+				print(a,b)
+			func1()
+			
+			
+	Espaço nominal e escopo das variáveis Python
+
+		Built-in namespace: contém funções integradas e exceções integradas. 
+		                    Eles são carregados na memória assim que o interpretador Python é 
+							carregado e permanecem até que o interpretador esteja em execução.
+
+		Global namespace:   contém quaisquer nomes definidos no programa principal. Esses nomes 
+		                    permanecem na memória até que o programa esteja em execução.
+
+		Local Namespace :   contém nomes definidos dentro de uma função. Eles estão disponíveis até 
+		                    que a função esteja em execução.
+					
+						
+	Python globals() Function					
+		
+		Python's standard library includes a built-in function globals(). 
+		It returns a dictionary of symbols currently available in global namespace.
+		
+		Exemplo 01:
+			globals()
+		
+	Python locals() Function
+		
+		Python's standard library includes a built-in function locals(). It returns a dictionary 
+		of symbols currently available in the local namespace of the function.
+		
+		Exemplo 01:
+			
+			def func():
+				a = 10
+				list = [1,2,3]
+				dict = {id:123,"name":"Anderson"}
+				tuple = (1,2,3)
+				def internal_func():
+					print("Hello, World!")
+				internal_func()
+				print(locals())
+				# Accessing by item:
+				print(locals()["internal_func"])
+			func()
+			# Accessing by item:
+			print(globals()['__file__'])
+			
+	Namespace Conflict in Python
+
+		Exemplo 01 com conflito:
+		
+			marks = 50 # this is a global variable
+			def myfunction():
+				marks = 70 # this is a local variable
+				print (marks)
+			myfunction()
+			print (marks) # prints global value
+		
+		
+		Exemplo 02 com conflito:
+		
+			# this is a global variable
+			marks = 50 
+			def myfunction():
+				marks = marks + 20
+				print (marks)
+			myfunction()
+			# prints global value
+			print (marks) 
+			
+		Exemplo 03 sem conflito:
+						
+			var1 = 50 # this is a global variable
+			var2 = 60 # this is a global variable
+			
+			def myfunction():
+				"Change values of global variables"
+				globals()['var1'] = globals()['var1']+10
+				global var2
+				var2 = var2 + 20
+				
+			myfunction()
+			print ("var1:",var1, "var2:",var2) #shows global variables with changed values			
+
+
+
+Python - Function Annotations
+
+	Anotações são quaisquer expressões Python válidas adicionadas aos argumentos ou retornam o tipo de dados. 
+	O exemplo mais simples de anotação é prescrever o tipo de dados dos argumentos. A anotação é mencionada 
+	como uma expressão após colocar dois pontos na frente do argumento.	
+	
+		Exemplo 01:
+		
+			def sum(num1:int, num2:int):
+				print(num1+num2)
+			sum(10,3)
+			
+		Exemplo 02:
+		
+			def sum(num1:int, num2:int) -> int:
+				return num1+num2
+			print(sum(10,3))
+			print(sum.__annotations__)
+			
+		Exemplo 03:
+		
+			def total(x : 'marks in Physics', y: 'marks in chemistry'):
+			   return x+y
+			print(total(86, 88))
+			print(total.__annotations__)
+		
+		Exemplo 04:
+		
+			def show_data(*args: "arbitrary args", **kwargs: "arbitrary keyword args"):
+				print(f"Name: {kwargs['name']}")
+				for k, v in kwargs.items():
+					print(f"{k.capitalize()}: {v}")
+
+			show_data(123, True, "M", id=123, name="Anderson", gender="M")
+			
+		Exemplo 05:
+		
+			def division(num: dict(type=float, msg='numerator'), den: dict(type=float, msg='denominator')) -> float:
+				return num/den
+			print (division.__annotations__)
+			
+			
+Python - Modules
+
+	Creating a Python Module
+	
+		Criando modulo;
+	
+	The import Statement
+	
+		Importando modulo em outro py.
+		
+	Detalhando um módulo:
+		
+		dir(mymodule): The dir() built-in function returns a sorted list of strings containing the names defined by a module.
+		
+	The from...import * Statement
+	
+	The import ... as Statement
+	
+	Module Attributes:
+
+		__file__ returns the physical name of the module.
+
+		__package__ returns the package to which the module belongs.
+
+		__doc__ returns the docstring at the top of the module if any
+
+		__dict__ returns the entire scope of the module
+
+		__name__ returns the name of the module
+		
+		
+	The reload() Function
+	
+		Exemplo 01:
+		
+			Sometimes you may need to reload a module, especially when working with the interactive interpreter 
+			session of Python.
+			
+			hello.py
+			
+				def greet():
+					print("Hello, World!")
+					
+			main.py
+			
+				import hello
+				hello.greet()  # Saída: Hello, World!
+			
+			hello.py (editado!)
+			
+				def greet():
+					print("Hello again, World!")
+
+			main.py
+					
+				from importlib import reload
+				reload(hello)
+				hello.greet()  # Saída: Hello again, World!
+
+			
+	🧰 Módulos Padrão do Python – Traduzidos e Explicados
+	
+		os			Interface unificada para várias funções do sistema operacional
+		string		Funções úteis para processamento de strings
+		re			Ferramentas para expressões regulares (buscas e correspondências complexas em strings)
+		math		Operações matemáticas para números de ponto flutuante
+		cmath		Operações matemáticas com números complexos
+		datetime	Funções para lidar com datas e horas
+		gc			Interface para o coletor de lixo (garbage collector) embutido
+		asyncio		Funcionalidades para processamento assíncrono
+		collections	Tipos de containers avançados (ex: deque, Counter, defaultdict)
+		functools	Funções de ordem superior e manipulação de funções (programação funcional)
+		operator	Funções correspondentes a operadores padrão (ex: +, *, ==)
+		pickle		Converte objetos Python em bytes e vice-versa (serialização)
+		socket		Interface de rede de baixo nível
+		sqlite3		Implementação da API de banco de dados usando SQLite 3.x
+		statistics	Funções estatísticas matemáticas
+		typing		Suporte para dicas de tipo (type hints)
+		venv		Criação de ambientes virtuais
+		json		Codifica e decodifica dados no formato JSON
+		wsgiref		Utilitários WSGI e implementação de referência de servidor Web
+		unittest	Framework para testes unitários
+		random		Geração de números pseudoaleatórios
+		sys			Funções que interagem diretamente com o interpretador Python
+		requests	Facilita requisições HTTP com interface simples e poderosa
+		itertools	Ferramentas para criar e manipular iteradores
+		locale		Gerenciamento de convenções culturais (formatação de números, datas, moedas etc.)
+			
+			
+	🧰 Funções Padrão do Python
+
+		aiter()			Retorna um iterador assíncrono para um objeto iterável assíncrono
+		all()			Retorna True se todos os elementos do iterável forem verdadeiros
+		anext()			Retorna o próximo item de um iterador assíncrono
+		any()			Retorna True se ao menos um elemento do iterável for verdadeiro
+		ascii()			Retorna uma string com a representação ASCII imprimível
+		bin()			Converte um número inteiro para uma string binária
+		bool()			Converte um valor para True ou False
+		breakpoint()	Interrompe a execução e ativa o depurador no ponto de chamada
+		bytearray()		Cria um array de bytes mutável
+		bytes()			Cria um objeto de bytes imutável
+		callable()		Verifica se o objeto pode ser chamado como função
+		chr()			Retorna o caractere Unicode correspondente ao código inteiro
+		classmethod() 	Converte uma função em um método de classe
+		compile()		Compila uma string ou AST em um objeto de código
+		complex()		Cria um número complexo
+		delattr()		Remove um atributo de um objeto
+		dict()			Cria um dicionário
+		dir()			Retorna os atributos e métodos de um objeto
+		divmod()		Retorna uma tupla com quociente e resto da divisão
+		enumerate()		Retorna um objeto enumerador contendo índice e valor
+		eval()			Avalia uma expressão Python contida em uma string
+		exec()			Executa um código Python dinâmico
+		filter()		Filtra elementos de um iterável com base em uma função
+		float()			Converte número/string para ponto flutuante
+		format()		Retorna uma representação formatada de um valor
+		frozenset()		Cria um conjunto imutável
+		getattr()		Obtém o valor de um atributo de objeto
+		globals()		Retorna o dicionário da tabela de símbolos globais
+		hasattr()		Verifica se o objeto possui determinado atributo
+		hash()			Retorna o valor hash de um objeto
+		help()			Exibe o sistema de ajuda embutido do Python
+		hex()			Converte inteiro para string hexadecimal
+		id()			Retorna o identificador único do objeto
+		input()			Lê uma linha de entrada do usuário
+		int()			Converte número ou string para inteiro
+		isinstance()	Verifica se o objeto é instância de uma classe
+		issubclass()	Verifica se uma classe é subclasse de outra
+		iter()			Cria um iterador a partir de um objeto iterável
+		len()			Retorna o comprimento (tamanho) de um objeto
+		list()			Cria uma lista
+		locals()		Retorna o dicionário da tabela de símbolos locais
+		map()			Aplica uma função a todos os itens de um iterável
+		memoryview()	Cria uma visualização de memória de um objeto
+		next()			Retorna o próximo item de um iterador
+		object()		Cria um objeto vazio
+		oct()			Converte inteiro para representação octal
+		open()			Abre um arquivo e retorna o objeto correspondente
+		ord()			Retorna o código Unicode de um caractere
+		print()			Exibe objetos na tela
+		property()		Retorna um atributo gerenciado por métodos getter/setter
+		range()			Retorna uma sequência de números inteiros
+		repr()			Retorna uma representação em string do objeto
+		reversed()		Retorna um iterador que percorre uma sequência ao contrário
+		set()			Cria um conjunto
+		setattr()		Define o valor de um atributo em um objeto
+		slice()			Cria um objeto de fatia (usado em slicing de listas)
+		sorted()		Retorna uma lista ordenada a partir de um iterável
+		staticmethod()	Converte uma função em método estático
+		str()			Converte objeto para string
+		super()			Acessa métodos da classe base
+		tuple()			Cria uma tupla
+		type()			Retorna o tipo de um objeto ou cria uma nova classe
+		vars()			Retorna o __dict__ de um objeto
+		zip()			Une iteráveis como pares (tuplas)
+		__import__()	Função interna utilizada pelo comando import
+		unichr()		(Obsoleto) Retorna caractere Unicode do ponto de código
+		long()			Obsoleto no Python 3) Inteiros de precisão arbitrária
+		
+		
+		🧮 Funções Matemáticas Embutidas
+
+		abs()			Retorna o valor absoluto
+		max()			Retorna o maior valor entre os argumentos ou de um iterável
+		min()			Retorna o menor valor entre os argumentos ou de um iterável
+		pow()			Retorna x elevado à potência y, ou (x**y) % mod se mod for usado
+		round()			Arredonda um número para n casas decimais
+		sum()			Soma todos os itens numéricos de um iterável, com valor inicial opcional
+		
+			
+# -----------------
+
+
+Python - Higher Order Functions
+
+	
+	Uma função de ordem superior é uma função que assume uma ou 
+	mais funções como argumentos ou retorna uma função como 
+	resultado. 
+	
+	# Criando função de ordem superior com escopos aninhados
+	
+	def adder(x):
+		def add(y):
+			return x + y
+		return add
+
+	v1 = adder(10)
+	v2 = v1(3)
+	print(v2)
+	
+	# ---------
+	
+	# Criando funções de ordem superior com objetos chamáveis
+	
+	class Adder:
+
+    def __init__(self, x):
+        self.x = x
+
+    def __call__(self, y):
+        return self.x + y
+    
+	c = Adder(10)
+	print(f"Result: {c(3)}")
+	
+	# ---------
+	
+	# Funções de ordem superior com o Módulo 'functools'
+	
+	import functools
+
+	def my_decorator(f):
+		def wrapper(*args, **kwargs):
+			print(f"*args {args}")
+			print(f"**kwargs {kwargs}")
+			print(f"function_name: {f.__name__}")
+			return f(*args, **kwargs)
+		return wrapper
+
+	@my_decorator
+	def greeting(name):
+		print(f"Hello, {name}!")
+
+	@my_decorator
+	def adder(x,y):
+		print(f"{x} + {y} = {x + y}")
+
+	greeting("Anderson")
+
+	adder(10, 3)
+
+	greeting(name="Anderson")
+	
+	# ------------------------------------------------------------
+	
+	# Trabalhando com funções de ordem superior usando o parcial()
+	
+	import functools
+
+	def my_function(x, y):
+		return x + y
+
+	part_function = functools.partial(my_function, y = 10)
+	print(part_function(3))
+	
+	# ------------------------------------------------------------
+	
+	# Trabalhando com funções de ordem superior usando o reduce()
+	
+	import functools
+
+	def mult(x,y):
+	   return x*y
+
+	# Define a number to calculate factorial
+	n = 4
+	num = functools.reduce(mult, range(1, n+1))
+	print (f'Factorial of {n}: ',num)
+	
+	# ------------------------------------------------------------
+						
+			
+		
+			
+	
