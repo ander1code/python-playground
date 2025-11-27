@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+{% block contents %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-md-offset-2">
+          <h1>FlaskForm</h1>
+          <form action="/" method="post">
+              {% if form.errors %}
+              <div class="alert-danger" style="border-radius:7px;height:100px;">
+                <ul>
+                  {% for field, errors in form.errors.items() %}
+                    {% for error in errors %}
+                      <li><strong>{{ form[field].label.text }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+              {{form.hidden_tag()}}
+              <label>CPF</label><br>
+              {{form.cpf(class="form-control")}}<br>
+              <label>Name</label><br>
+              {{form.name(class="form-control")}}<br>
+              <label>Salary</label><br>
+              {{form.salary(class="form-control")}}<br>
+              <label>Gender</label><br>
+              {{form.gender(class="form-control")}}<br>
+              <label>Status</label><br>
+              
+              <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                      {{form.status(class="form-control form-check-input text-right")}}<br>
+                    </label>
+                </div>
+              </div>
+
+              <label>Birthday</label><br>
+              {{form.birthday(class="form-control")}}<br>
+              <label>Picture</label><br>
+              {{form.picture(class="form-control")}}<br>
+              <label>Description</label><br>
+              {{form.description(class="form-control")}}<br>
+              
+              {% if edition %} 
+                {{form.submit(class="btn btn-warning pull-right", style="width:120px;height:40px;", id='delete', value='Edit')}}
+                {{form.submit(class="btn btn-danger pull-right", style="width:120px;height:40px;", id='delete', value='Delete')}}
+              
+             {% else %}
+                {{form.submit(class="btn btn-success pull-right", style="width:120px;height:40px;")}}
+                <button type="reset" class="btn btn-primary pull-right" style="width:120px;height:40px;">Reset</button>
+              {% endif %}  
+            
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <style>
+        label{
+            font-weight:bold;
+        }
+    </style>
+{% endblock contents %}
+
