@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block contains %}
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            {% for fields, errors in form.errors.items %}
+                {% for error in errors  %}
+                    {{error}}
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        {{form.as_p}}
+        <button type="submit">LOGIN</button>
+    </form>
+{% endblock contains %}

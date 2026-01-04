@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+
+{% block contains %}
+    {% if edition %}
+        <h3>EDIT</h3>
+    {% else %}
+        <h3>CREATE</h3>
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+            <div style="color:salmon; background-color:#FFFDD0; border-radius:5px; border:3px solid salmon;">
+                <ul>
+                    {% for field, errors in form.errors.items  %}
+                        {% for error in errors %}
+                            <li>{{error}}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        {{form.as_p}}
+        {% if edition %}
+            <a href="{% url 'natural_person-list' %}">LIST</a>
+            <button type="submit" name='edit' id='edit'>EDIT</button>
+            <button type="submit" name='delete' id='delete'>DELETE</button>
+        {% else %}    
+            <button type="reset">RESET</button>
+            <button type="submit" name='create' id='create'>CREATE</button>
+        {% endif %}
+    </form>
+{% endblock contains %}

@@ -1,0 +1,50 @@
+{% extends "index.html" %}
+
+{% block contains %}
+    <h3>LIST</h3>
+    {% if natural_persons %}
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Search">
+        </form>
+        <table>
+            <thead>
+                <th>
+                    <td>ID</td>
+                    <td>NAME</td>
+                    <td>SELECT</td>
+                </th>
+            </thead>
+            <tbody>
+                {% for natural_person in natural_persons %}
+                <tr>
+                    <td>{{natural_person.id}}</td>
+                    <td>{{natural_person.name}}</td>
+                    <td><a href="{% url 'natural_person-details' natural_person.id %}">SELECT</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if natural_persons.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ natural_persons.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ natural_persons.number }} of {{ natural_persons.paginator.num_pages }}.
+                </span>
+        
+                {% if natural_persons.has_next %}
+                    <a href="?page={{ natural_persons.next_page_number }}">next</a>
+                    <a href="?page={{ natural_persons.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <h3>No Natural Person registered.</h3>
+    {% endif %}
+    <a href="{% url 'natural_person-create' %}">CREATE</a>
+{% endblock contains %}

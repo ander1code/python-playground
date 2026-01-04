@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block contains %}
+    <h3>DETAILS</h3>
+    {{natural_person.name}}
+    {{natural_person.email}}
+    {{natural_person.birthday}}
+    {{natural_person.gender}}
+    {{natural_person.salary}}
+    <img src="{{natural_person.picture.url}}" alt="{{natural_person.name}}" style="width:150px;height:150px;">
+    <a href="{% url 'natural_person-edit' natural_person.id %}">EDIT</a>
+{% endblock contains %}
