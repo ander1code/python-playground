@@ -1,68 +1,90 @@
+import os
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.views.generic import View, ListView, CreateView, UpdateView, DetailView
 from .forms import LoginForm, NaturalPersonForm, NaturalPersonSearchForm
 from .models import NaturalPerson
-from .models import NaturalPerson
 
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, View
+base_templates = 'persons/natural_person/'
+login_templates = 'login'
 
 class NaturalPersonListView(LoginRequiredMixin, ListView):
     model = NaturalPerson
-    template_name= 'persons/natural_person/list.html'
-    paginate_by = 1
-    allow_empty = True
+    template_name = os.path.join(base_templates, 'list.html')
     context_object_name = 'natural_persons'
-    paginator_class = Paginator
-    ordering = ['name']
+    paginate_by = 1
     login_url = '/login/'
 
-class NaturalPersonCreateView(CreateView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        form = NaturalPersonSearchForm(self.request.GET)
+        if form.is_valid():
+            search = form.cleaned_data.get('search')
+            if search:
+                queryset = queryset.filter(name__istartswith=search)
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = NaturalPersonSearchForm() 
+        context["natural_persons"] = context["page_obj"] # apenas para mudar o nome.
+        return context
+    
+class NaturalPersonCreateView(LoginRequiredMixin, CreateView):
     model = NaturalPerson
-    template_name = 'persons/natural_person/form.html'
+    template_name =  os.path.join(base_templates, 'form.html')
     form_class = NaturalPersonForm
-    success_url = reverse_lazy('natural_person-list')
+    success_url = reverse_lazy('natural_person_list')
     login_url = '/login/'
 
-class NaturalPersonDetailView(DetailView):
+    def get_context_data(self, **kwargs):
+        context = super(NaturalPersonCreateView, self).get_context_data(**kwargs)
+        context['edition'] = False
+        return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Successfully created.')
+        return super().form_valid(form)
+    
+class NaturalPersonDetailView(LoginRequiredMixin, DetailView):
     model = NaturalPerson
+    template_name = os.path.join(base_templates, 'details.html')
     context_object_name = 'natural_person'
-    template_name = 'persons/natural_person/details.html'
+    login_url = '/login/'
 
-class NaturalPersonUpdateView(UpdateView):
+class NaturalPersonUpdateView(LoginRequiredMixin, UpdateView):
     model = NaturalPerson
-    template_name = 'persons/natural_person/form.html'
+    template_name = os.path.join(base_templates, 'form.html')
+    context_object_name = 'natural_person'
+    pk_url_kwarg = "pk"
     form_class = NaturalPersonForm
-    success_url = reverse_lazy('natural_person-list')
+    success_url = reverse_lazy('natural_person_list')
     login_url = '/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["edition"] = True 
+        context["edition"] = True
         return context
-
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.delete()
-        return redirect(reverse_lazy('natural_person-list'))
-
-    def post(self, request,  *args, **kwargs):
-        if 'delete' in request.POST:
-            return self.delete(request, *args, **kwargs)
-        return super().post(request, *args, **kwargs)
     
-class LoginView(View):
+    def post(self, request, *args, **kwargs):
+        if 'delete' in self.request.POST:
+            object = self.get_object()
+            object.delete()
+            messages.success(request, 'Successfully deleted.')
+            return redirect('natural_person_list')
+        return super().post(request, *args, **kwargs)
 
+    def get_success_url(self):
+        messages.success(self.request, 'Successfully edited.')
+        return reverse_lazy('natural_person_details', kwargs={'pk':self.object.id} )
+            
+class LoginView(View):
     def get(self, request, *args, **kwargs):
         form = LoginForm()
-        return render(request, "login/form.html", {'form':form})
+        return render(request, os.path.join(login_templates, 'form.html'), {'form': form})
 
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
@@ -71,15 +93,25 @@ class LoginView(View):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if not user is None:
-                login(request, user)
-                messages.success(request, 'Sucessfully login.')
-                return redirect(reverse_lazy('natural_person-list'))
-        return render(request, "login/form.html", {'form':form})
+                login(request=request, user=user)
+                messages.success(request, 'Successfully logged.')
+                return redirect(reverse_lazy('natural_person_list'))
+            else:
+                messages.error(request, 'Invalid username and password.')
+        form = LoginForm()
+        return render(request, os.path.join(login_templates, 'form.html'), {'form': form})
 
-class LogoffView(View):
-
+class LogoutView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
-        logout(request)
-        messages.success(request, 'Sucessfully logout.')
-        return redirect(reverse_lazy('login'))
+        logout(request=request)
+        messages.success(request, 'Successfully logout.')
+        return redirect('login')
+    
+    
+    
+
+
+
+
+    
 

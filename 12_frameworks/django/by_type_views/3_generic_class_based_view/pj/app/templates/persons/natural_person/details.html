@@ -1,12 +1,30 @@
 {% extends "index.html" %}
 
 {% block contains %}
-    <h3>DETAILS</h3>
-    {{natural_person.name}}
-    {{natural_person.email}}
-    {{natural_person.birthday}}
-    {{natural_person.gender}}
-    {{natural_person.salary}}
-    <img src="{{natural_person.picture.url}}" alt="{{natural_person.name}}" style="width:150px;height:150px;">
-    <a href="{% url 'natural_person-edit' natural_person.id %}">EDIT</a>
+    
+    <h3>Details</h3>
+
+    <ul>
+        <li><span>ID:&nbsp;</span>{{natural_person.id}}</li>
+        <li><span>Name:&nbsp;</span>{{natural_person.name}}</li>
+        <li><span>E-mail:&nbsp;</span>{{natural_person.email}}</li>
+        <li><span>Salary:&nbsp;</span>{{natural_person.salary}}</li>
+        <li><span>Birthday:&nbsp;</span>{{natural_person.birthday}}</li>
+        <li><span>Gender:&nbsp;</span>{{natural_person.gender}}</li>
+        <li><span>Picture:&nbsp;</span><img src="{{natural_person.picture.url}}" alt="{{natural_person.name}}"></li>
+    </ul>
+
+    <br>
+    
+    <h3>
+       <a href="{% url 'natural_person_list' %}">LIST</a> | <a href="{% url 'natural_person_edit' natural_person.id %}">EDIT</a>
+    </h3>
+
+
+    <style>
+        span{
+            font-weight: bold;
+        }
+    </style>
+   
 {% endblock contains %}

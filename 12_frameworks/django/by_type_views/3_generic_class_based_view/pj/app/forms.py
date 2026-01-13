@@ -4,58 +4,66 @@ from .utils.validators import Validators
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
-    password = forms.CharField(max_length=20, widget=forms.PasswordInput())
-    
+    password = forms.CharField(max_length=20, widget=forms.PasswordInput(
+        attrs={
+            'placeholder': 'Enter a password.'
+        }
+    ))
+
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(LoginForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.required = False
-
+    
     def clean_username(self):
-        username = self.cleaned_data.get('username')
-        return Validators().validate_username(username)
+        data = self.cleaned_data["username"]
+        return Validators().validate_username(data)
     
     def clean_password(self):
-        password = self.cleaned_data.get('password')
-        return Validators().validate_password(password)
+        data = self.cleaned_data["password"]
+        return Validators().validate_password(data)
 
 class NaturalPersonSearchForm(forms.Form):
-    search = forms.CharField(max_length=50, required=False)
+
+    search = forms.CharField(required=False)
     
 class NaturalPersonForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)  # inicializa os campos
+        super(NaturalPersonForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.required = False
-    
+
     def clean_name(self):
-        name = self.cleaned_data.get('name')
-        return Validators().validate_name(name)
+        data = self.cleaned_data["name"]
+        return Validators().validate_name(data)
     
     def clean_email(self):
-        email = self.cleaned_data.get('email')
-        return Validators().validate_email(email=email, instance=self.instance)
+        data = self.cleaned_data["email"]
+        return Validators().validate_email(data)
     
     def clean_birthday(self):
-        birthday = self.cleaned_data["birthday"]
-        return Validators().validate_birthday(birthday)
+        data = self.cleaned_data["birthday"]
+        return Validators().validate_birthday(data)
     
     def clean_gender(self):
-        gender = self.cleaned_data["gender"]
-        return Validators().validate_gender(gender)
+        data = self.cleaned_data["gender"]
+        return Validators().validate_gender(data)
     
     def clean_salary(self):
-        salary = self.cleaned_data["salary"]
-        return Validators().validate_salary(salary)
+        data = self.cleaned_data["salary"]
+        return Validators().validate_salary(data)
     
     def clean_picture(self):
-        picture = self.cleaned_data["picture"]
-        return Validators().validate_picture(picture)
-
+        data = self.cleaned_data["picture"]
+        return Validators().validate_picture(data)
+    
     class Meta:
         model = NaturalPerson
         fields = ("name", "email", "birthday", "gender", "salary", "picture")
+        
 
-   
-    
+
+
+
+

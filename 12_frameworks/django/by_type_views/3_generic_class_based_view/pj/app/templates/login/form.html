@@ -1,16 +1,25 @@
 {% extends "index.html" %}
 
 {% block contains %}
+    
+    <h3>Login</h3>
+    
     <form method="post">
-        {% csrf_token %}
-        {% if form.errors %}
-            {% for fields, errors in form.errors.items %}
-                {% for error in errors  %}
-                    {{error}}
-                {% endfor %}
-            {% endfor %}
+        {% if form.errors  %}
+            <div style="background-color:yellow;color:red;">
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{error}}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
         {% endif %}
+        {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">LOGIN</button>
+        <input type="submit" value="LOGIN" name='login' id='login'>
+        <input type="reset" value="RESET" name='reset' id='reset'>
     </form>
+   
 {% endblock contains %}

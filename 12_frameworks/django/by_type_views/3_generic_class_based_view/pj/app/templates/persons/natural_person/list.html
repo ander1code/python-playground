@@ -1,51 +1,60 @@
 {% extends "index.html" %}
 
 {% block contains %}
-    <h3>LIST</h3>
-    {% if natural_persons %}
-        <form method="post">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="Search">
-        </form>
+    
+    <h3>List</h3>
+    <form method="GET">
+        {% csrf_token %}
         <table>
-            <thead>
-                <th>
-                    <td>ID</td>
-                    <td>NAME</td>
-                    <td>SELECT</td>
-                </th>
-            </thead>
             <tbody>
-                {% for natural_person in object_list %}
                 <tr>
-                    <td>{{natural_person.id}}</td>
-                    <td>{{natural_person.name}}</td>
-                    <td><a href="{% url 'natural_person-details' natural_person.pk %}">SELECT</a></td>
+                    <td colspan="2"><h3>Search</h3></td>
                 </tr>
-                {% endfor %}
+                <tr>
+                    <td><input type="text" name="search" id="search"></td>
+                    <td><input type="submit" value="SEARCH"></td>
+                </tr>
             </tbody>
         </table>
-        <div class="pagination">
-            <span class="step-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-        
-                <span class="current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-        
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th align="center">ID</th>
+                <th align="left">NAME</th>
+                <th align="center">SELECT</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for natural_person in natural_persons  %}
+            <tr>
+                <td align="center">{{natural_person.id}}</td>
+                <td align="left">{{natural_person.name}}</td>
+                <td align="center"><a href="{% url 'natural_person_details' natural_person.id %}">SELECT</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if natural_persons.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ natural_persons.previous_page_number }}">previous</a>
+            {% endif %}
     
-    {% else %}
-        <h3>No Natural Person registered.</h3>
-    {% endif %}
-   <a href="{% url 'natural_person-create' %}">CREATE</a>
+            <span class="current">
+                Page {{ natural_persons.number }} of {{ natural_persons.paginator.num_pages }}.
+            </span>
+    
+            {% if natural_persons.has_next %}
+                <a href="?page={{ natural_persons.next_page_number }}">next</a>
+                <a href="?page={{ natural_persons.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <a href="{% url 'natural_person_create' %}">CREATE</a>
+
 {% endblock contains %}

@@ -1,10 +1,10 @@
 from django.contrib import admin
 from .models import NaturalPerson
 
+@admin.register(NaturalPerson)
 class NaturalPersonAdmin(admin.ModelAdmin):
-    fields = ('name', 'email', 'salary', 'birthday', 'gender', 'picture')
-    list_display =  ('name', 'email', 'salary', 'birthday', 'gender', 'picture')
-    ordering =  ('name', )
 
-admin.site.register(NaturalPerson, NaturalPersonAdmin)
+    class Meta:
+        model = NaturalPerson
+        fields = ("name", "email", "birthday", "gender", "salary", "picture")
 
